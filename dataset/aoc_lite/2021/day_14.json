@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "2233",
+        "converted_description": "You are given a polymer template and a list of pair insertion rules. Starting with the polymer template, you need to repeat the pair insertion process a certain number of times. Each pair insertion rule specifies two elements that should be adjacent, and the rule also states what element should be inserted between them. The pair insertions are done simultaneously. After the specified number of steps, you need to find the most and least common elements in the resulting polymer and calculate the difference between their quantities.\n\nInput Format:\nThe input consists of two parts: the polymer template (a string) and the pair insertion rules (a list of strings). Each rule is in the format \"AB -> C\", where A and B are single characters and C is a single character. The rules are separated by newlines."
+    },
+    "part2": {
+        "description": "",
+        "answer": "2884513602164",
+        "converted_description": "Given the same polymer template and pair insertion rules, you need to repeat the pair insertion process a certain number of times (40 steps). After the specified number of steps, you need to find the most and least common elements in the resulting polymer and calculate the difference between their quantities.\n\nInput Format:\nThe input consists of two parts: the polymer template (a string) and the pair insertion rules (a list of strings). Each rule is in the format \"AB -> C\", where A and B are single characters and C is a single character. The rules are separated by newlines."
+    },
+    "input": "VPPHOPVVSFSVFOCOSBKF\n\nCO -> B\nCV -> N\nHV -> H\nON -> O\nFS -> F\nNS -> S\nVK -> C\nBV -> F\nSC -> N\nNV -> V\nNC -> F\nNH -> B\nBO -> K\nFC -> H\nNB -> H\nHO -> F\nSB -> N\nKP -> V\nOS -> C\nOB -> P\nSH -> N\nBC -> H\nCK -> H\nSO -> N\nSP -> P\nCF -> P\nKV -> F\nCS -> V\nFF -> P\nVS -> V\nCP -> S\nPH -> V\nOP -> K\nKH -> B\nFB -> S\nCN -> H\nKS -> P\nFN -> O\nPV -> O\nVC -> S\nHF -> N\nOC -> O\nPK -> V\nKC -> C\nHK -> C\nPO -> N\nOO -> S\nVH -> N\nCC -> K\nBP -> K\nHC -> K\nFV -> K\nKF -> V\nVF -> C\nHN -> S\nVP -> B\nHH -> O\nFO -> O\nPC -> N\nKK -> C\nPN -> P\nNN -> C\nFH -> N\nVV -> O\nOK -> V\nCB -> N\nSN -> H\nVO -> H\nBB -> C\nPB -> F\nNF -> P\nKO -> S\nPP -> K\nNO -> O\nSF -> N\nKN -> S\nPS -> O\nVN -> V\nSS -> N\nBF -> O\nHP -> H\nHS -> N\nBS -> S\nVB -> F\nPF -> K\nSV -> V\nBH -> P\nFP -> O\nCH -> P\nOH -> K\nOF -> F\nHB -> V\nFK -> V\nBN -> V\nSK -> F\nOV -> C\nNP -> S\nNK -> S\nBK -> C\nKB -> F"
+}

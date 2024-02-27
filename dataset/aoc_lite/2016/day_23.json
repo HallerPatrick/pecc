@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 23,
+    "part1": {
+        "description": "",
+        "answer": "12516",
+        "converted_description": "You are given an assembunny code that represents the logic circuit of a keypad. The code uses the same architecture and instruction set as a monorail computer, with one new instruction called `tgl x`. This instruction toggles the instruction at position `x` in the program. Toggling an instruction can change its behavior. For one-argument instructions, `inc` becomes `dec`, and all other one-argument instructions become `inc`. For two-argument instructions, `jnz` becomes `cpy`, and all other two-argument instructions become `jnz`. If an attempt is made to toggle an instruction outside the program, nothing happens. If toggling produces an invalid instruction, skip it instead. The goal is to determine the final value in register `a` after running the code.\n\nInput Format:\nThe input is a series of instructions for the assembunny code, each on a separate line."
+    },
+    "part2": {
+        "description": "",
+        "answer": "479009076",
+        "converted_description": "You are given the same assembunny code as in part 1, but with a different input value. The goal is to determine the final value in register `a` after running the code.\n\nInput Format:\nThe input is a series of instructions for the assembunny code, each on a separate line."
+    },
+    "input": "cpy a b\ndec b\ncpy a d\ncpy 0 a\ncpy b c\ninc a\ndec c\njnz c -2\ndec d\njnz d -5\ndec b\ncpy b c\ncpy c d\ndec d\ninc c\njnz d -2\ntgl c\ncpy -16 c\njnz 1 c\ncpy 89 c\njnz 84 d\ninc a\ninc d\njnz d -2\ninc c\njnz c -5"
+}

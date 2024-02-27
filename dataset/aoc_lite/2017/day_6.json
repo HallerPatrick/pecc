@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 6,
+    "part1": {
+        "description": "",
+        "answer": "6681",
+        "converted_description": "You are given a list of memory banks, each containing a certain number of blocks. In each redistribution cycle, the bank with the most blocks is selected and its blocks are evenly distributed among the other banks, starting from the next bank. This process continues until a configuration is produced that has been seen before. You need to determine the number of redistribution cycles required to reach this state.\n\nInput Format:\nThe input is a list of integers representing the number of blocks in each memory bank. Each integer is separated by a tab character."
+    },
+    "part2": {
+        "description": "",
+        "answer": "2392",
+        "converted_description": "Given the same memory banks configuration as in Part 1, find the number of block redistribution cycles required before a state that has already been seen is reached again.\n\nInput Format:\nThe input is a list of integers representing the number of blocks in each memory bank. Each integer is separated by a tab character."
+    },
+    "input": "4\t1\t15\t12\t0\t9\t9\t5\t5\t8\t7\t3\t14\t5\t12\t3"
+}

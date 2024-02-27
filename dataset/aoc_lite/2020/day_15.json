@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 15,
+    "part1": {
+        "description": "",
+        "answer": "468",
+        "converted_description": "You are given a list of starting numbers. Each turn, a player announces the next number based on the rules:\n- If the last number spoken is new, the player says 0.\n- If the last number spoken has been spoken before, the player announces how many turns apart the number is from when it was previously spoken.\n\nFind the number spoken on the 2020th turn.\n\nInput Format:\nThe input is a comma-separated list of integers representing the starting numbers."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1801753",
+        "converted_description": "Impressed by your work, the Elves challenge you to determine the number spoken on the 30000000th turn using the same rules as Part 1.\n\nInput Format:\nThe input is a comma-separated list of integers representing the starting numbers."
+    },
+    "input": "6,19,0,5,7,13,1"
+}

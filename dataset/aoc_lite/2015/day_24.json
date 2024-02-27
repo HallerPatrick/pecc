@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 24,
+    "part1": {
+        "description": "",
+        "answer": "10439961859",
+        "converted_description": "You are given a list of package weights. Santa needs to split the packages into three groups of equal weight. The goal is to find the quantum entanglement of the smallest group of packages. Quantum entanglement is calculated by multiplying the weights of the packages in a group together. Find the group with the fewest packages and the smallest quantum entanglement.\n\nInput Format:\nThe input is a list of integers representing the weights of the packages. Each weight is on a separate line in the input file."
+    },
+    "part2": {
+        "description": "",
+        "answer": "72050269",
+        "converted_description": "Santa forgot to include the trunk, so now the packages need to be split into four groups of equal weight. Find the quantum entanglement of the first group in the ideal configuration. The first group should have the smallest number of packages and the smallest quantum entanglement.\n\nInput Format:\nThe input is a list of integers representing the weights of the packages. Each weight is on a separate line in the input file."
+    },
+    "input": "1\n3\n5\n11\n13\n17\n19\n23\n29\n31\n37\n41\n43\n47\n53\n59\n67\n71\n73\n79\n83\n89\n97\n101\n103\n107\n109\n113"
+}

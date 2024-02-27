@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 17,
+    "part1": {
+        "description": "",
+        "answer": "1638",
+        "converted_description": "You are given a list of capacities of available containers and a target amount of eggnog. You need to find the number of different combinations of containers that can exactly fit the target amount of eggnog. Each container can only be used once and must be filled entirely.\n\nFor example, given containers with capacities of `20`, `15`, `10`, `5`, and `5` liters, and a target amount of `25` liters, there are four different combinations that can fit the target amount: \n- `15` and `10`\n- `20` and `5` (the first `5`)\n- `20` and `5` (the second `5`)\n- `15`, `5`, and `5`\n\nHow many different combinations of containers can exactly fit all `150` liters of eggnog?\n\nInput Format:\nThe input consists of multiple lines, where each line represents the capacity of an available container. The first line represents the target amount of eggnog."
+    },
+    "part2": {
+        "description": "",
+        "answer": "17",
+        "converted_description": "You are given a list of capacities of available containers and a target amount of eggnog. You need to find the minimum number of containers that can exactly fit the target amount of eggnog. Additionally, you need to determine the number of different ways you can fill that minimum number of containers while still holding exactly the target amount of eggnog. Each container can only be used once and must be filled entirely.\n\nFor example, given containers with capacities of `20`, `15`, `10`, `5`, and `5` liters, and a target amount of `150` liters, the minimum number of containers required is two. There are multiple ways to fill those two containers and still hold exactly `150` liters. How many different ways can you fill the minimum number of containers?\n\nInput Format:\nThe input consists of multiple lines, where each line represents the capacity of an available container. The first line represents the target amount of eggnog."
+    },
+    "input": "43\n3\n4\n10\n21\n44\n4\n6\n47\n41\n34\n17\n17\n44\n36\n31\n46\n9\n27\n38"
+}

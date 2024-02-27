@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 24,
+    "part1": {
+        "description": "",
+        "answer": "1151290",
+        "converted_description": "You are given a 5x5 grid representing the state of bugs and empty spaces on a single level of a recursive structure. Each minute, the bugs and empty spaces update based on the number of bugs in the four adjacent tiles. A bug dies unless there is exactly one bug adjacent to it, and an empty space becomes infested with a bug if exactly one or two bugs are adjacent to it. The process happens simultaneously for all tiles. \n\nYou need to find the biodiversity rating for the first layout that appears twice. The biodiversity rating is calculated by considering each tile left-to-right in the top row, then left-to-right in the second row, and so on. Each tile is worth increasing powers of two: 1, 2, 4, 8, 16, 32, and so on. Add up the biodiversity points for tiles with bugs.\n\nInput Format:\nThe input is a 5x5 grid represented by `.` for empty spaces and `#` for bugs."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1953",
+        "converted_description": "You are given a similar 5x5 grid representing the state of bugs and empty spaces on a single level of a recursive structure. However, this grid is only one level in an infinite number of recursion levels. Each minute, the bugs and empty spaces update based on the same rules as in Part 1, but with the addition of tiles at a recursion level above or below the current level. \n\nStarting from your initial scan, you need to find the number of bugs present after 200 minutes.\n\nInput Format:\nThe input is a 5x5 grid represented by `.` for empty spaces and `#` for bugs."
+    },
+    "input": ".##.#\n###..\n#...#\n##.#.\n.###."
+}

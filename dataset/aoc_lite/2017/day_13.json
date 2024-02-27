@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 13,
+    "part1": {
+        "description": "",
+        "answer": "1624",
+        "converted_description": "You are given a firewall consisting of several layers, each with a security scanner that moves back and forth across the layer. Your goal is to pass through the firewall without being detected by a scanner. Each layer has a depth and a range, represented as \"depth: range\". The packet moves one layer forward each picosecond, and the scanners move one step each picosecond. If the packet is caught by a scanner at the top of a layer when it enters, it is considered caught. The severity of getting caught on a layer is equal to the depth multiplied by the range of that layer. Find the severity of the trip through the firewall.\n\nInput Format:\nThe input is a list of depths and ranges of the layers in the firewall. Each line contains the depth and range separated by a colon."
+    },
+    "part2": {
+        "description": "",
+        "answer": "3923436",
+        "converted_description": "Now, you need to pass through the firewall without being caught. You can delay the packet any number of picoseconds before starting the trip. Each picosecond of delay causes the scanners to move one step. Find the minimum number of picoseconds you need to delay the packet in order to pass through the firewall without being caught.\n\nInput Format:\nThe input is a list of depths and ranges of the layers in the firewall. Each line contains the depth and range separated by a colon."
+    },
+    "input": "0: 5\n1: 2\n2: 3\n4: 4\n6: 8\n8: 4\n10: 6\n12: 6\n14: 8\n16: 6\n18: 6\n20: 12\n22: 14\n24: 8\n26: 8\n28: 9\n30: 8\n32: 8\n34: 12\n36: 10\n38: 12\n40: 12\n44: 14\n46: 12\n48: 10\n50: 12\n52: 12\n54: 12\n56: 14\n58: 12\n60: 14\n62: 14\n64: 14\n66: 14\n68: 17\n70: 12\n72: 14\n76: 14\n78: 14\n80: 14\n82: 18\n84: 14\n88: 20"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 21,
+    "part1": {
+        "description": "",
+        "answer": "78",
+        "converted_description": "You are playing an RPG game where you need to defeat a boss. The boss and the player take turns attacking, and each attack reduces the opponent's hit points. The damage dealt by an attacker is equal to the attacker's damage score minus the defender's armor score, with a minimum damage of 1. Your goal is to determine the least amount of gold you need to spend on equipment from an item shop in order to win the fight. You start with 100 hit points and your damage and armor scores both begin at zero. The item shop sells weapons, armor, and rings, each with their own cost, damage score, and armor score. You must buy exactly one weapon, optional armor, and up to two rings. You can only use one of each item. What is the least amount of gold you can spend and still win the fight?\n\nInput Format:\nThe input consists of the boss's hit points, damage score, and armor score, separated by newlines. Sample input `Hit Points: 102\nDamage: 2\nArmor: 3`."
+    },
+    "part2": {
+        "description": "",
+        "answer": "148",
+        "converted_description": "The shopkeeper is working with the boss and can persuade you to buy any items he wants. Your goal is to determine the most amount of gold you can spend on equipment and still lose the fight. The rules are the same as in Part 1. What is the most amount of gold you can spend and still lose the fight?\n\nInput Format:\nThe input consists of the boss's hit points, damage score, and armor score, separated by newlines."
+    },
+    "input": "Hit Points: 104\nDamage: 8\nArmor: 1"
+}

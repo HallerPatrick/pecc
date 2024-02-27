@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 23,
+    "part1": {
+        "description": "",
+        "answer": "19019",
+        "converted_description": "You are given a diagram representing a burrow with hallway and side rooms. The burrow contains four types of amphipods: Amber (A), Bronze (B), Copper (C), and Desert (D). Each side room should contain only one type of amphipod, sorted from left to right as A, B, C, D. Amphipods can move up, down, left, or right as long as they are moving into an unoccupied open space. Each type of amphipod has a different energy cost to move one step. Amber requires 1 energy per step, Bronze requires 10 energy, Copper requires 100 energy, and Desert requires 1000 energy. The goal is to find the minimum total energy required to organize the amphipods according to the given rules.\n\nInput Format:\nThe input is a diagram of the burrow represented by a grid of characters. The characters can be `#` for walls, `.` for open space, and A, B, C, D for the four types of amphipods."
+    },
+    "part2": {
+        "description": "",
+        "answer": "47533",
+        "converted_description": "Given an updated diagram of the burrow with an additional section, find the minimum total energy required to organize the amphipods according to the given rules. The updated diagram includes two extra lines between the lines containing the amphipod starting positions.\n\nInput Format:\nThe input is an updated diagram of the burrow represented by a grid of characters. The characters can be `#` for walls, `.` for open space, and A, B, C, D for the four types of amphipods."
+    },
+    "input": "#############\n#...........#\n###D#B#C#C###\n  #D#A#B#A#\n  #########"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 18,
+    "part1": {
+        "description": "",
+        "answer": "4601",
+        "converted_description": "You are given a set of assembly code instructions that operate on a set of registers. Each register is initially set to 0. The instructions include operations such as setting a register to a value, adding a value to a register, multiplying a register by a value, taking the remainder of a register divided by a value, playing a sound with a frequency equal to a register's value, recovering the frequency of the last sound played if a register is not zero, and jumping to a different instruction if a register's value is greater than zero. After each jump instruction, the program continues with the instruction to which the jump jumped. After any other instruction, the program continues with the next instruction. The program terminates when it reaches the end. You need to determine the value of the most recently played sound when a \"recover\" instruction is executed with a non-zero value in the register.\n\nInput Format:\nThe input is a set of assembly code instructions, each on a separate line. Each instruction has the format `operation X Y`, where `operation` is one of the operations mentioned above, `X` is either a register (a single letter) or a number, and `Y` is either a register or a number."
+    },
+    "part2": {
+        "description": "",
+        "answer": "6858",
+        "converted_description": "You are given a set of assembly code instructions, similar to Part 1, that are meant to be run by two programs simultaneously. Each program has its own set of registers and follows the instructions independently. The programs can send and receive values to/from each other. When a program sends a value, it is added to the other program's message queue. When a program receives a value, it stores it in a register. If there are no values in the queue, the program waits until a value is sent to it. The programs terminate when they reach a deadlock, which happens when both programs are waiting to receive a value. You need to determine how many times program 1 sends a value.\n\nInput Format:\nThe input is a set of assembly code instructions, each on a separate line. Each instruction has the format `operation X`, where `operation` is one of the operations mentioned above, and `X` is either a register (a single letter) or a number."
+    },
+    "input": "set i 31\nset a 1\nmul p 17\njgz p p\nmul a 2\nadd i -1\njgz i -2\nadd a -1\nset i 127\nset p 952\nmul p 8505\nmod p a\nmul p 129749\nadd p 12345\nmod p a\nset b p\nmod b 10000\nsnd b\nadd i -1\njgz i -9\njgz a 3\nrcv b\njgz b -1\nset f 0\nset i 126\nrcv a\nrcv b\nset p a\nmul p -1\nadd p b\njgz p 4\nsnd a\nset a b\njgz 1 3\nsnd b\nset f 1\nadd i -1\njgz i -11\nsnd a\njgz f -16\njgz a -19"
+}

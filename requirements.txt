@@ -1,0 +1,6 @@
+langchain
+loguru
+colorama
+datasets
+prettytable
+pandas

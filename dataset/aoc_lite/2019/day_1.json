@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 1,
+    "part1": {
+        "description": "",
+        "answer": "3336439",
+        "converted_description": "You are given a list of module masses. Each module requires fuel based on its mass. The fuel required for a module is calculated by taking its mass, dividing by three, rounding down, and subtracting 2. Calculate the total fuel requirement by summing the fuel requirements for each module.\n\nInput Format:\nThe input is a list of integers representing the masses of the modules."
+    },
+    "part2": {
+        "description": "",
+        "answer": "5001791",
+        "converted_description": "Now, taking into account the mass of the added fuel, calculate the total fuel requirement for all of the modules on the spacecraft. The fuel required for each module and its fuel is calculated recursively until a fuel requirement is zero or negative.\n\nInput Format:\nThe input is a list of integers representing the masses of the modules."
+    },
+    "input": "50962\n126857\n127476\n136169\n62054\n116866\n123235\n147126\n146767\n140795\n54110\n106452\n98413\n114925\n141914\n54864\n120093\n118166\n81996\n143924\n145941\n96950\n126488\n85764\n111438\n63278\n147558\n128982\n123857\n58646\n80757\n98260\n97143\n136609\n99349\n63167\n142129\n144645\n97212\n70162\n98044\n125931\n103859\n67890\n67797\n79263\n134255\n130303\n73367\n103091\n97315\n74892\n82311\n51157\n79802\n138401\n108423\n63111\n61441\n102862\n53184\n125543\n147413\n117762\n106771\n115805\n66424\n85851\n53101\n82736\n136768\n130745\n140135\n101770\n55349\n143419\n60108\n84990\n91544\n75240\n92709\n134369\n140901\n59910\n63641\n54966\n104671\n71950\n60358\n127289\n147362\n70799\n82870\n108630\n53450\n106888\n129843\n53227\n58758\n137751"
+}

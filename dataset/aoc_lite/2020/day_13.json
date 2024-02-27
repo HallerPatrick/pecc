@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 13,
+    "part1": {
+        "description": "",
+        "answer": "2095",
+        "converted_description": "You are given an estimated earliest timestamp and a list of bus IDs. The bus IDs represent buses that depart from the sea port at specific timestamps. The goal is to find the earliest bus you can take to the airport and calculate the number of minutes you'll need to wait for that bus. The earliest bus is determined by finding the bus ID that departs closest to the estimated earliest timestamp.\n\nInput Format:\nThe input consists of two lines. The first line contains an integer representing the estimated earliest timestamp. The second line contains a comma-separated list of integers representing the bus IDs. The letter 'x' represents buses that are out of service."
+    },
+    "part2": {
+        "description": "",
+        "answer": "598411311431841",
+        "converted_description": "The shuttle company is running a contest to find the earliest timestamp at which all the listed bus IDs depart at offsets matching their positions in the list. The goal is to find this earliest timestamp.\n\nInput Format:\nThe input consists of a single line with a comma-separated list of bus IDs. The letter 'x' represents buses that are out of service."
+    },
+    "input": "1005595\n41,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,37,x,x,x,x,x,557,x,29,x,x,x,x,x,x,x,x,x,x,13,x,x,x,17,x,x,x,x,x,23,x,x,x,x,x,x,x,419,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,19"
+}

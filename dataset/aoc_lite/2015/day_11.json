@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 11,
+    "part1": {
+        "description": "",
+        "answer": "vzbxxyzz",
+        "converted_description": "You are given a string representing your current password. You need a new password that meets certain requirements. The requirements are as follows:\n1. The password must be exactly eight lowercase letters.\n2. The password must include one increasing straight of at least three letters (e.g., `abc`, `bcd`, `cde`, etc.).\n3. The password must not contain the letters `i`, `o`, or `l`.\n4. The password must contain at least two different, non-overlapping pairs of letters (e.g., `aa`, `bb`, `zz`, etc.).\n\nFind the next password that meets these requirements.\n\nInput Format:\nThe input is a string representing your current password."
+    },
+    "part2": {
+        "description": "",
+        "answer": "vzcaabcc",
+        "converted_description": "Your password expired again. Find the next password that meets the same requirements as in Part 1.\n\nInput Format:\nThe input is a string representing your current password."
+    },
+    "input": "vzbxkghb"
+}

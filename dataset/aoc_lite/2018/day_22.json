@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 22,
+    "part1": {
+        "description": "",
+        "answer": "11972",
+        "converted_description": "You are given the depth and target coordinates of a cave system. The cave is divided into square regions, each with a type: *rocky*, *narrow*, or *wet*. The type of a region is determined by its erosion level. The erosion level is determined by the geologic index, which is calculated based on the region's coordinates. The geologic index is then used to calculate the erosion level, which is used to determine the type of the region.\n\nThe risk level of the cave system is the sum of the risk levels of all individual regions. The risk level of a region is `0` for rocky regions, `1` for wet regions, and `2` for narrow regions.\n\nGiven the depth and target coordinates, what is the total risk level for the smallest rectangle that includes the mouth of the cave and the target coordinates?\n\nInput Format:\nThe input consists of two lines:\n- The first line contains the depth of the cave system.\n- The second line contains the target coordinates in the format `X,Y`."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1092",
+        "converted_description": "You need to navigate through the cave system to reach the target coordinates as quickly as possible. You have a torch and climbing gear, but you can only equip one tool at a time. Each tool can only be used in certain types of regions.\n\nYou can move to an adjacent region if your currently equipped tool allows it. Moving to an adjacent region takes one minute. You can also switch your currently equipped tool, which takes seven minutes.\n\nYou start at the mouth of the cave with the torch equipped and must reach the target coordinates. Once you reach the target, you need the torch equipped to find the man's friend.\n\nWhat is the fewest number of minutes it takes to reach the target?\n\nInput Format:\nThe input consists of two lines:\n- The first line contains the depth of the cave system in the format `depth: <depth>`.\n- The second line contains the target coordinates in the format `target: X,Y`."
+    },
+    "input": "depth: 5355\ntarget: 14,796"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 4,
+    "part1": {
+        "description": "",
+        "answer": "454",
+        "converted_description": "You are given a range of numbers. You need to find the number of different passwords within that range that meet the following criteria:\n1. The password is a six-digit number.\n2. Two adjacent digits are the same.\n3. The digits never decrease from left to right.\n\nInput Format:\nThe input is a range of numbers represented by two integers separated by a hyphen."
+    },
+    "part2": {
+        "description": "",
+        "answer": "288",
+        "converted_description": "An additional criterion is added to the password requirements: the two adjacent matching digits are not part of a larger group of matching digits. The other criteria remain the same.\n\nInput Format:\nThe input is a range of numbers represented by two integers separated by a hyphen."
+    },
+    "input": "402328-864247"
+}

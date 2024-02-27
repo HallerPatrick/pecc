@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 17,
+    "part1": {
+        "description": "",
+        "answer": "263",
+        "converted_description": "You are given an initial state of a 3-dimensional grid containing cubes that are either active or inactive. Each cube considers its neighbors and changes its state according to the specified rules. Simulate six cycles and determine the number of cubes in the active state after the sixth cycle.\n\nInput Format:\nThe input is a newline-seperated list of strings representing the initial state of the grid. Each character represents a cube, where `#` denotes an active cube and `.` denotes an inactive cube."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1680",
+        "converted_description": "For some reason, the pocket dimension actually has four spatial dimensions, not three. You are given an initial state of a 4-dimensional grid containing hypercubes that are either active or inactive. Each hypercube considers its neighbors and changes its state according to the specified rules. Simulate six cycles in the 4-dimensional space and determine the number of hypercubes in the active state after the sixth cycle.\n\nInput Format:\nThe input is a newline-seperated list of strings representing the initial state of the grid. Each character represents a hypercube, where `#` denotes an active hypercube and `.` denotes an inactive hypercube."
+    },
+    "input": "##....#.\n#.#..#..\n...#....\n...#.#..\n###....#\n#.#....#\n.#....##\n.#.###.#"
+}

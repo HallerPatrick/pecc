@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "532506",
+        "converted_description": "You are given a list of reactions that turn specific quantities of input chemicals into output chemicals. Each reaction can be run as many times as necessary. The goal is to determine the minimum amount of `ORE` required to produce exactly 1 unit of `FUEL`. \n\nInput Format:\nThe input is a list of reactions in the following format:\n```\nquantity_1 chemical_1, quantity_2 chemical_2, ... => quantity_N chemical_N\n```\nwhere `quantity_i` is the quantity of `chemical_i` required as input for the reaction, and `quantity_N` is the quantity of `chemical_N` produced as output."
+    },
+    "part2": {
+        "description": "",
+        "answer": "2595245",
+        "converted_description": "Given 1 trillion units of `ORE`, determine the maximum amount of `FUEL` that can be produced.\n\nInput Format:\nThe input is a list of reactions in the following format:\n```\nquantity_1 chemical_1, quantity_2 chemical_2, ... => quantity_N chemical_N\n```\nwhere `quantity_i` is the quantity of `chemical_i` required as input for the reaction, and `quantity_N` is the quantity of `chemical_N` produced as output."
+    },
+    "input": "4 BFNQL => 9 LMCRF\n2 XGWNS, 7 TCRNC => 5 TPZCH\n4 RKHMQ, 1 QHRG, 5 JDSNJ => 4 XGWNS\n6 HWTBC, 4 XGWNS => 6 CWCD\n1 BKPZH, 2 FLZX => 9 HWFQG\n1 GDVD, 2 HTSW => 8 CNQW\n2 RMDG => 9 RKHMQ\n3 RTLHZ => 3 MSKWT\n1 QLNHG, 1 RJHCP => 3 GRDJ\n10 DLSD, 2 SWKHJ, 15 HTSW => 1 TCRNC\n4 SWKHJ, 24 ZHDSD, 2 DLSD => 3 CPGJ\n1 SWKHJ => 1 THJHK\n129 ORE => 8 KLSMQ\n3 SLNKW, 4 RTLHZ => 4 LPVGC\n1 SLNKW => 5 RLGFX\n2 QHRG, 1 SGMK => 8 RJHCP\n9 RGKCF, 7 QHRG => 6 ZHDSD\n8 XGWNS, 1 CPGJ => 2 QLNHG\n2 MQFJF, 7 TBVH, 7 FZXS => 2 WZMRW\n13 ZHDSD, 11 SLNKW, 18 RJHCP => 2 CZJR\n1 CNQW, 5 GRDJ, 3 GDVD => 4 FLZX\n129 ORE => 4 RHSHR\n2 HWTBC, 2 JDSNJ => 8 QPBHG\n1 BKPZH, 8 SWKHJ => 6 WSWBV\n8 RJHCP, 7 FRGJK => 1 GSDT\n6 QPBHG => 4 BKPZH\n17 PCRQV, 6 BFNQL, 9 GSDT, 10 MQDHX, 1 ZHDSD, 1 GRDJ, 14 BRGXB, 3 RTLHZ => 8 CFGK\n8 RMDG => 6 SGMK\n3 CZJR => 8 RTLHZ\n3 BFRTV => 7 RGKCF\n6 FRGJK, 8 CZJR, 4 GRDJ => 4 BRGXB\n4 VRVGB => 7 PCRQV\n4 TCRNC, 1 TBVH, 2 FZXS, 1 BQGM, 1 THJHK, 19 RLGFX => 2 CRJTJ\n5 RDNJK => 6 SWKHJ\n2 FLVC, 2 SLNKW, 30 HWTBC => 8 DLSD\n6 TBVH, 3 ZHDSD => 5 BQGM\n17 RLGFX => 4 SCZQN\n8 SWKHJ => 6 FZXS\n9 LZHZ => 3 QDCL\n2 ZHDSD => 1 RDNJK\n15 FZXS, 3 TPZCH => 6 MQFJF\n12 RLGFX, 9 QPBHG, 6 HTSW => 1 BFNQL\n150 ORE => 9 BFRTV\n2 BFRTV, 2 KLSMQ => 2 RMDG\n4 VFLNM, 30 RKHMQ, 4 CRJTJ, 24 CFGK, 21 SCZQN, 4 BMGBG, 9 HWFQG, 34 CWCD, 7 LPVGC, 10 QDCL, 2 WSWBV, 2 WTZX => 1 FUEL\n6 RHSHR, 3 RGKCF, 1 QHRG => 6 JDSNJ\n3 MQDHX, 2 XGWNS, 12 GRDJ => 9 LZHZ\n128 ORE => 6 ZBWLC\n9 JDSNJ, 7 RMDG => 8 FLVC\n4 DLSD, 12 CZJR, 3 MSKWT => 4 MQDHX\n2 BXNX, 4 ZBWLC => 3 QHRG\n19 LMCRF, 3 JDSNJ => 2 BMGBG\n1 RJHCP, 26 SGMK => 9 HTSW\n2 QPBHG => 8 VFLNM\n2 RGKCF => 9 SLNKW\n3 LZHZ, 2 GRDJ => 2 TBVH\n100 ORE => 2 BXNX\n4 DLSD, 21 JDSNJ => 8 GDVD\n2 QHRG => 2 HWTBC\n1 LPVGC, 8 XGWNS => 8 FRGJK\n9 FZXS => 7 VRVGB\n7 WZMRW, 1 TBVH, 1 VFLNM, 8 CNQW, 15 LZHZ, 25 PCRQV, 2 BRGXB => 4 WTZX"
+}

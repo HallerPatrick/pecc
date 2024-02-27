@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 22,
+    "part1": {
+        "description": "",
+        "answer": "953",
+        "converted_description": "You are playing a game against a boss. In each turn, you can choose a spell to cast. Each spell has a mana cost, and the boss and player take turns casting spells. The boss has a fixed amount of hit points, and the player wins if the boss reaches 0 hit points. Spells can deal damage to the boss and heal the player, and some spells have lasting effects. The player starts with 50 hit points and 500 mana points. What is the minimum amount of mana you can spend and still win the game?\n\nInput Format:\nThe input consists of two lines. The first line contains the boss's hit points and the second line contains the boss's damage."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1289",
+        "converted_description": "In the hard difficulty version of the game, the player loses 1 hit point at the start of each turn. If the player's hit points reach 0 or below, they lose. With the same starting stats for the boss and the player, what is the minimum amount of mana you can spend and still win the game?\n\nInput Format:\nThe input consists of two lines. The first line contains the boss's hit points and the second line contains the boss's damage."
+    },
+    "input": "Hit Points: 55\nDamage: 8"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 1,
+    "part1": {
+        "description": "",
+        "answer": "928896",
+        "converted_description": "You are given a list of numbers. Find the two numbers that sum to 2020 and return their product. For example, given the list [1721, 979, 366, 299, 675, 1456], the two numbers that sum to 2020 are 1721 and 299, so the product is 514579.\n\nInput Format:\nThe input is a list of numbers seperated by newlines."
+    },
+    "part2": {
+        "description": "",
+        "answer": "295668576",
+        "converted_description": "Now, given the same list of numbers, find three numbers that sum to 2020 and return their product. For example, given the list [1721, 979, 366, 299, 675, 1456], the three numbers that sum to 2020 are 979, 366, and 675, so the product is 241861950.\n\nInput Format:\nThe input is a list of numbers seperated by newlines."
+    },
+    "input": "1036\n1897\n1256\n1080\n1909\n1817\n1759\n1883\n1088\n1841\n1780\n1907\n1874\n1831\n1932\n1999\n1989\n1840\n1973\n1102\n1906\n1277\n1089\n1275\n1228\n1917\n1075\n1060\n1964\n1942\n2001\n1950\n1181\n1121\n1854\n1083\n1772\n1481\n1976\n1805\n1594\n1889\n1726\n1866\n798\n1739\n1709\n1946\n1948\n1808\n1836\n1849\n1465\n1066\n1943\n664\n1894\n1993\n1061\n1225\n1589\n1916\n1885\n1998\n1470\n1668\n1666\n1499\n1437\n1986\n1127\n1875\n1132\n1888\n1877\n1046\n1982\n1265\n1757\n1848\n1786\n1638\n1958\n1015\n1013\n1552\n1742\n1850\n1016\n1839\n558\n1826\n1261\n1988\n1545\n1078\n1963\n1967\n1951\n1086\n1947\n1880\n1903\n1994\n1167\n1736\n1041\n1652\n1040\n1033\n1179\n1844\n1861\n1488\n1962\n1135\n1347\n1187\n1777\n1598\n1803\n1147\n1760\n1926\n1898\n1923\n1865\n1313\n1924\n1023\n1576\n1715\n1391\n1346\n1882\n2000\n1024\n1143\n1065\n1560\n1029\n1119\n1966\n1022\n1931\n1512\n1049\n1929\n1312\n1069\n1159\n1053\n1249\n1074\n1983\n1761\n1868\n195\n24\n1331\n1636\n1020\n1034\n1671\n708\n1699\n1900\n1927\n1829\n301\n1832\n1042\n1896\n1928\n1032\n1992\n2005\n1955\n1047\n1068\n1001\n1052\n1744\n1845\n1208\n1018\n1859\n1342\n1823\n1758\n2007\n1241\n1893\n1876\n1984\n1655\n1534\n1150\n1789\n1870"
+}

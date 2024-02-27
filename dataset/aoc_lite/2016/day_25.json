@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 25,
+    "part1": {
+        "description": "",
+        "answer": "196",
+        "converted_description": "You are given an assembly code program that generates a clock signal. The program takes a value in register `a` and outputs a sequence of `0` and `1` as the clock signal. Find the lowest positive integer that can be used to initialize register `a` in order to produce a clock signal of `0`, `1`, `0`, `1`, ... repeating forever.\n\nInput Format:\nThe input is a series of instructions in assembly code."
+    },
+    "part2": {
+        "description": "",
+        "answer": "",
+        "converted_description": "Now, you need to find the minimum number of stars required to generate the signal for the sleigh. You already have one star installed, so you need to find the number of additional stars needed to generate the desired signal.\n\nInput Format:\nThe input is the same series of instructions in assembly code as in Part 1."
+    },
+    "input": "cpy a d\ncpy 7 c\ncpy 362 b\ninc d\ndec b\njnz b -2\ndec c\njnz c -5\ncpy d a\njnz 0 0\ncpy a b\ncpy 0 a\ncpy 2 c\njnz b 2\njnz 1 6\ndec b\ndec c\njnz c -4\ninc a\njnz 1 -7\ncpy 2 b\njnz c 2\njnz 1 4\ndec b\ndec c\njnz 1 -4\njnz 0 0\nout b\njnz a -19\njnz 1 -21"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "2655",
+        "converted_description": "You are given a list of descriptions of reindeer and the time they can fly and rest. Each reindeer can either be flying (always at their top speed) or resting (not moving at all), and always spend whole seconds in either state. Calculate the distance traveled by the winning reindeer after a given number of seconds.\n\nInput Format:\nThe input is a list of descriptions of each reindeer, where each description contains the reindeer's name, flying speed in km/s, flying time in seconds, and resting time in seconds. The given number of seconds is also provided."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1059",
+        "converted_description": "Modify the scoring system for the reindeer race. At the end of each second, award one point to the reindeer currently in the lead. If multiple reindeer are tied for the lead, they each get one point. Calculate the total points accumulated by the winning reindeer after a given number of seconds.\n\nInput Format:\nThe input is a list of descriptions of each reindeer, where each description contains the reindeer's name, flying speed in km/s, flying time in seconds, and resting time in seconds. The given number of seconds is also provided."
+    },
+    "input": "Vixen can fly 8 km/s for 8 seconds, but then must rest for 53 seconds.\nBlitzen can fly 13 km/s for 4 seconds, but then must rest for 49 seconds.\nRudolph can fly 20 km/s for 7 seconds, but then must rest for 132 seconds.\nCupid can fly 12 km/s for 4 seconds, but then must rest for 43 seconds.\nDonner can fly 9 km/s for 5 seconds, but then must rest for 38 seconds.\nDasher can fly 10 km/s for 4 seconds, but then must rest for 37 seconds.\nComet can fly 3 km/s for 37 seconds, but then must rest for 76 seconds.\nPrancer can fly 9 km/s for 12 seconds, but then must rest for 97 seconds.\nDancer can fly 37 km/s for 1 seconds, but then must rest for 36 seconds."
+}

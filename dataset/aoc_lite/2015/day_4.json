@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 4,
+    "part1": {
+        "description": "",
+        "answer": "117946",
+        "converted_description": "You are given a secret key in the form of a string. Your task is to find the lowest positive number that, when combined with the secret key and hashed using MD5, produces a hash starting with at least five zeroes. The number must have no leading zeroes. Return the lowest such number.\n\nInput Format:\nThe input is a string representing the secret key."
+    },
+    "part2": {
+        "description": "",
+        "answer": "3938038",
+        "converted_description": "Using the same secret key, find the lowest positive number that, when combined with the secret key and hashed using MD5, produces a hash starting with at least six zeroes. The number must have no leading zeroes. Return the lowest such number.\n\nInput Format:\nThe input is a string representing the secret key."
+    },
+    "input": "ckczppom"
+}

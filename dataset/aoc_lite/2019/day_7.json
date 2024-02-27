@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 7,
+    "part1": {
+        "description": "",
+        "answer": "77500",
+        "converted_description": "You are given a series of amplifiers connected in series. Each amplifier receives an input signal and produces an output signal. The amplifiers are connected such that the output of the first amplifier is the input of the second amplifier, and so on. The first amplifier's input value is 0 and the last amplifier's output leads to the ship's thrusters. Each amplifier runs a copy of the Amplifier Controller Software, which determines the output signal based on its phase setting and input signal. The goal is to find the largest output signal that can be sent to the thrusters by trying every possible combination of phase settings on the amplifiers.\n\nInput Format:\nThe input is a series of integers separated by commas. These integers represent the Amplifier Controller Software program."
+    },
+    "part2": {
+        "description": "",
+        "answer": "22476942",
+        "converted_description": "The amplifiers are rewired into a feedback loop, where the output from the last amplifier is connected to the input of the first amplifier. The amplifiers now require different phase settings and will repeatedly process input and produce output until they halt. The goal is to find the largest output signal that can be sent to the thrusters using the new phase settings and feedback loop arrangement.\n\nInput Format:\nThe input is a series of integers separated by commas. These integers represent the Amplifier Controller Software program."
+    },
+    "input": "3,8,1001,8,10,8,105,1,0,0,21,46,55,76,89,106,187,268,349,430,99999,3,9,101,4,9,9,1002,9,2,9,101,5,9,9,1002,9,2,9,101,2,9,9,4,9,99,3,9,1002,9,5,9,4,9,99,3,9,1001,9,2,9,1002,9,4,9,101,2,9,9,1002,9,3,9,4,9,99,3,9,1001,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,4,9,1001,9,4,9,102,5,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,1,9,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,99,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,99"
+}

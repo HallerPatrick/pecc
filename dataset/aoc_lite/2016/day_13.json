@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 13,
+    "part1": {
+        "description": "",
+        "answer": "92",
+        "converted_description": "You are given a grid representing a maze. Each location in the maze is identified by a pair of non-negative integers (x, y). Some locations are walls, represented by '#', and some are open spaces, represented by '.'. You start at location (1, 1) and your goal is to reach location (31, 39) in the fewest number of steps. You can only move up, down, left, or right, and you cannot move diagonally. The maze is determined by a simple system using the office designer's favorite number:\n\n1. Calculate the value of x*x + 3*x + 2*x*y + y + y*y.\n2. Add the office designer's favorite number to the result obtained in step 1.\n3. Convert the sum to binary and count the number of bits that are 1.\n4. If the count is even, the location is an open space. If the count is odd, the location is a wall.\n\nFind the fewest number of steps required to reach location (31, 39).\n\nInput Format:\nThe input is a single integer representing the office designer's favorite number."
+    },
+    "part2": {
+        "description": "",
+        "answer": "124",
+        "converted_description": "Given the same maze and conditions as in Part 1, find the number of distinct locations (x, y coordinates) that can be reached in at most 50 steps, starting from your current location.\n\nInput Format:\nThe input is a single integer representing the office designer's favorite number."
+    },
+    "input": "1350"
+}

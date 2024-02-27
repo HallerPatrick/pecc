@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 15,
+    "part1": {
+        "description": "",
+        "answer": "400589",
+        "converted_description": "You are given a set of discs, each with a fixed number of positions. The discs are spaced out and rotate at different speeds. A capsule is dropped and tries to fall through the slots in the rotating discs. If any of the slots aren't aligned with the capsule as it passes, the capsule bounces off the disc. The goal is to find the first time you can press the button to drop the capsule and have it fall through all the discs without bouncing off.\n\nInput Format:\nThe input is a list of discs, each described by its number, the number of positions it has, and its initial position at time=0. E.g. `Disc #1 has 5 positions; at time=0, it is at position 4.`"
+    },
+    "part2": {
+        "description": "",
+        "answer": "3045959",
+        "converted_description": "After successfully dropping a capsule and getting a star, a new disc with a different number of positions appears below the previously-bottom disc. The goal is to find the first time you can press the button to drop the capsule and have it fall through all the discs, including the new one, without bouncing off.\n\nInput Format:\nThe input is a list of discs, each described by its number, the number of positions it has, and its initial position at time=0. E.g. `Disc #1 has 5 positions; at time=0, it is at position 4.`"
+    },
+    "input": "Disc #1 has 17 positions; at time=0, it is at position 15.\nDisc #2 has 3 positions; at time=0, it is at position 2.\nDisc #3 has 19 positions; at time=0, it is at position 4.\nDisc #4 has 13 positions; at time=0, it is at position 2.\nDisc #5 has 7 positions; at time=0, it is at position 2.\nDisc #6 has 5 positions; at time=0, it is at position 0."
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 9,
+    "part1": {
+        "description": "",
+        "answer": "384288",
+        "converted_description": "You are given the number of players and the value of the last marble in a game. The game is played by placing marbles in a circle according to specific rules. The first marble is placed in the circle and becomes the current marble. Each player takes turns placing marbles in the circle. If the marble being placed has a number that is a multiple of 23, the current player keeps the marble and adds it to their score. The marble 7 marbles counter-clockwise from the current marble is removed from the circle and also added to the current player's score. The marble located immediately clockwise of the removed marble becomes the new current marble. The game continues until the last marble is placed. The player with the highest score wins.\n\nInput Format:\nThe input is a string in the format \"<number of players> players; last marble is worth <value of last marble> points\"."
+    },
+    "part2": {
+        "description": "",
+        "answer": "3189426841",
+        "converted_description": "Now, given the same number of players and a last marble that is 100 times larger, find the new winning player's score.\n\nInput Format:\nThe input is a string in the format \"<number of players> players; last marble is worth <value of last marble> points\"."
+    },
+    "input": "455 players; last marble is worth 71223 points"
+}

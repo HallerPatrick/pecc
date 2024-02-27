@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 17,
+    "part1": {
+        "description": "",
+        "answer": "640",
+        "converted_description": "You are given a spinlock algorithm that operates on a circular buffer. The spinlock starts with a circular buffer containing only the value 0. It then repeatedly performs the following steps:\n1. Step forward a certain number of steps (input value) in the circular buffer.\n2. Insert the next value after the current position in the buffer.\n3. Update the current position to the newly inserted value.\n\nAfter performing this process a total of 2017 times, the spinlock ends with a total of 2018 values in the circular buffer. You need to determine the value that comes immediately after the value 2017 in the circular buffer.\n\nInput Format:\nThe input is a single integer representing the number of steps to take in the spinlock algorithm."
+    },
+    "part2": {
+        "description": "",
+        "answer": "47949463",
+        "converted_description": "The spinlock algorithm continues to operate on the circular buffer, but now it needs to find the value that comes immediately after the value 0 in the circular buffer. However, the spinlock performs this process a total of 50 million times.\n\nYou need to determine the value that comes immediately after the value 0 in the circular buffer after the spinlock has performed 50 million insertions.\n\nInput Format:\nThe input is a single integer representing the number of steps to take in the spinlock algorithm."
+    },
+    "input": "349"
+}

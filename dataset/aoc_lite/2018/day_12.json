@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 12,
+    "part1": {
+        "description": "",
+        "answer": "4110",
+        "converted_description": "You are given an initial state of pots, represented by a string of characters. Each pot can either contain a plant (`#`) or not (`.`). Each generation, the state of the pots is updated based on a set of rules. A pot will have a plant in the next generation if the pattern of pots around it matches a specific rule. Find the sum of the numbers of all pots that contain a plant after 20 generations.\n\nInput Format:\nThe input starts with a line containing \"initial state: \" followed by the initial state of pots, represented by a string of `#` and `.` characters. The next lines contain the rules, each in the format of \"pattern => result\". The pattern is a combination of `#` and `.` characters representing the pots around the current pot, and the result is whether the current pot will have a plant (`#`) or not (`.`) in the next generation."
+    },
+    "part2": {
+        "description": "",
+        "answer": "2650000000466",
+        "converted_description": "After a large number of generations, the initial state of pots will not be enough to determine the sum of the numbers of all pots that contain a plant. Instead, you are given the number of generations (`50000000000`) and need to find the sum of the numbers of all pots that contain a plant after that many generations.\n\nInput Format:\nThe input is the same as in Part 1."
+    },
+    "input": "initial state: ##.#############........##.##.####..#.#..#.##...###.##......#.#..#####....##..#####..#.#.##.#.##\n\n###.# => #\n.#### => #\n#.### => .\n.##.. => .\n##... => #\n##.## => #\n.#.## => #\n#.#.. => #\n#...# => .\n...## => #\n####. => #\n#..## => .\n#.... => .\n.###. => .\n..#.# => .\n..### => .\n#.#.# => #\n..... => .\n..##. => .\n##.#. => #\n.#... => #\n##### => .\n###.. => #\n..#.. => .\n##..# => #\n#..#. => #\n#.##. => .\n....# => .\n.#..# => #\n.#.#. => #\n.##.# => .\n...#. => ."
+}

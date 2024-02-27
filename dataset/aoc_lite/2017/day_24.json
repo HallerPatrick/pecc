@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 24,
+    "part1": {
+        "description": "",
+        "answer": "2006",
+        "converted_description": "You are given a list of components, each with two ports. Each port has a certain number of pins. You can only connect ports with matching pin numbers. The goal is to build a bridge, starting with a port of type 0, that maximizes the strength of the bridge. The strength of a bridge is the sum of the pin numbers of all the connected ports. Find the strength of the strongest bridge you can build.\n\nInput Format:\nThe input is a list of components, where each component is represented as two integers separated by a '/'. The first integer represents the number of pins on one port, and the second integer represents the number of pins on the other port."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1994",
+        "converted_description": "Given the same components, find the strength of the longest bridge you can build. If there are multiple bridges with the same length, choose the one with the highest strength.\n\nInput Format:\nThe input is a list of components, where each component is represented as two integers separated by a '/'. The first integer represents the number of pins on one port, and the second integer represents the number of pins on the other port."
+    },
+    "input": "24/14\n30/24\n29/44\n47/37\n6/14\n20/37\n14/45\n5/5\n26/44\n2/31\n19/40\n47/11\n0/45\n36/31\n3/32\n30/35\n32/41\n39/30\n46/50\n33/33\n0/39\n44/30\n49/4\n41/50\n50/36\n5/31\n49/41\n20/24\n38/23\n4/30\n40/44\n44/5\n0/43\n38/20\n20/16\n34/38\n5/37\n40/24\n22/17\n17/3\n9/11\n41/35\n42/7\n22/48\n47/45\n6/28\n23/40\n15/15\n29/12\n45/11\n21/31\n27/8\n18/44\n2/17\n46/17\n29/29\n45/50"
+}

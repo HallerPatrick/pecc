@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 20,
+    "part1": {
+        "description": "",
+        "answer": "776160",
+        "converted_description": "You are given a target number of presents. Each house on a street is visited by an infinite number of Elves. The first Elf delivers 10 presents to every house, the second Elf delivers 20 presents to every second house, the third Elf delivers 30 presents to every third house, and so on. The number of presents delivered to a house is the sum of the presents delivered by all Elves that visit that house. Find the lowest house number that receives at least as many presents as the target number.\n\nInput Format:\nThe input is a single integer representing the target number of presents."
+    },
+    "part2": {
+        "description": "",
+        "answer": "786240",
+        "converted_description": "The Elves now decide to limit the number of houses each Elf visits to 50. However, to make up for it, each Elf delivers 11 times their number of presents at each house. Find the new lowest house number that receives at least as many presents as the target number.\n\nInput Format:\nThe input is a single integer representing the target number of presents."
+    },
+    "input": "33100000"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 19,
+    "part1": {
+        "description": "",
+        "answer": "1808357",
+        "converted_description": "You are given the number of people participating in a gift exchange. The people sit in a circle, numbered starting with position 1. They take turns stealing all the presents from the person to their left. A person with no presents is removed from the circle and does not take turns. Determine which person gets all the presents.\n\nInput Format:\nThe input is a single integer representing the number of person."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1407007",
+        "converted_description": "Now, the people agree to steal presents from the person directly across the circle. If two people are across the circle, the one on the left (from the perspective of the stealer) is stolen from. People with no presents are removed from the circle entirely, and the other people move in to keep the circle evenly spaced. Determine which person now gets all the presents.\n\nInput Format:\nThe input is a single integer representing the number of people."
+    },
+    "input": "3001330"
+}

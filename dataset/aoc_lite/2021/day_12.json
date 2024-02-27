@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 12,
+    "part1": {
+        "description": "",
+        "answer": "3887",
+        "converted_description": "You are given a list of cave connections. Each connection represents a path between two caves. The caves are labeled with a combination of uppercase and lowercase letters. Your task is to find the number of distinct paths that start at a cave named 'start', end at a cave named 'end', and do not visit small caves more than once. A small cave is represented by a lowercase letter, while a big cave is represented by an uppercase letter. You can visit big caves any number of times. Return the count of such paths.\n\nInput Format:\nThe input is a list of cave connections, where each connection is represented by two cave names separated by a hyphen (-). The cave names can be a combination of uppercase and lowercase letters."
+    },
+    "part2": {
+        "description": "",
+        "answer": "104834",
+        "converted_description": "Given the same cave connections, find the number of paths that satisfy the following conditions:\n- Start at the cave named 'start' and end at the cave named 'end'.\n- All small caves (lowercase letters) can be visited at most once.\n- One specific small cave can be visited at most twice.\n- All other big caves (uppercase letters) can be visited any number of times.\nReturn the count of such paths.\n\nInput Format:\nThe input is a list of cave connections, where each connection is represented by two cave names separated by a hyphen (-). The cave names can be a combination of uppercase and lowercase letters.\n\nFirst 50 Characters of the input:\nbm-XY\n\nol-JS\n\nbm-im\n\nRD-ol\n\nbm-QI\n\nJS-ja\n\nim-gq\n\ne"
+    },
+    "input": "bm-XY\nol-JS\nbm-im\nRD-ol\nbm-QI\nJS-ja\nim-gq\nend-im\nja-ol\nJS-gq\nbm-AF\nRD-start\nRD-ja\nstart-ol\ncj-bm\nstart-JS\nAF-ol\nend-QI\nQI-gq\nja-gq\nend-AF\nim-QI\nbm-gq\nja-QI\ngq-RD"
+}

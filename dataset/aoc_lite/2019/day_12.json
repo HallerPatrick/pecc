@@ -1,0 +1,15 @@
+{
+    "year": 2019,
+    "day": 12,
+    "part1": {
+        "description": "",
+        "answer": "6220",
+        "converted_description": "You are given the initial positions and velocities of four moons. Each moon has a position and velocity in three dimensions. You need to simulate the motion of the moons for a given number of steps and calculate the total energy in the system.\n\nTo simulate the motion, you need to update the velocities of the moons by applying gravity and then update the positions by applying velocity. Gravity is applied by considering every pair of moons and adjusting their velocities based on their positions. Velocity is applied by adding the velocity of each moon to its own position.\n\nThe total energy in the system is calculated by summing the potential energy and kinetic energy of each moon. The potential energy is the sum of the absolute values of the moon's position coordinates, and the kinetic energy is the sum of the absolute values of the moon's velocity coordinates.\n\nWrite a function `simulateMotion(moons: List[Tuple[int, int, int]], steps: int) -> int` that takes a list of tuples representing the initial positions of the moons and a number of steps to simulate. The function should return the total energy in the system after simulating the motion for the given number of steps.\n\nInput Format:\nThe input is a list of tuples representing the initial positions of the moons. Each tuple contains three integers representing the x, y, and z coordinates of the moon's position. The number of moons will always be 4.\n\nInput Format:\nA list of newline seperated positions in the form `<x=value, y=value, z=value>."
+    },
+    "part2": {
+        "description": "",
+        "answer": "548525804273976",
+        "converted_description": "You need to determine the number of steps that must occur before the positions and velocities of the moons exactly match a previous point in time.\n\nTo do this, you need to keep track of the states of the moons after each step. Once a state is repeated, you can calculate the number of steps it took to reach that state.\n\nWrite a function `findRepeatingState(moons: List[Tuple[int, int, int]]) -> int` that takes a list of tuples representing the initial positions of the moons. The function should return the number of steps it takes to reach the first state that exactly matches a previous state.\n\nInput Format:\nThe input is a list of tuples representing the initial positions of the moons. Each tuple contains three integers representing the x, y, and z coordinates of the moon's position. The number of moons will always be 4.\n\nInput Format:\nA list of newline seperated positions in the form `<x=value, y=value, z=value>."
+    },
+    "input": "<x=-4, y=-9, z=-3>\n<x=-13, y=-11, z=0>\n<x=-17, y=-7, z=15>\n<x=-16, y=4, z=2>"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 1,
+    "part1": {
+        "description": "",
+        "answer": "287",
+        "converted_description": "You are given a sequence of instructions that consists of turning left (`L`) or right (`R`) 90 degrees, followed by walking forward a given number of blocks. Starting at the given coordinates and facing North, you need to determine the shortest path to the destination in a city represented by a street grid. The distance is measured using the [taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry). \n\nFor example, given the instructions `R2, L3`, you would end up `2` blocks East and `3` blocks North, resulting in a total of `5` blocks away. Given the instructions `R2, R2, R2`, you would end up `2` blocks due South of your starting position, which is `2` blocks away. Given the instructions `R5, L5, R5, R3`, you would end up `12` blocks away.\n\nWhat is the shortest path to the destination in blocks?\n\nInput Format:\nThe input is a comma-separated string of instructions, where each instruction consists of a letter (`R` or `L`) followed by a number representing the number of blocks to walk forward."
+    },
+    "part2": {
+        "description": "",
+        "answer": "133",
+        "converted_description": "Continuing from Part 1, the actually destination is at the first location you visit twice. \n\nFor example, if your instructions are `R8, R4, R4, R8`, the first location you visit twice is `4` blocks away, due East.\n\nHow many blocks away is the first location you visit twice?\n\nInput Format:\nThe input is a comma-separated string of instructions, where each instruction consists of a letter (`R` or `L`) followed by a number representing the number of blocks to walk forward."
+    },
+    "input": "R5, L2, L1, R1, R3, R3, L3, R3, R4, L2, R4, L4, R4, R3, L2, L1, L1, R2, R4, R4, L4, R3, L2, R1, L4, R1, R3, L5, L4, L5, R3, L3, L1, L1, R4, R2, R2, L1, L4, R191, R5, L2, R46, R3, L1, R74, L2, R2, R187, R3, R4, R1, L4, L4, L2, R4, L5, R4, R3, L2, L1, R3, R3, R3, R1, R1, L4, R4, R1, R5, R2, R1, R3, L4, L2, L2, R1, L3, R1, R3, L5, L3, R5, R3, R4, L1, R3, R2, R1, R2, L4, L1, L1, R3, L3, R4, L2, L4, L5, L5, L4, R2, R5, L4, R4, L2, R3, L4, L3, L5, R5, L4, L2, R3, R5, R5, L1, L4, R3, L1, R2, L5, L1, R4, L1, R5, R1, L4, L4, L4, R4, R3, L5, R1, L3, R4, R3, L2, L1, R1, R2, R2, R2, L1, L1, L2, L5, L3, L1"
+}

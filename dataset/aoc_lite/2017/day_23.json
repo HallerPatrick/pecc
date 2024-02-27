@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 23,
+    "part1": {
+        "description": "",
+        "answer": "6724",
+        "converted_description": "You are given a list of instructions for a coprocessor. The instructions include set, sub, mul, and jnz operations. You need to determine how many times the mul instruction is invoked during the execution of the program.\n\nInput Format:\nThe input is a list of instructions, where each instruction is on a separate line. Each instruction consists of an operation (set, sub, mul, or jnz) followed by two operands."
+    },
+    "part2": {
+        "description": "",
+        "answer": "903",
+        "converted_description": "You need to optimize the given program and determine the final value left in register h after the program completes. The program starts with register a set to 1.\n\nInput Format:\nThe input is a list of instructions, where each instruction is on a separate line. Each instruction consists of an operation (set, sub, mul, or jnz) followed by two operands."
+    },
+    "input": "set b 84\nset c b\njnz a 2\njnz 1 5\nmul b 100\nsub b -100000\nset c b\nsub c -17000\nset f 1\nset d 2\nset e 2\nset g d\nmul g e\nsub g b\njnz g 2\nset f 0\nsub e -1\nset g e\nsub g b\njnz g -8\nsub d -1\nset g d\nsub g b\njnz g -13\njnz f 2\nsub h -1\nset g b\nsub g c\njnz g 2\njnz 1 3\nsub b -17\njnz 1 -23"
+}

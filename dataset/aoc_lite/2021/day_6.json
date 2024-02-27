@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 6,
+    "part1": {
+        "description": "",
+        "answer": "380243",
+        "converted_description": "You are given a list of integers representing the internal timers of lanternfish. Each lanternfish creates a new lanternfish once every 7 days. The internal timer of a lanternfish starts counting down after the current day. When the internal timer reaches 0, the lanternfish creates a new lanternfish with an internal timer of 8. On the next day, the internal timer of the new lanternfish starts counting down. Each day, a timer of 0 becomes 6 and adds an 8 to the end of the list, while each other timer decreases by 1. After a given number of days, you need to determine the total number of lanternfish.\n\nInput Format:\nThe input is a comma-seperated list of integers representing the internal timers of lanternfish."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1708791884591",
+        "converted_description": "Suppose the lanternfish live forever and have unlimited resources. After a given number of days, you need to determine the total number of lanternfish.\n\nInput Format:\nThe input is a comma-seperated list of integers representing the internal timers of lanternfish."
+    },
+    "input": "5,1,1,1,3,5,1,1,1,1,5,3,1,1,3,1,1,1,4,1,1,1,1,1,2,4,3,4,1,5,3,4,1,1,5,1,2,1,1,2,1,1,2,1,1,4,2,3,2,1,4,1,1,4,2,1,4,5,5,1,1,1,1,1,2,1,1,1,2,1,5,5,1,1,4,4,5,1,1,1,3,1,5,1,2,1,5,1,4,1,3,2,4,2,1,1,4,1,1,1,1,4,1,1,1,1,1,3,5,4,1,1,3,1,1,1,2,1,1,1,1,5,1,1,1,4,1,4,1,1,1,1,1,2,1,1,5,1,2,1,1,2,1,1,2,4,1,1,5,1,3,4,1,2,4,1,1,1,1,1,4,1,1,4,2,2,1,5,1,4,1,1,5,1,1,5,5,1,1,1,1,1,5,2,1,3,3,1,1,1,3,2,4,5,1,2,1,5,1,4,1,5,1,1,1,1,1,1,4,3,1,1,3,3,1,4,5,1,1,4,1,4,3,4,1,1,1,2,2,1,2,5,1,1,3,5,2,1,1,1,1,1,1,1,4,4,1,5,4,1,1,1,1,1,2,1,2,1,5,1,1,3,1,1,1,1,1,1,1,1,1,1,2,1,3,1,5,3,3,1,1,2,4,4,1,1,2,1,1,3,1,1,1,1,2,3,4,1,1,2"
+}

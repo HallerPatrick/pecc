@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 25,
+    "part1": {
+        "description": "",
+        "answer": "711945",
+        "converted_description": "You are given two public keys, which are the results of transforming a subject number according to secret loop sizes. Your task is to determine the encryption key that the devices use to communicate. To do this, you need to calculate the loop sizes for both devices and then use one device's loop size with the other device's public key to calculate the encryption key. The transformation process involves multiplying the value by the subject number and taking the remainder after dividing by `20201227`.\n\nInput Format:\nThe input consists of two integers representing the public keys of the devices seperated by newline."
+    },
+    "part2": {
+        "description": "",
+        "answer": "",
+        "converted_description": "You receive an emergency call to fix a soft serve machine in a cafeteria. To pay off the amount owed to the resort, you need to collect 50 stars. However, you realize that you only need 49 stars. As you contemplate how to solve this, a reindeer arrives with a pouch containing a gold coin with a starfish picture on it. Your task is to determine the solution to the previous problem.\n\nInput Format:\nThe input is not required for this part seperated by newline."
+    },
+    "input": "11239946\n10464955"
+}

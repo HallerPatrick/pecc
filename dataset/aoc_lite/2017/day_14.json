@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "8148",
+        "converted_description": "You are given a 128x128 grid represented by a sequence of 128 knot hashes. Each hash contains 128 bits, where each bit indicates whether a grid square is free (0) or used (1). Your task is to count the number of used squares in the entire grid.\n\nInput Format:\nThe input is a key string generate the knot hashes."
+    },
+    "part2": {
+        "description": "",
+        "answer": "1180",
+        "converted_description": "Now, you need to find the number of regions in the grid. A region is a group of adjacent used squares, where adjacency does not include diagonals. Each used square belongs to exactly one region. Your task is to count the number of regions present in the grid.\n\nInput Format:\nThe input is a key string to generate the knot hashes."
+    },
+    "input": "vbqugkhl"
+}

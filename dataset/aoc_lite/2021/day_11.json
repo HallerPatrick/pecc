@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 11,
+    "part1": {
+        "description": "",
+        "answer": "1793",
+        "converted_description": "You are given a 10 by 10 grid of octopuses with energy levels represented by a string of digits. Each octopus's energy level increases by 1 during each step. If an octopus's energy level exceeds 9, it will flash and increase the energy level of all its adjacent octopuses by 1. This process continues until no new octopuses have an energy level greater than 9. The energy level of an octopus that flashed is set to 0. \n\nYour task is to simulate 100 steps and determine the total number of flashes that occur.\n\nInput Format:\nThe input is a newline-seperated list of integers representing the energy levels of each octopus in the grid."
+    },
+    "part2": {
+        "description": "",
+        "answer": "247",
+        "converted_description": "In addition to Part 1, you need to find the first step during which all octopuses flash simultaneously.\n\nInput Format:\nThe input is a newline-seperated list of integers representing the energy levels of each octopus in the grid."
+    },
+    "input": "6111821767\n1763611615\n3512683131\n8582771473\n8214813874\n2325823217\n2222482823\n5471356782\n3738671287\n8675226574"
+}

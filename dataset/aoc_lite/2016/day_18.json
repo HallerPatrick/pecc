@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 18,
+    "part1": {
+        "description": "",
+        "answer": "1913",
+        "converted_description": "You are given a pattern of tiles represented by a string. Each tile can be either a trap (`^`) or safe (`.`). The pattern follows a specific rule to determine the type of tile in each row based on the tiles in the previous row. A new tile is a trap if it satisfies one of the following conditions:\n- Its left and center tiles are traps, but its right tile is not.\n- Its center and right tiles are traps, but its left tile is not.\n- Only its left tile is a trap.\n- Only its right tile is a trap.\nIn any other situation, the new tile is safe. Starting with the given pattern, determine the number of safe tiles in a total of 40 rows.\n\nInput Format:\nThe input is a string representing the initial row of tiles, where `^` represents a trap and `.` represents a safe tile."
+    },
+    "part2": {
+        "description": "",
+        "answer": "19993564",
+        "converted_description": "Determine the number of safe tiles in a total of 400000 rows using the same rules as described in Part 1.\n\nInput Format:\nThe input is a string representing the initial row of tiles, where `^` represents a trap and `.` represents a safe tile."
+    },
+    "input": "^.^^^..^^...^.^..^^^^^.....^...^^^..^^^^.^^.^^^^^^^^.^^.^^^^...^^...^^^^.^.^..^^..^..^.^^.^.^......."
+}

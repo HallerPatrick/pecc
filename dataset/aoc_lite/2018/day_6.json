@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 6,
+    "part1": {
+        "description": "",
+        "answer": "3909",
+        "converted_description": "You are given a list of coordinates on a grid. Each coordinate represents a point in the grid. Your task is to calculate the size of the largest area that isn't infinite. The area around a coordinate is defined as the number of integer X,Y locations that are closest to that coordinate and aren't tied in distance to any other coordinate. The distance between two points is calculated using the Manhattan distance. Locations that are equally far from two or more coordinates don't count as being closest to any.\n\nInput Format:\nThe input is a list of coordinates in the form of X, Y pairs, separated by newlines."
+    },
+    "part2": {
+        "description": "",
+        "answer": "36238",
+        "converted_description": "Now, given the same list of coordinates, your task is to find the size of the region containing all locations which have a total distance to all given coordinates of less than 10000. The total distance to a coordinate is calculated by adding up the distances to all of the given coordinates using the Manhattan distance.\n\nInput Format:\nThe input is a list of coordinates in the form of X, Y pairs, separated by newlines."
+    },
+    "input": "162, 168\n86, 253\n288, 359\n290, 219\n145, 343\n41, 301\n91, 214\n166, 260\n349, 353\n178, 50\n56, 79\n273, 104\n173, 118\n165, 47\n284, 235\n153, 69\n116, 153\n276, 325\n170, 58\n211, 328\n238, 346\n333, 299\n119, 328\n173, 289\n44, 223\n241, 161\n225, 159\n266, 209\n293, 95\n89, 86\n281, 289\n50, 253\n75, 347\n298, 241\n88, 158\n40, 338\n291, 156\n330, 88\n349, 289\n165, 102\n232, 131\n338, 191\n178, 335\n318, 107\n335, 339\n153, 156\n88, 119\n163, 268\n159, 183\n162, 134"
+}

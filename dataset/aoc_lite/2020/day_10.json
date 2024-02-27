@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 10,
+    "part1": {
+        "description": "",
+        "answer": "2263",
+        "converted_description": "You are given a list of joltage adapters, each with a specific output joltage. The adapters can take an input 1, 2, or 3 jolts lower than their rating and still produce their rated output joltage. Your device has a built-in adapter rated for 3 jolts higher than the highest-rated adapter in your bag. The charging outlet near your seat has an effective joltage rating of 0. Find the distribution of joltage differences between the charging outlet, the adapters, and your device when using every adapter in your bag.\n\nInput Format:\nThe input is a list of newline-seperated integers representing the joltage ratings of the adapters."
+    },
+    "part2": {
+        "description": "",
+        "answer": "396857386627072",
+        "converted_description": "Given the same list of joltage adapters, find the total number of distinct ways you can arrange the adapters to connect the charging outlet to your device.\n\nInput Format:\nThe input is a list of newline-seperated integers representing the joltage ratings of the adapters."
+    },
+    "input": "149\n87\n67\n45\n76\n29\n107\n88\n4\n11\n118\n160\n20\n115\n130\n91\n144\n152\n33\n94\n53\n148\n138\n47\n104\n121\n112\n116\n99\n105\n34\n14\n44\n137\n52\n2\n65\n141\n140\n86\n84\n81\n124\n62\n15\n68\n147\n27\n106\n28\n69\n163\n97\n111\n162\n17\n159\n122\n156\n127\n46\n35\n128\n123\n48\n38\n129\n161\n3\n24\n60\n58\n155\n22\n55\n75\n16\n8\n78\n134\n30\n61\n72\n54\n41\n1\n59\n101\n10\n85\n139\n9\n98\n21\n108\n117\n131\n66\n23\n77\n7\n100\n51"
+}

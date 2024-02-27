@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 17,
+    "part1": {
+        "description": "",
+        "answer": "RDDRULDDRR",
+        "converted_description": "You are given a `4x4` grid of rooms connected by doors. Some doors are open and some are closed based on the MD5 hash of a passcode followed by a sequence of uppercase characters representing the path taken so far. The doors are represented by `U` for up, `D` for down, `L` for left, and `R` for right. The goal is to find the shortest path from the top-left room to the bottom-right room by following the open doors.\n\nInput Format:\nThe input is a string representing the passcode."
+    },
+    "part2": {
+        "description": "",
+        "answer": "766",
+        "converted_description": "You are given the same grid and passcode as in Part 1. However, this time you need to find the length of the longest path that reaches the bottom-right room without passing through it.\n\nInput Format:\nThe input is a string representing the passcode."
+    },
+    "input": "ioramepc"
+}

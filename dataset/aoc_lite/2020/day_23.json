@@ -1,0 +1,15 @@
+{
+    "year": 2020,
+    "day": 23,
+    "part1": {
+        "description": "",
+        "answer": "49576328",
+        "converted_description": "You are given a circular arrangement of cups labeled clockwise. Each move, you pick up the three cups immediately clockwise of the current cup and place them immediately clockwise of a destination cup. The destination cup is determined by subtracting one from the label of the current cup, wrapping around if necessary. After 100 moves, determine the order of the cups starting after the cup labeled 1.\n\nInput Format:\nThe input is a string representing the labels of the cups in clockwise order."
+    },
+    "part2": {
+        "description": "",
+        "answer": "511780369955",
+        "converted_description": "Now, you have one million cups labeled clockwise. After the initial cups, the remaining cups are numbered in increasing fashion. Perform ten million moves. Determine the labels on the two cups immediately clockwise of cup 1. Multiply these labels together.\n\nInput Format:\nThe input is a string representing the labels of the cups in clockwise order."
+    },
+    "input": "523764819"
+}

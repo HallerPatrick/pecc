@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 23,
+    "part1": {
+        "description": "",
+        "answer": "307",
+        "converted_description": "You are given a program that operates on two registers, `a` and `b`, and a list of instructions. The registers are initially set to 0. The instructions are as follows:\n* `hlf r` - sets register `r` to half of its current value\n* `tpl r` - sets register `r` to triple its current value\n* `inc r` - increments register `r` by 1\n* `jmp offset` - jumps to the instruction `offset` away relative to itself\n* `jie r, offset` - jumps to the instruction `offset` away relative to itself if register `r` is even\n* `jio r, offset` - jumps to the instruction `offset` away relative to itself if register `r` is 1\n\nThe program terminates when it tries to run an instruction beyond the ones defined. What is the value in register `b` when the program finishes executing?\n\nInput Format:\nThe input is a list of instructions, with one instruction per line."
+    },
+    "part2": {
+        "description": "",
+        "answer": "160",
+        "converted_description": "The program from Part 1 is modified such that register `a` starts with a value of 1 instead of 0. What is the value in register `b` after the program finishes executing?\n\nInput Format:\nThe input is a list of instructions, with one instruction per line."
+    },
+    "input": "jio a, +18\ninc a\ntpl a\ninc a\ntpl a\ntpl a\ntpl a\ninc a\ntpl a\ninc a\ntpl a\ninc a\ninc a\ntpl a\ntpl a\ntpl a\ninc a\njmp +22\ntpl a\ninc a\ntpl a\ninc a\ninc a\ntpl a\ninc a\ntpl a\ninc a\ninc a\ntpl a\ntpl a\ninc a\ninc a\ntpl a\ninc a\ninc a\ntpl a\ninc a\ninc a\ntpl a\njio a, +8\ninc b\njie a, +4\ntpl a\ninc a\njmp +2\nhlf a\njmp -7"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 3,
+    "part1": {
+        "description": "",
+        "answer": "438",
+        "converted_description": "You are given a positive integer representing the identifier of a square on an infinite two-dimensional grid. The grid is allocated in a spiral pattern starting at a location marked 1 and then counting up while spiraling outward. Your task is to find the shortest path (in terms of Manhattan distance) from the given square to the access port located at square 1. The Manhattan distance is calculated as the sum of the absolute differences of the coordinates. For example, given the identifier 12, the shortest path would be 3 steps: down, left, left. Given the identifier 23, the shortest path would be 2 steps: up twice. Given the identifier 1024, the shortest path would be 31 steps.\n\nInput Format:\nThe input is a positive integer representing the identifier of a square on the grid."
+    },
+    "part2": {
+        "description": "",
+        "answer": "266330",
+        "converted_description": "As a stress test on the system, the programs clear the grid and store the value 1 in square 1. Then, in the same allocation order as shown above, they store the sum of the values in all adjacent squares, including diagonals. Your task is to find the first value written that is larger than the given puzzle input.\n\nInput Format:\nThe input is a positive integer representing the puzzle input."
+    },
+    "input": "265149"
+}

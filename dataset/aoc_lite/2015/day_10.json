@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 10,
+    "part1": {
+        "description": "",
+        "answer": "329356",
+        "converted_description": "You are given a string of digits. The challenge is to generate a new sequence based on the previous value by applying the look-and-say process. For each step, replace each run of digits with the count of digits followed by the digit itself. Repeat this process 40 times and find the length of the resulting sequence.\n\nInput Format:\nThe input is a string of digits."
+    },
+    "part2": {
+        "description": "",
+        "answer": "4666278",
+        "converted_description": "Apply the look-and-say process 50 times. Find the length of the resulting sequence.\n\nInput Format:\nThe input is a string of digits."
+    },
+    "input": "3113322113"
+}

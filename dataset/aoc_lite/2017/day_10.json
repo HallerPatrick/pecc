@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 10,
+    "part1": {
+        "description": "",
+        "answer": "46600",
+        "converted_description": "You are given a list of numbers from 0 to 255 and a sequence of lengths. You need to perform a series of operations on the list according to the lengths. For each length, you need to reverse the order of that length of elements in the list, starting from the current position. Then, you need to move the current position forward by the length plus the skip size, and increase the skip size by one. After all the operations are complete, you need to multiply the first two numbers in the list. What is the result?\n\nInput Format:\nThe input is a comma-separated list of integers representing the lengths."
+    },
+    "part2": {
+        "description": "",
+        "answer": "23234babdc6afa036749cfa9b597de1b",
+        "converted_description": "You are given a string of bytes. You need to convert the characters to their ASCII codes and append the following lengths to the end of the sequence: 17, 31, 73, 47, 23. Then, you need to perform 64 rounds of the operations described in Part 1, using the same length sequence in each round. After the rounds are complete, you will be left with a list of numbers from 0 to 255. You need to reduce these numbers to a list of 16 numbers called the dense hash. To do this, you need to perform a bitwise XOR operation on each consecutive block of 16 numbers in the list. Finally, you need to represent the dense hash as a single hexadecimal string. What is the resulting Knot Hash?\n\nInput Format:\nThe input is a comma-separated list of integers representing the lengths."
+    },
+    "input": "18,1,0,161,255,137,254,252,14,95,165,33,181,168,2,188"
+}

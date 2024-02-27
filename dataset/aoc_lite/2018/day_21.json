@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 21,
+    "part1": {
+        "description": "",
+        "answer": "2159153",
+        "converted_description": "You are given an activation system for a time travel module. The system runs forever without halting. Your goal is to figure out how the program works and cause it to halt. You can only control register 0, while every other register starts at 0. The program begins with instructions to verify the behavior of bitwise AND. If the test passes, the program continues and assumes that all other bitwise operations also interpret their inputs as numbers. Find the lowest non-negative integer value for register 0 that causes the program to halt after executing the fewest instructions.\n\nInput Format:\nThe input is a list of instructions, each on a separate line. The first line starts with \"#ip\" followed by the index of the register to which it is bound. The remaining lines contain instructions in the format \"operation A B C\", where operation is the name of the operation, and A, B, C are the indices of the registers."
+    },
+    "part2": {
+        "description": "",
+        "answer": "7494885",
+        "converted_description": "In order to determine the timing window for your underflow exploit, you also need an upper bound. Find the lowest non-negative integer value for register 0 that causes the program to halt after executing the most instructions.\n\nInput Format:\nThe input is the same as Part 1."
+    },
+    "input": "#ip 5\nseti 123 0 1\nbani 1 456 1\neqri 1 72 1\naddr 1 5 5\nseti 0 0 5\nseti 0 4 1\nbori 1 65536 4\nseti 12772194 7 1\nbani 4 255 3\naddr 1 3 1\nbani 1 16777215 1\nmuli 1 65899 1\nbani 1 16777215 1\ngtir 256 4 3\naddr 3 5 5\naddi 5 1 5\nseti 27 3 5\nseti 0 0 3\naddi 3 1 2\nmuli 2 256 2\ngtrr 2 4 2\naddr 2 5 5\naddi 5 1 5\nseti 25 5 5\naddi 3 1 3\nseti 17 4 5\nsetr 3 4 4\nseti 7 1 5\neqrr 1 0 3\naddr 3 5 5\nseti 5 1 5"
+}

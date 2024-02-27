@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 12,
+    "part1": {
+        "description": "",
+        "answer": "318083",
+        "converted_description": "You are given a set of assembunny code instructions. The code operates on four registers - `a`, `b`, `c`, and `d` - that start at 0 and can hold any integer value. The instructions include `cpy x y` (copy the value of `x` into register `y`), `inc x` (increment the value of register `x` by one), `dec x` (decrement the value of register `x` by one), and `jnz x y` (jump to instruction `y` away if `x` is not zero). Execute the given assembunny code and determine the final value in register `a`.\n\nInput Format:\nThe input is a series of lines, each containing an assembunny code instruction."
+    },
+    "part2": {
+        "description": "",
+        "answer": "9227737",
+        "converted_description": "You need to modify the assembunny code from Part 1. Before executing the code, initialize register `c` to be 1. After executing the modified code, determine the final value in register `a`.\n\nInput Format:\nThe input is a series of lines, each containing an assembunny code instruction."
+    },
+    "input": "cpy 1 a\ncpy 1 b\ncpy 26 d\njnz c 2\njnz 1 5\ncpy 7 c\ninc d\ndec c\njnz c -2\ncpy a c\ninc a\ndec b\njnz b -2\ncpy c b\ndec d\njnz d -6\ncpy 16 c\ncpy 17 d\ninc a\ndec d\njnz d -2\ndec c\njnz c -5"
+}

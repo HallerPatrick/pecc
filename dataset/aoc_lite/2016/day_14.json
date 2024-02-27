@@ -1,0 +1,15 @@
+{
+    "year": 2016,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "23890",
+        "converted_description": "You are given a salt and a specific algorithm to generate MD5 hashes. Your task is to find the index of the 64th key in the generated hashes. A hash is considered a key if it contains a sequence of three identical characters, and if one of the next 1000 hashes contains a sequence of five identical characters. To increase security, each hash needs to go through key stretching, which involves finding the MD5 hash of the previous hash a total of 2016 times.\n\nInput Format:\nThe input is a string representing the salt."
+    },
+    "part2": {
+        "description": "",
+        "answer": "22696",
+        "converted_description": "Given the same salt and algorithm with key stretching, find the index of the 64th key in the generated hashes.\n\nInput Format:\nThe input is a string representing the salt."
+    },
+    "input": "ahsbgdzn"
+}

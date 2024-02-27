@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 15,
+    "part1": {
+        "description": "",
+        "answer": "21367368",
+        "converted_description": "You are given a list of ingredients and their properties. Each ingredient has five properties: `capacity`, `durability`, `flavor`, `texture`, and `calories`. You need to find the combination of ingredients that produces the highest total score for a cookie. The total score is calculated by adding up each property (negative totals become 0) and then multiplying together everything except calories. The amount of each ingredient used must add up to 100 teaspoons.\n\nInput Format:\nThe input is a list of ingredients and their properties. Each ingredient is represented by a line in the format:\n`<ingredient name>: capacity <capacity value>, durability <durability value>, flavor <flavor value>, texture <texture value>, calories <calories value>`\n\nExample:\n```\nSprinkles: capacity 2, durability 0, flavor -2, texture 0, calories 3\nButterscotch: capacity 0, durability 5, flavor -3, texture 0, calories 3\nChocolate: capacity 0, durability 0, flavor 5, texture -1, calories 8\nCandy: capacity 0, durability -1, flavor 0, texture 5, calories 8\n```"
+    },
+    "part2": {
+        "description": "",
+        "answer": "1766400",
+        "converted_description": "Now, you need to find the combination of ingredients that produces the highest total score for a cookie with a calorie total of 500. The rest of the process remains the same as in Part 1.\n\nInput Format:\nThe input is a list of ingredients and their properties. Each ingredient is represented by a line in the format:\n`<ingredient name>: capacity <capacity value>, durability <durability value>, flavor <flavor value>, texture <texture value>, calories <calories value>`\n\nExample:\n```\nSprinkles: capacity 2, durability 0, flavor -2, texture 0, calories 3\nButterscotch: capacity 0, durability 5, flavor -3, texture 0, calories 3\nChocolate: capacity 0, durability 0, flavor 5, texture -1, calories 8\nCandy: capacity 0, durability -1, flavor 0, texture 5, calories 8\n```"
+    },
+    "input": "Sprinkles: capacity 2, durability 0, flavor -2, texture 0, calories 3\nButterscotch: capacity 0, durability 5, flavor -3, texture 0, calories 3\nChocolate: capacity 0, durability 0, flavor 5, texture -1, calories 8\nCandy: capacity 0, durability -1, flavor 0, texture 5, calories 8"
+}

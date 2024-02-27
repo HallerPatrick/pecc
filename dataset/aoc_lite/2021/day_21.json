@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 21,
+    "part1": {
+        "description": "",
+        "answer": "504972",
+        "converted_description": "You are playing a game called \"Dirac Dice\" with a submarine computer. The game consists of a single die, two pawns, and a circular track with ten spaces marked from 1 to 10 clockwise. Each player's starting space is chosen randomly. On each turn, a player rolls the die three times and moves their pawn forward that many times around the track. The player's score increases by the value of the space their pawn stops on. The game ends when a player's score reaches at least 1000. \n\nGiven the starting positions of both players, play the game using a deterministic 100-sided die. Determine the score of the losing player and the number of times the die was rolled during the game. Multiply the score of the losing player by the number of times the die was rolled to get the final result.\n\nInput Format:\nThe input consists of two lines. The first line contains the starting position of player 1. The second line contains the starting position of player 2. Both lines in the format `Player <number> starting position: <position>`."
+    },
+    "part2": {
+        "description": "",
+        "answer": "446968027750017",
+        "converted_description": "In the game of \"Dirac Dice\", a three-sided quantum die is used. Rolling the die splits the universe into three copies, each corresponding to one possible outcome of the roll. The game is played the same as before, but now ends when either player's score reaches at least 21.\n\nUsing the given starting positions, simulate the game and determine the player that wins in more universes. Find the number of universes in which that player wins.\n\nInput Format:\nThe input consists of two lines. The first line contains the starting position of player 1. The second line contains the starting position of player 2. Both lines in the format `Player <number> starting position: <position>`."
+    },
+    "input": "Player 1 starting position: 8\nPlayer 2 starting position: 4"
+}

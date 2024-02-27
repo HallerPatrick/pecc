@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 14,
+    "part1": {
+        "description": "",
+        "answer": "9411137133",
+        "converted_description": "You are given the starting scores of two recipes. The two recipes create new recipes by summing their scores and appending the digits of the sum to the scoreboard. Each Elf then moves forward a number of recipes equal to 1 plus the score of their current recipe. Find the scores of the ten recipes immediately after the given number of recipes.\n\nInput Format:\nThe input is a single integer representing the number of recipes."
+    },
+    "part2": {
+        "description": "",
+        "answer": "20317612",
+        "converted_description": "You are given a score sequence. The Elves want to know how many recipes appear on the scoreboard to the left of the first recipes whose scores match the given sequence. \n\nInput Format:\nThe input is a string of digits representing the score sequence."
+    },
+    "input": "157901"
+}

@@ -1,0 +1,15 @@
+{
+    "year": 2021,
+    "day": 17,
+    "part1": {
+        "description": "",
+        "answer": "8646",
+        "converted_description": "You are given a target area represented by an x-coordinate range and a y-coordinate range. The target area is defined as a rectangular region on a coordinate plane. You need to find an initial velocity for a probe that causes it to be within the target area after any step. The probe's position starts at (0,0) and its velocity changes on each step according to certain rules. The probe's x-position increases by its x-velocity, the probe's y-position increases by its y-velocity, the probe's x-velocity changes by 1 toward 0, and the probe's y-velocity decreases by 1. Find the initial velocity that causes the probe to be within the target area after any step. What is the maximum y-position the probe reaches on this trajectory?\n\nInput Format:\nThe input is a string representing the target area in the format \"target area: x=a..b, y=c..d\". The x-coordinate range is defined as a range from a to b (inclusive) and the y-coordinate range is defined as a range from c to d (inclusive)."
+    },
+    "part2": {
+        "description": "",
+        "answer": "5945",
+        "converted_description": "You are given the same target area as in Part 1. Now, you need to find every initial velocity that causes the probe to eventually be within the target area after any step. Count the number of distinct initial velocity values that meet these criteria.\n\nInput Format:\nThe input is a string representing the target area in the format \"target area: x=a..b, y=c..d\". The x-coordinate range is defined as a range from a to b (inclusive) and the y-coordinate range is defined as a range from c to d (inclusive)."
+    },
+    "input": "target area: x=155..215, y=-132..-72"
+}

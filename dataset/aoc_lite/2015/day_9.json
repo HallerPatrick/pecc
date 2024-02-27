@@ -1,0 +1,15 @@
+{
+    "year": 2015,
+    "day": 9,
+    "part1": {
+        "description": "",
+        "answer": "251",
+        "converted_description": "You are given a list of distances between pairs of locations. You need to find the shortest distance Santa can travel to visit each location exactly once. Santa can start and end at any two different locations. The distance between two locations is the same in both directions. \n\nFor example, given the following distances:\n\n```\nLondon to Dublin = 464\nLondon to Belfast = 518\nDublin to Belfast = 141\n```\n\nThe possible routes are:\n\n```\nDublin -> London -> Belfast = 982\nLondon -> Dublin -> Belfast = 605\nLondon -> Belfast -> Dublin = 659\nDublin -> Belfast -> London = 659\nBelfast -> Dublin -> London = 605\nBelfast -> London -> Dublin = 982\n```\n\nThe shortest of these routes is `London -> Dublin -> Belfast = 605`, and so the answer is `605` in this example.\n\nInput Format:\nThe input is a list of distances between pairs of locations in the format `Location1 to Location2 = Distance`, separated by line breaks."
+    },
+    "part2": {
+        "description": "",
+        "answer": "898",
+        "converted_description": "You are given a list of distances between pairs of locations. You need to find the longest distance Santa can travel to visit each location exactly once. Santa can start and end at any two different locations. The distance between two locations is the same in both directions.\n\nFor example, given the distances:\n\n```\nLondon to Dublin = 464\nLondon to Belfast = 518\nDublin to Belfast = 141\n```\n\nThe longest route would be `982` via (for example) `Dublin -> London -> Belfast`.\n\nWhat is the distance of the longest route?\n\nInput Format:\nThe input is a list of distances between pairs of locations in the format `Location1 to Location2 = Distance`, separated by line breaks."
+    },
+    "input": "Tristram to AlphaCentauri = 34\nTristram to Snowdin = 100\nTristram to Tambi = 63\nTristram to Faerun = 108\nTristram to Norrath = 111\nTristram to Straylight = 89\nTristram to Arbre = 132\nAlphaCentauri to Snowdin = 4\nAlphaCentauri to Tambi = 79\nAlphaCentauri to Faerun = 44\nAlphaCentauri to Norrath = 147\nAlphaCentauri to Straylight = 133\nAlphaCentauri to Arbre = 74\nSnowdin to Tambi = 105\nSnowdin to Faerun = 95\nSnowdin to Norrath = 48\nSnowdin to Straylight = 88\nSnowdin to Arbre = 7\nTambi to Faerun = 68\nTambi to Norrath = 134\nTambi to Straylight = 107\nTambi to Arbre = 40\nFaerun to Norrath = 11\nFaerun to Straylight = 66\nFaerun to Arbre = 144\nNorrath to Straylight = 115\nNorrath to Arbre = 135\nStraylight to Arbre = 127"
+}

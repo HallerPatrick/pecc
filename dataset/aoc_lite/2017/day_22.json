@@ -1,0 +1,15 @@
+{
+    "year": 2017,
+    "day": 22,
+    "part1": {
+        "description": "",
+        "answer": "5280",
+        "converted_description": "You are given a grid computing cluster, represented by a 2-dimensional grid of clean and infected nodes. A virus carrier moves through the network, infecting or cleaning nodes as it moves. The virus carrier follows these rules:\n- If the current node is infected, it turns right. Otherwise, it turns left.\n- If the current node is clean, it becomes infected. Otherwise, it becomes cleaned.\n- The virus carrier moves forward one node in the direction it is facing.\n\nYour task is to determine the number of bursts of activity that cause a node to become infected after a certain number of bursts.\n\nInput Format:\nThe input is a grid representation of the cluster, where '.' represents a clean node and '#' represents an infected node."
+    },
+    "part2": {
+        "description": "",
+        "answer": "2512261",
+        "converted_description": "The virus has evolved and now follows different rules during its bursts of activity. The new rules are as follows:\n- If the current node is clean, it turns left.\n- If the current node is weakened, it does not turn and continues moving in the same direction.\n- If the current node is infected, it turns right.\n- If the current node is flagged, it reverses direction.\n\nYour task is to determine the number of bursts of activity that cause a node to become infected after a certain number of bursts.\n\nInput Format:\nThe input is a grid representation of the cluster, where '.' represents a clean node, '#' represents an infected node, 'W' represents a weakened node, and 'F' represents a flagged node."
+    },
+    "input": "#..#...#.#.#..#.#...##.##\n.....##.#....#.#......#.#\n..#.###.#.#######.###.#.#\n.......#.##.###.###..##.#\n#....#...#.###....##.....\n#.....##.#########..#.#.#\n.####.##..#...###.##...#.\n#....#..#.###.##.#..##.#.\n#####.#.#..#.##..#...####\n##.#.#..#.#....###.######\n.##.#...#...##.#.##..####\n...#..##.#.....#.#..####.\n#.##.###..#######.#..#.#.\n##....##....##.#..#.##..#\n##.#.#.#.##...##.....#...\n.#####..#.#....#.#######.\n####....###.###.#.#..#..#\n.###...#.###..#..#.#####.\n#.###..#.#######.#.#####.\n.##.#.###.##.##.#.#...#..\n######.###.#.#.##.####..#\n##..####.##..##.#...##...\n...##.##...#..#..##.####.\n#.....##.##.#..##.##....#\n#.#..####.....#....#.###."
+}

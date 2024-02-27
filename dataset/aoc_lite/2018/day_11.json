@@ -1,0 +1,15 @@
+{
+    "year": 2018,
+    "day": 11,
+    "part1": {
+        "description": "",
+        "answer": "235,63",
+        "converted_description": "You are given a 300x300 grid of fuel cells, each with a power level determined by a specific process. You need to find the 3x3 square within the grid that has the largest total power. The power level of a fuel cell is calculated by finding its rack ID, multiplying it by its Y coordinate, adding the grid serial number, multiplying it by the rack ID again, keeping only the hundreds digit, and finally subtracting 5. The top-left cell is (1,1) and the top-right cell is (300,1).\n\nInput Format:\nThe input is a single integer representing the grid serial number."
+    },
+    "part2": {
+        "description": "",
+        "answer": "229,251,16",
+        "converted_description": "Now, you can select a square of any size from 1x1 to 300x300. You need to find the square with the largest total power. The square is identified by its top-left coordinate (X,Y) and its size. For example, a 9x9 square with a top-left corner of (3,5) is identified as (3,5,9). The power level calculation remains the same as in Part 1.\n\nInput Format:\nThe input is a single integer representing the grid serial number."
+    },
+    "input": "5034"
+}
