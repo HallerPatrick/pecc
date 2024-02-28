@@ -3,7 +3,6 @@ import csv
 from typing import Dict, List
 
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from prettytable.colortable import ColorTable, Themes
 
@@ -71,6 +70,8 @@ def evaluate_aoc(csv_file):
 
 def visualize_results(csv_file):
 
+    import matplotlib.pyplot as plt
+
     with open(csv_file, 'r') as f:
         reader = csv.DictReader(f)
         results = list(reader)
@@ -119,6 +120,8 @@ def visualize_results(csv_file):
 
 
 def visualize_all_results(csv_files):
+
+    import matplotlib.pyplot as plt
 
     days = list(range(1, 25))
 

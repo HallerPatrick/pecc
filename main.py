@@ -15,14 +15,15 @@ def main():
     argparser = argparse.ArgumentParser()
 
     argparser.add_argument("--model", type=str, default="gpt-3.5-turbo-16k",
-                           help=f"Model to use {MODEL_LOADER_MAP.keys()}")
+                           help=f"Model to use {list(MODEL_LOADER_MAP.keys())}")
     argparser.add_argument("--subset", type=str, default="aoc",
                            help="Subset of the dataset to use (euler, aoc)")
     argparser.add_argument("--venv-path", type=str,
                            default="pecc_venv", help="Path to the venv")
     argparser.add_argument("--output-file", type=str,
                            default="results.csv", help="Path to output file")
-    argparser.add_argument("--instruct", type=bool, default=False)
+    argparser.add_argument("--instruct", action="store_true", default=False,
+                           help="Only run the instruction")
     argparser.add_argument("--kpass", type=int, default=1,
                            help="Number of passes to use")
 
