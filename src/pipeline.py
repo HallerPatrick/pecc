@@ -44,7 +44,15 @@ class Runner:
         except KeyError:
             pass
 
-    def run(self, ignore=None):
+    def run(self, subset: str, story: bool, ignore=None):
+        if subset == "aoc":
+            return self.run_aoc(story, ignore)
+        elif subset == "euler":
+            return self.run_euler(story, ignore)
+
+        raise ValueError(f"Unknown subset {subset}")
+
+    def run_aoc(self, story: bool, ignore=None):
         results = []
         kpass_results = []
 
@@ -87,9 +95,7 @@ class Runner:
 
                     code, output, error_type, error_message = self.run_challenge(
                         chain_part1,
-                        challenge["part1_converted"]
-                        if self.dataset_config.use_converted
-                        else challenge["part1"],
+                        challenge["part1"] if story else challenge["part1_converted"],
                         challenge["input"],
                         challenge["part1_solution"],
                     )
@@ -125,6 +131,7 @@ class Runner:
                                 "kpass": kpass,
                             }
                         )
+
                         break
 
                 if self.dataset_config.only_part_one:
@@ -157,9 +164,7 @@ class Runner:
                     chain_part2 = build_chain_part2(self.llm, copy.deepcopy(messages))
                     code, output, error_type, error_message = self.run_challenge(
                         chain_part2,
-                        challenge["part2_converted"]
-                        if self.dataset_config.use_converted
-                        else challenge["part2"],
+                        challenge["part2"] if story else challenge["part2_converted"],
                         challenge["input"],
                         challenge["part2_solution"],
                     )
@@ -330,7 +335,7 @@ class Runner:
 
         return generated_code, output, error_type, error_message
 
-    def run_euler(self, story=False, ignore=None):
+    def run_euler(self, story: bool, ignore=None):
 
         if not ignore:
             ignore = []
@@ -396,8 +401,8 @@ Task: {description}"""
 
             # pd.DataFrame(kpass_results).to_csv("current_gpt-3.5_euler_stories@1.csv")
             # pd.DataFrame(results).to_csv("current_gpt-3.5_euler_stories@3.csv")
-            # pd.DataFrame(kpass_results).to_csv("current-gpt3.5-euler_stories-pass@1.csv")
-            # pd.DataFrame(results).to_csv("current-gpt3.5-euler_stories-pass@3.csv")
+            # pd.DataFrame(kpass_results).to_csv("current-gpt3.5-euler-pass@1.csv")
+            pd.DataFrame(results).to_csv("current-gpt3.5-euler-pass@1.csv")
 
         return results, kpass_results
 
@@ -457,7 +462,7 @@ def extract_python_code(code_block: str) -> str:
 
 def is_parseable(text: str) -> bool:
     try:
-        ast.expr(text)
+        ast.parse(text)
         return True
     except SyntaxError:
         return False

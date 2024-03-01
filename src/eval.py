@@ -7,7 +7,16 @@ import pandas as pd
 from prettytable.colortable import ColorTable, Themes
 
 
-def pretty_print(results: List[Dict]):
+def pretty_print(results: List[Dict], subset: str):
+
+    if subset == "euler":
+        pass
+        # pretty_print_euler(results)
+    elif subset == "aoc":
+        pretty_print_aoc(results)
+
+
+def pretty_print_aoc(results: List[Dict]):
     from .pipeline import ErrorType
     print("\nResults:")
     table = ColorTable(theme=Themes.OCEAN)

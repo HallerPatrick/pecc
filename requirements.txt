@@ -1,6 +1,9 @@
 langchain
+openai
 loguru
 colorama
 datasets
 prettytable
 pandas
+litellm
+google-cloud-apiplaform

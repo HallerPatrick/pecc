@@ -18,6 +18,7 @@ def main():
                            help=f"Model to use {list(MODEL_LOADER_MAP.keys())}")
     argparser.add_argument("--subset", type=str, default="aoc",
                            help="Subset of the dataset to use (euler, aoc)")
+    argparser.add_argument("--story", action="store_true", help="Use the story subset of the dataset")
     argparser.add_argument("--venv-path", type=str,
                            default="pecc_venv", help="Path to the venv")
     argparser.add_argument("--output-file", type=str,
@@ -34,7 +35,7 @@ def main():
     if args.subset == "aoc" and not os.path.exists("dataset/aoc"):
         dataset = load_dataset("aoc", "dataset/aoc_lite")
     else:
-        dataset = load_dataset(args.subset, "dataset/{args.subset}")
+        dataset = load_dataset(args.subset, f"dataset/{args.subset}")
 
     assert args.model in MODEL_LOADER_MAP, f"Model {args.model} not found"
 
@@ -46,7 +47,7 @@ def main():
     assert os.path.exists(python_bin), f"Venv not found at {python_bin}"
 
     # For debugging smaller subsets
-    if True:
+    if False:
         config = AoCDatasetConfig(
             year_begin=2018,
             year_end=2018,
@@ -63,9 +64,9 @@ def main():
     else:
         config = DatasetConfig.from_dataset(args.subset)
 
-    result, one_pass = Runner(llm, dataset, config, python_bin).run()
+    result, one_pass = Runner(llm, dataset, config, python_bin).run(args.subset, args.story)
     pd.DataFrame(result).to_csv(args.output_file)
-    pretty_print(result)
+    pretty_print(result, args.subset)
 
     if args.subset == "aoc":
         evaluate_aoc(args.output_file)

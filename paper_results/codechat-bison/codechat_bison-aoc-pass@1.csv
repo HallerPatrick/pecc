@@ -1,0 +1,6306 @@
+,year,day,part,status,output,expected_output,error,code,kpass
+0,2015,1,1,no_error,"74
+",74,,"
+with open('input.txt') as f:
+    floor = 0
+    for c in f.read():
+        floor += 1 if c == '(' else -1
+
+print(floor)
+",0.0
+1,2015,1,2,wrong_output,"1796
+",1795,,"
+with open('input.txt') as f:
+    floor = 0
+    i = 1
+    for c in f.read():
+        floor += 1 if c == '(' else -1
+        i += 1
+        if floor < 0:
+            print(i)
+            break
+",0.0
+2,2015,2,1,no_error,"1586300
+",1586300,,"
+total_area = 0
+with open('input.txt', 'r') as f:
+    for line in f:
+        l, w, h = map(int, line.split('x'))
+        area = 2 * l * w + 2 * w * h + 2 * h * l
+        smallest_side = min(l * w, w * h, h * l)
+        total_area += area + smallest_side
+print(total_area)
+",0.0
+3,2015,2,2,no_error,"3737498
+",3737498,,"
+total_ribbon = 0
+with open('input.txt', 'r') as f:
+    for line in f:
+        l, w, h = map(int, line.split('x'))
+        perim = 2 * min(l + w, w + h, h + l)
+        volume = l * w * h
+        total_ribbon += perim + volume
+print(total_ribbon)
+",0.0
+4,2015,3,1,no_error,2565,2565,,"
+with open('input.txt', 'r') as f:
+    directions = f.read()
+
+visited = {(0, 0)}
+x, y = 0, 0
+
+for direction in directions:
+    if direction == '^':
+        y += 1
+    elif direction == 'v':
+        y -= 1
+    elif direction == '>':
+        x += 1
+    elif direction == '<':
+        x -= 1
+
+    visited.add((x, y))
+
+houses_visited = len(visited)
+
+print(f'{houses_visited} house(s) received at least one present.')
+",0.0
+5,2015,3,2,no_error,2639,2639,,"
+with open('input.txt', 'r') as f:
+    directions = f.read()
+
+visited = {(0, 0)}
+santa_x, santa_y = 0, 0
+robo_x, robo_y = 0, 0
+
+for i, direction in enumerate(directions):
+    if i % 2 == 0:
+        x, y = santa_x, santa_y
+    else:
+        x, y = robo_x, robo_y
+
+    if direction == '^':
+        y += 1
+    elif direction == 'v':
+        y -= 1
+    elif direction == '>':
+        x += 1
+    elif direction == '<':
+        x -= 1
+
+    if i % 2 == 0:
+        santa_x, santa_y = x, y
+    else:
+        robo_x, robo_y = x, y
+
+    visited.add((x, y))
+
+houses_visited = len(visited)
+
+print(f'{houses_visited} house(s) received at least one present.')
+",0.0
+6,2015,4,1,no_error,"117946
+",117946,,"
+import hashlib
+import sys
+
+with open('input.txt', 'r') as infile:
+    key = infile.read()
+
+found = False
+n = 0
+while not found:
+    h = hashlib.md5((key + str(n)).encode())
+    s = h.hexdigest()
+    found = all([s[i] == '0' for i in range(5)])
+    n += 1
+
+print(n - 1)
+",0.0
+7,2015,4,2,no_error,"3938038
+",3938038,,"
+import hashlib
+import sys
+
+with open('input.txt', 'r') as infile:
+    key = infile.read()
+
+found = False
+n = 0
+while not found:
+    h = hashlib.md5((key + str(n)).encode())
+    s = h.hexdigest()
+    found = all([s[i] == '0' for i in range(6)])
+    n += 1
+
+print(n - 1)
+",0.0
+8,2015,5,1,runtime_error,,236,"  File ""/tmp/tmpescoxic_/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def is_nice(string):
+  """"""
+  Checks if a string is nice.
+
+  A nice string is one with all of the following properties:
+
+  * It contains at least three vowels (`aeiou` only), like `aei`, `xazegov`, or `aeiouaeiouaeiou`.
+  * It contains at least one letter that appears twice in a row, like `xx`, `abcdde` (`dd`), or `aabbccdd` (`aa`, `bb`, `cc`, or `dd`).
+  * It does *not* contain the strings `ab`, `cd`, `pq`, or `xy`, even if they are part of one of the other requirements.
+
+  Args:
+    string: The string to check.
+
+  Returns:
+    True if the string is nice, False otherwise.
+  """"""
+
+  # Check if the string contains at least three vowels.
+
+  vowel_count = 0
+  for char in string:
+    if char in ""aeiou"":
+      vowel_count += 1
+
+  if vowel_count < 3:
+    return False
+
+  # Check if the string contains at least one letter that",0.0
+9,2015,5,2,part1_failed,,51,,,
+10,2015,6,1,runtime_error,,400410,"  File ""/tmp/tmpjcss953r/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+if __name__ == ""__main__"":
+    file = open('input.txt', 'r')
+    instructions = file.readlines()
+    grid = [[False for _ in range(1000)] for _ in range(1000)]
+    for instruction in instructions:
+        instruction = instruction.rstrip()
+        if instruction[:7] == 'turn on':
+            p = re.compile(r'\d+')
+            coordinates = list(map(int, p.findall(instruction)))
+            for i in range(coordinates[0], coordinates[2] + 1):
+                for j in range(coordinates[1], coordinates[3] + 1):
+                    grid[i][j] = True
+        elif instruction[:7] == 'turn off':
+            p = re.compile(r'\d+')
+            coordinates = list(map(int, p.findall(instruction)))
+            for i in range(coordinates[0], coordinates[2] + 1):
+                for j in range(coordinates[1], coordinates[3] + 1):
+                    grid[i][j] = False
+        elif instruction",0.0
+11,2015,6,2,part1_failed,,15343601,,,
+12,2015,7,1,runtime_error,,46065,"Traceback (most recent call last):
+  File ""/tmp/tmpppxndt_r/tmp.py"", line 14, in <module>
+    wires[out] = gate[op](wires[a], wires[b])
+KeyError: 'bn'
+","
+gate = {'AND': lambda a, b: a & b, 'OR': lambda a, b: a | b, 'LSHIFT': lambda a, b: a << b, 'RSHIFT': lambda a, b: a >> b, 'NOT': lambda a: 65535 - a}
+wires = {}
+
+with open('input.txt') as file:
+    for line in file:
+        inp, out = line.split(' -> ')
+        if inp.isdigit():
+            wires[out] = int(inp)
+        elif 'NOT ' in inp:
+            wires[out] = gate['NOT'](wires[inp[4:]])
+        else:
+            a, op, b = inp.split()
+            wires[out] = gate[op](wires[a], wires[b])
+
+print('Value on wire `a` is', wires['a'])
+",0.0
+13,2015,7,2,part1_failed,,14134,,,
+14,2015,8,1,wrong_output,"1101
+",1371,,"
+with open('input.txt') as f:
+    size = 0
+    for line in f:
+        str_len = 0
+        last_c = ' '
+        for c in line[1:-2]:
+            if last_c != '\\' and c == '\\':
+                if line[line.index(c) + 1] == 'x':
+                    str_len += 1
+                last_c = 'x'
+            else:
+                last_c = c
+                str_len += 1
+        size += len(line) - 1 - str_len
+print(size)
+",0.0
+15,2015,8,2,part1_failed,,2117,,,
+16,2015,9,1,runtime_error,,251,"  File ""/tmp/tmpxoau7jpq/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+class Graph:
+    def __init__(self, vertices):
+        self.vertices = vertices
+        self.edges = [[-1 for i in range(vertices)] for j in range(vertices)]
+        self.visited = []
+
+    def add_edge(self, u, v, weight):
+        self.edges[u][v] = weight
+        self.edges[v][u] = weight
+
+    def tsp(self, v, currWeight, level, totalVertices, visited):
+        if level == totalVertices:
+            if self.edges[v][0] != -1:
+                currWeight += self.edges[v][0]
+                return currWeight
+            else:
+                return float('inf')
+        visited[v] = True
+
+        ans = float('inf')
+        for i in range(totalVertices):
+            if not visited[i] and self.edges[v][i] != -1:
+                newAns = self.tsp(i, currWeight + self.edges[v][i], level + 1, totalVertices, visited)
+                ans = min(ans, newAns)
+
+        visited",0.0
+17,2015,9,2,part1_failed,,898,,,
+18,2015,10,1,no_error,"329356
+",329356,,"
+with open('input.txt') as f:
+    s = f.read().strip()
+for _ in range(40):
+    t = ''
+    i = 0
+    while i < len(s):
+        c = s[i]
+        j = i
+        while j < len(s) and s[j] == c:
+            j += 1
+        t += str(j - i) + c
+        i = j
+    s = t
+print(len(s))
+",0.0
+19,2015,10,2,no_error,"4666278
+",4666278,,"
+with open('input.txt') as f:
+    s = f.read().strip()
+for _ in range(50):
+    t = ''
+    i = 0
+    while i < len(s):
+        c = s[i]
+        j = i
+        while j < len(s) and s[j] == c:
+            j += 1
+        t += str(j - i) + c
+        i = j
+    s = t
+print(len(s))
+",0.0
+20,2015,11,1,runtime_error,,vzbxxyzz,"  File ""/tmp/tmp4u21lre4/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def next_password(raw_pw):
+    pw = [ord(i)-96 for i in raw_pw]
+
+    while True:
+        has_double_pairs = False
+        has_three_straight = False
+
+        i, cnt = 0, 1
+        while i < len(pw):
+            if pw[i] == pw[i-1]:
+                cnt += 1
+                if cnt == 2 and i+1 < len(pw) and pw[i] == pw[i+1]:
+                    cnt = 0
+                elif cnt == 3:
+                    cnt = 0
+                    has_double_pairs = True
+            else:
+                if i+1 < len(pw) and pw[i+1]-pw[i] == 1 and pw[i+2]-pw[i+1] == 1:
+                    has_three_straight = True
+                cnt = 1
+
+            if has_three_straight and has_double_pairs and 'i' not in raw_pw and 'o' not in raw_pw and 'l' not in raw_pw:
+                break",0.0
+21,2015,11,2,part1_failed,,vzcaabcc,,,
+22,2015,12,1,no_error,"111754
+",111754,,"
+import json
+
+# Read the input file
+with open('input.txt', 'r') as f:
+    data = json.load(f)
+
+# Calculate the sum of all numbers in the document
+def sum_numbers(data):
+    total = 0
+    if isinstance(data, int):
+        return data
+    if isinstance(data, dict):
+        for value in data.values():
+            total += sum_numbers(value)
+    if isinstance(data, list):
+        for value in data:
+            total += sum_numbers(value)
+    return total
+
+result = sum_numbers(data)
+
+# Print the result
+print(result)
+",0.0
+23,2015,12,2,no_error,"65402
+",65402,,"
+import json
+
+# Read the input file
+with open('input.txt', 'r') as f:
+    data = json.load(f)
+
+# Calculate the sum of all numbers in the document
+def sum_numbers(data):
+    total = 0
+    if isinstance(data, int):
+        return data
+    if isinstance(data, dict):
+        if 'red' not in data.values():
+            for value in data.values():
+                total += sum_numbers(value)
+    if isinstance(data, list):
+        for value in data:
+            total += sum_numbers(value)
+    return total
+
+result = sum_numbers(data)
+
+# Print the result
+print(result)
+",0.0
+24,2015,13,1,runtime_error,,733,"  File ""/tmp/tmpd70yamc2/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Read the input
+names = []
+happiness_changes = {}
+with open('input.txt', 'r') as f:
+    for line in f:
+        person1, direction, amount, _, person2 = line.rstrip().split(' ')
+        if direction == 'gain':
+            amount = int(amount)
+        else:
+            amount = -int(amount)
+        if person1 not in names:
+            names.append(person1)
+        if person2 not in names:
+            names.append(person2)
+        if (person1, person2) not in happiness_changes:
+            happiness_changes[(person1, person2)] = amount
+
+# Generate all possible permutations of names
+import itertools
+permutations = list(itertools.permutations(names))
+
+# Find the maximum total change in happiness
+max_happiness_change = -1
+max_permutation = ()
+for permutation in permutations:
+    total_happiness_change = 0
+    for i in range(len(permutation)):
+        person1 = permutation[i]
+        person2 = permutation[(i + 1) % len(permutation)]
+",0.0
+25,2015,13,2,part1_failed,,725,,,
+26,2015,14,1,wrong_output,"88874
+",2655,,"
+def reindeer_distance(filename):
+    with open(filename, ""r"") as f:
+        contents = f.read().splitlines()
+    
+    reindeer_info = []
+    for line in contents:
+        words = line.split("" "")
+        speed, duration, rest = int(words[3]), int(words[6]), int(words[13])
+        reindeer_info.append([speed, duration, rest, 0, 0])
+
+    for i in range(2503):
+        for deer in reindeer_info:
+            if deer[1] > 0:
+                deer[3] += deer[0]
+                deer[1] -= 1
+            elif deer[2] > 0:
+                deer[2] -= 1
+            else:
+                deer[1], deer[2] = deer[0], deer[2]
+
+    return max(deer[3] for deer in reindeer_info)
+
+print(reindeer_distance(""input.txt""))
+",0.0
+27,2015,14,2,part1_failed,,1059,,,
+28,2015,15,1,runtime_error,,21367368,"  File ""/tmp/tmpa3a5w141/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from itertools import product
+class Ingredient:
+    def __init__(self, name, capacity, durability, flavor, texture, calories):
+        self.name = name
+        self.capacity = capacity
+        self.durability = durability
+        self.flavor = flavor
+        self.texture = texture
+        self.calories = calories
+
+def evaluate(ingredients, used):
+    scores = {
+        'capacity': 0,
+        'durability': 0,
+        'flavor': 0,
+        'texture': 0,
+    }
+    calories = 0
+    for i, ingredient in enumerate(ingredients):
+        scores['capacity'] += ingredient.capacity * used[i]
+        scores['durability'] += ingredient.durability * used[i]
+        scores['flavor'] += ingredient.flavor * used[i]
+        scores['texture'] += ingredient.texture * used[i]
+        calories += ingredient.calories * used[i]
+    s = max(scores['capacity'], 0) * max(scores['durability'], 0) * max(scores['flavor'], 0) * max(scores['texture'], ",0.0
+29,2015,15,2,part1_failed,,1766400,,,
+30,2015,16,1,runtime_error,,40,"Traceback (most recent call last):
+  File ""/tmp/tmpxs6asphs/tmp.py"", line 7, in <module>
+    sue_data = [[int(j) for j in i] for i in sue_data]
+  File ""/tmp/tmpxs6asphs/tmp.py"", line 7, in <listcomp>
+    sue_data = [[int(j) for j in i] for i in sue_data]
+  File ""/tmp/tmpxs6asphs/tmp.py"", line 7, in <listcomp>
+    sue_data = [[int(j) for j in i] for i in sue_data]
+ValueError: invalid literal for int() with base 10: 'goldfish'
+","
+with open('input.txt', 'r') as f:
+    sue_data = f.read().strip('\n').split('\n')
+
+sue_data = [i.split(':')[1].strip() for i in sue_data]
+sue_data = [i.replace(',', '').split(' ') for i in sue_data]
+sue_data = [[int(j) for j in i] for i in sue_data]
+
+my_gift = [3, 7, 2, 3, 0, 0, 5, 3, 2, 1]
+
+for sue in range(len(sue_data)):
+    if sue_data[sue] == my_gift:
+        print(sue + 1)
+",0.0
+31,2015,16,2,part1_failed,,241,,,
+32,2015,17,1,timeout_error,,1638,TIMEOUT,"
+from collections import Counter
+from functools import lru_cache
+
+def parse_input(path):
+    with open(path) as f:
+        return tuple(int(line) for line in f.readlines())
+
+@lru_cache
+def count_combinations(total, capacities):
+    if total == 0:
+        return 1
+    if total < 0 or not capacities:
+        return 0
+    return sum(count_combinations(total - capacity, capacities[1:] + (capacities[0],))
+               for capacity in capacities if total >= capacity)
+
+def main(path):
+    total, capacities = 150, tuple(sorted(parse_input(path)))
+    return count_combinations(total, capacities)
+
+if __name__ == ""__main__"":
+    result = main(""input.txt"")
+    print(f""Part 1: There are {result} ways to fit all eggnog into the containers."")
+",0.0
+33,2015,17,2,part1_failed,,17,,,
+34,2015,18,1,wrong_output,"1097
+",814,,"
+with open('input.txt', 'r') as fd:
+    grid = [[x == ""#"" for x in line.strip()] for line in fd]
+
+def on_after_step(grid, x, y):
+    n = sum([grid[(y+dy)%100][(x+dx)%100] for dy, dx in
+              [(0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1)]])
+    return grid[y][x] and n in (2, 3) or n == 3
+
+for _ in range(100):
+    newgrid = [[on_after_step(grid, x, y) for x in range(100)] for y in range(100)]
+    grid = newgrid
+
+print(sum([sum(row) for row in grid]))
+",0.0
+35,2015,18,2,part1_failed,,924,,,
+36,2015,19,1,wrong_output,"635
+",518,,"
+import re
+
+def parse_input(input):
+  replacements = {}
+  for line in input.splitlines():
+    if '=>' in line:
+      k, v = line.split(' => ')
+      replacements.setdefault(k, []).append(v)
+  molecule = input.splitlines()[-1]
+  return replacements, molecule
+
+def count_distinct_molecules(replacements, molecule):
+  count = 0
+  for pattern, values in replacements.items():
+    for match in re.finditer(pattern, molecule):
+      for value in values:
+        new_molecule = molecule[:match.start()] + value + molecule[match.end():]
+        if new_molecule not in molecule:
+          count += 1
+  return count
+
+if __name__ == '__main__':
+  with open('input.txt') as f:
+    replacements, molecule = parse_input(f.read())
+  print(count_distinct_molecules(replacements, molecule))
+",0.0
+37,2015,19,2,part1_failed,,200,,,
+38,2015,20,1,wrong_output,"The lowest house number to receive at least 33100000 presents is 2006.
+",776160,,"
+import fileinput
+
+# Read the input from the input file
+with fileinput.input(files=['input.txt']) as f:
+    presents = int(f.readline())
+
+# Iterate over the house numbers, starting from 1
+house_number = 1
+total_presents = 0
+
+# Calculate the total presents for each house until it reaches or exceeds the specified number
+while total_presents < presents:
+    # Iterate over the Elf numbers
+    for elf_number in range(1, house_number + 1):
+        # If the house number is divisible by the Elf number, add the Elf's presents to the total
+        if house_number % elf_number == 0:
+            total_presents += 10 * elf_number
+
+    # Increment the house number
+    house_number += 1
+
+# Print the lowest house number that receives at least the specified number of presents
+print(f""The lowest house number to receive at least {presents} presents is {house_number - 1}."")
+",0.0
+39,2015,20,2,part1_failed,,786240,,,
+40,2015,21,1,runtime_error,,78,"  File ""/tmp/tmpkeq0vbeh/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+boss_hp, boss_damage, boss_armor = map(int, open(""input.txt"").read().splitlines()[1:])
+
+class Player():
+    def __init__(self, hp, damage=0, armor=0, rings=0, cost=0, build=""""):
+        self.hp = hp
+        self.damage = damage
+        self.armor = armor
+        self.rings = rings
+        self.cost = cost
+        self.build = build
+
+weapons = [(""Dagger"", 8, 4, 0),
+            (""Shortsword"", 10, 5, 0),
+            (""Warhammer"", 25, 6, 0),
+            (""Longsword"", 40, 7, 0),
+            (""Greataxe"", 74, 8, 0) ]
+armor = [(""None"", 0, 0),
+           (""Leather"", 13, 0, 1),
+           (""Chainmail"", 31, 0, 2),
+           (""Splintmail"", 53, 0, 3),
+           (""Bandedmail"",",0.0
+41,2015,21,2,part1_failed,,148,,,
+42,2015,22,1,runtime_error,,953,"  File ""/tmp/tmpfpm1dc58/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+max_cost = float('inf')
+boss_hp, boss_atk = map(int, open('input.txt').read().splitlines()[2:])
+effects = defaultdict(int)
+spells = {
+    'MM': (4, 53),
+    'D': (2, 73),
+    'S': (7, 113),
+    'P': (3, 173),
+    'R': (101, 229)
+}
+
+def update_player(hp, mana, cost):
+    global min_cost
+    mana -= cost
+    effects['R'] = max(effects['R'], 5)  # don't cast if already active
+    effects['S'] = max(effects['S'], 6)  # don't cast if already active
+    while (effects['P'], effects['R'], effects['S']):
+        effects['P'] = effects['P'] - 1 if effects['P'] else 0
+        effects['R'] = effects['R'] - 1 if effects['R'] else 0
+        effects['",0.0
+43,2015,22,2,part1_failed,,1289,,,
+44,2015,23,1,runtime_error,,307,"Traceback (most recent call last):
+  File ""/tmp/tmp8pj21w74/tmp.py"", line 9, in <module>
+    arg = int(arg)
+ValueError: invalid literal for int() with base 10: 'a, +18'
+","
+with open('input.txt') as file:
+    program = file.read().splitlines()
+    registers = {'a': 0, 'b': 0}
+    ptr = 0
+
+    while 0 <= ptr < len(program):
+        instruction, _, arg = program[ptr].partition(' ')
+        arg = int(arg)
+
+        if instruction == 'hlf':
+            registers[arg] //= 2
+            ptr += 1
+        elif instruction == 'tpl':
+            registers[arg] *= 3
+            ptr += 1
+        elif instruction == 'inc':
+            registers[arg] += 1
+            ptr += 1
+        elif instruction == 'jmp':
+            ptr += arg
+        elif instruction == 'jie':
+            ptr += arg if registers[arg] % 2 == 0 else 1
+        elif instruction == 'jio':
+            ptr += arg if registers[arg] == 1 else 1
+
+    print(""Register 'b' final value:"", registers['b'])
+",0.0
+45,2015,23,2,part1_failed,,160,,,
+46,2015,24,1,runtime_error,,10439961859,"Traceback (most recent call last):
+  File ""/tmp/tmp8rer5ioo/tmp.py"", line 7, in <module>
+    if len(first[i])==len(first[0]):
+TypeError: object of type 'int' has no len()
+","
+weights=[int(x) for x in open(""input.txt"").read().split()]
+weights.sort()
+first=sorted([x for x in weights if x*weights[0]<weights[-1]*weights[-2]])
+quantum=first[0]
+for i in range(1,len(first)):
+    if len(first[i])==len(first[0]):
+        quantum=min(quantum,first[i][0])
+print(quantum)
+",0.0
+47,2015,24,2,part1_failed,,72050269,,,
+48,2015,25,1,runtime_error,,9132360,"  File ""/tmp/tmpe3fnqxzs/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def _coprime(a: int, b: int) -> int:
+    while b:
+        a, b = b, a % b
+    return a
+
+def _mulinv(a: int, m: int) -> int:
+    b, u, v = m, 1, 0
+    while b:
+        q, r = a // b, a % b
+        a, b = b, r
+        u, v = v, u - q * v
+    assert _coprime(a, m) == 1
+    assert (u % m + m) % m == 0
+    return (u % m + m) % m
+
+prev = int('20151125')
+multiplier = 252533
+divisor = 33554393
+row = col = x = y = input_row = input_col = 0
+inp = input().split()[4:]
+print(inp)
+for inp_row, inp_col in zip(int(inp[0]), int(inp[1])):
+    y, x = (row + inp_",0.0
+49,2015,25,2,part1_failed,,,,,
+50,2016,1,1,runtime_error,,287,"Traceback (most recent call last):
+  File ""/tmp/tmpglkiqa0c/tmp.py"", line 7, in <module>
+    turn, distance = point[0], int(point[1:])
+ValueError: invalid literal for int() with base 10: 'L2'
+","
+with open('input.txt') as f:
+    line = f.readline()
+heading = 0 
+x, y = (0, 0)
+for point in line.split("",""):
+    turn, distance = point[0], int(point[1:])
+    heading += 1 if turn == 'R' else -1
+    heading %= 4
+    x += distance * ([0, 1, 0, -1])[heading]
+    y += distance * ([1, 0, -1, 0])[heading]
+print(abs(x)+abs(y))
+",0.0
+51,2016,1,2,part1_failed,,133,,,
+52,2016,2,1,runtime_error,,12578,"  File ""/tmp/tmp8facebo2/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def get_code(instructions):
+  """"""
+  Get the bathroom code from the given instructions.
+
+  Args:
+    instructions (str): The instructions for getting the bathroom code.
+
+  Returns:
+    str: The bathroom code.
+  """"""
+
+  # Create a keypad with the given layout.
+  keypad = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ]
+
+  # Start at the ""5"" button.
+  row, col = 1, 1
+
+  # Process the instructions.
+  code = """"
+  for instruction in instructions.splitlines():
+    for move in instruction:
+      if move == ""U"" and row > 0:
+        row -= 1
+      elif move == ""D"" and row < 2:
+        row += 1
+      elif move == ""L"" and col > 0:
+        col -= 1
+      elif move == ""R"" and col < 2:
+        col += 1
+
+    # Add the current button to the code.
+    code += str",0.0
+53,2016,2,2,part1_failed,,516DD,,,
+54,2016,3,1,no_error,"993
+",993,,"
+with open('input.txt') as f:
+    data = f.readlines()
+
+count = 0
+for line in data:
+    nums = [int(x) for x in line.rstrip().split()]
+    t = 0
+    if nums[0] + nums[1] > nums[2]:
+        t += 1
+    if nums[0] + nums[2] > nums[1]:
+        t += 1
+    if nums[1] + nums[2] > nums[0]:
+        t += 1
+    if t >= 3:
+        count += 1
+
+print(count)
+",0.0
+55,2016,3,2,runtime_error,,1849,"Traceback (most recent call last):
+  File ""/tmp/tmpm9aat4gu/tmp.py"", line 15, in <module>
+    if num[0] + num[1] > num[2]:
+IndexError: string index out of range
+","
+with open('input.txt') as f:
+    data = f.read()
+
+lines = data.splitlines()
+# transpose
+lines = [list(x) for x in zip(*lines)]
+groups = [iter(x) for x in lines]
+
+count = 0
+for nums in zip(*groups, *groups, *groups):
+    t = 0
+    for i, num in enumerate(nums, start=1):
+        other = nums[i:]
+        if num[0] + num[1] > num[2]:
+            t += 1
+        if num[0] + num[2] > num[1]:
+            t += 1
+        if num[1] + num[2] > num[0]:
+            t += 1
+    if t >= 3:
+        count += 1
+
+print(count)
+",0.0
+56,2016,4,1,runtime_error,,245102,"Traceback (most recent call last):
+  File ""/tmp/tmp6w6shqxj/tmp.py"", line 8, in <module>
+    name, _, sector_id, checksum = line.strip().partition(""-"")
+ValueError: not enough values to unpack (expected 4, got 3)
+","
+from collections import Counter
+
+sector_ids = []
+
+with open(""input.txt"", ""r"") as f:
+    for line in f:
+        name, _, sector_id, checksum = line.strip().partition(""-"")
+        checksum = checksum[1:-1]
+        letter_counts = Counter(name)
+        most_common = sorted(letter_counts, key=lambda l: (-letter_counts[l], l))[:5]
+        if """".join(most_common) == checksum:
+            sector_ids.append(int(sector_id))
+
+print(sum(sector_ids))
+",0.0
+57,2016,4,2,part1_failed,,324,,,
+58,2016,5,1,wrong_output,"f97c354d
+",1a3099aa,,"
+import hashlib
+
+door_id = 'reyedfim'
+
+found_characters = []
+i = 0
+while len(found_characters) < 8:
+    md5_hash = hashlib.md5((door_id + str(i)).encode('utf-8')).hexdigest()
+    if md5_hash.startswith('00000'):
+        found_characters.append(md5_hash[5])
+    i += 1
+
+password = ''.join(found_characters)
+print(password)
+",0.0
+59,2016,5,2,part1_failed,,694190cd,,,
+60,2016,6,1,no_error,ygjzvzib,ygjzvzib,,"
+with open('input.txt') as f:
+  lines = f.readlines()
+msg_len = len(lines[0])-1
+
+for i in range(msg_len):
+    col_chars = [l[i] for l in lines]
+    most_frequent_char = max(col_chars, key=col_chars.count)
+    print(most_frequent_char, end='')
+",0.0
+61,2016,6,2,no_error,pdesmnoz,pdesmnoz,,"
+with open('input.txt') as f:
+  lines = f.readlines()
+msg_len = len(lines[0])-1
+
+for i in range(msg_len):
+    col_chars = [l[i] for l in lines]
+    least_frequent_char = min(col_chars, key=col_chars.count)
+    print(least_frequent_char, end='')
+",0.0
+62,2016,7,1,wrong_output,"2000
+",115,,"
+def task(input_file):
+    with open(input_file) as f:
+        words = set()
+        for line in f:
+            for word in line.split():
+                words.add(word.strip('.,!?""').lower())
+        print(len(words))
+
+
+if __name__ == ""__main__"":
+    task(""input.txt"")
+",0.0
+63,2016,7,2,part1_failed,,231,,,
+64,2016,8,1,runtime_error,,115,"  File ""/tmp/tmp1tvl736e/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+class Screen:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.pixels = [['.' for _ in range(width)] for _ in range(height)]
+
+    def rect(self, a, b):
+        for i in range(b):
+            for j in range(a):
+                self.pixels[i][j] = '#'
+
+    def rotate_row(self, y, b):
+        self.pixels[y] = self.pixels[y][-b:] + self.pixels[y][:-b]
+
+    def rotate_column(self, x, b):
+        for y in range(b):
+            temp = self.pixels[-1][x]
+            for i in reversed(range(self.height)):
+                self.pixels[i][x] = self.pixels[i-1][x]
+            self.pixels[0][x] = temp
+
+    def count_lit_pixels(self):
+        count = 0
+        for row in self.pixels:
+            for pixel in row:
+                if pixel ==",0.0
+65,2016,8,2,part1_failed,,"####.####.####.#...##..#.####.###..####..###...##.
+#....#....#....#...##.#..#....#..#.#......#.....#.
+###..###..###...#.#.##...###..#..#.###....#.....#.
+#....#....#......#..#.#..#....###..#......#.....#.
+#....#....#......#..#.#..#....#.#..#......#..#..#.
+####.#....####...#..#..#.#....#..#.#.....###..##..",,,
+66,2016,9,1,wrong_output,"0
+",102239,,"
+with open('input.txt') as f:
+  data = f.read()
+
+stack = [('', 1)]
+result = ''
+
+for char in data:
+    if char in '()':
+        if char == '(':
+            stack.append((result, int(stack[-1][1])))
+            result = ''
+        else:
+            times, count = stack.pop()
+            result = times*count + result
+
+print(len(result))
+",0.0
+67,2016,9,2,part1_failed,,10780403063,,,
+68,2016,10,1,runtime_error,,118,"  File ""/tmp/tmpcvivsmq2/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import fileinput
+
+class Bot(object):
+  def __init__(self, number, low_receiver, high_receiver, low_type, high_type):
+    self.number = number
+    self.low_receiver = low_receiver
+    self.high_receiver = high_receiver
+    self.low_type = low_type
+    self.high_type = high_type
+    self.chips = []
+
+  def __repr__(self):
+    return ""Bot(%d, %d, %d, %s, %s)"" % (
+      self.number, self.low_receiver, self.high_receiver, self.low_type, self.high_type)
+
+class Output(object):
+  def __init__(self, number):
+    self.number = number
+    self.chips = []
+
+bots = []
+outputs = []
+for line in fileinput.input():
+  line = line.strip()
+  if line.startswith('value'):
+    value, bot = line[6:].split(' goes to bot ')
+    bot = int(bot)
+    bots[bot].chips.append(int(",0.0
+69,2016,10,2,part1_failed,,143153,,,
+70,2016,11,1,runtime_error,,37,"  File ""/tmp/tmpmeovc7g1/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict, Counter
+from heapq import heappush, heappop
+
+data = [l for l in open(""input.txt"", ""r"").read().split(""\n"") if l]
+floor_map = defaultdict(list)
+for row in data:
+    tokens = row.split("" "")
+    floor = int(row.split(""Floor "")[1].split()[0])
+    item_type, item_name, *rest = row.split("" "")
+    if ""Generator"" in row:
+        item_type = ""generator""
+    elif ""microchip"" in row:
+        item_type = ""chip""
+    floor_map[floor].append((item_type, item_name))
+
+pairs = Counter()
+for generator, chips in floor_map.items():
+    for chip in chips:
+        if ""chip"" in chip:
+            pairs[(chip[1], generator[1])] = 1
+
+def valid(chips, generators, chip, generator, chipfloor, generatorfloor):
+    is_valid = True
+    for chip in chips:
+        if chip[1] not in generators:
+            is_valid",0.0
+71,2016,11,2,part1_failed,,61,,,
+72,2016,12,1,runtime_error,,318083,"  File ""/tmp/tmp0rj4obe_/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+inp = """"""cpy 1 a
+cpy 1 b
+cpy 26 d
+jnz c 2
+jnz 1 5
+cpy 7 c
+inc d
+dec c
+jnz c -2
+cpy a c
+inc a
+dec b
+jnz b -2
+cpy c b
+dec d
+jnz d -6
+cpy 18 c
+cpy 11 d
+inc a
+dec d
+jnz d -2
+dec c
+jnz c -5""""""
+
+regs = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
+p = inp.splitlines()
+i = 0
+while 0 <= i < len(p):
+    l = p[i].split()
+    if l[0] == ""cpy"":
+        try:
+            regs[l[2]] = int(l[1])
+        except:
+            regs[l[2]] = regs[l[1]]
+    elif l[0] == ""inc"":
+        regs[l[1]] += 1
+    elif l[0] == ""dec"":",0.0
+73,2016,12,2,part1_failed,,9227737,,,
+74,2016,13,1,runtime_error,,92,"  File ""/tmp/tmp6ckm7235/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Read the input file
+with open('input.txt') as f:
+    favorite_number = int(f.read())
+
+# Function to calculate the number of steps required to reach a certain point
+def calculate_steps(x, y, favorite_number):
+    # Calculate the sum of the values
+    value = x*x + 3*x + 2*x*y + y + y*y + favorite_number
+
+    # Convert the sum to binary representation
+    binary = bin(value)[2:]
+
+    # Count the number of 1s in the binary representation
+    ones = binary.count('1')
+
+    # If the number of 1s is even, it's an open space. Otherwise, it's a wall.
+    if ones % 2 == 0:
+        return 0
+    else:
+        return 1
+
+# Initialize the starting point
+start_x = 1
+start_y = 1
+
+# Initialize the destination point
+end_x = 31
+end_y = 39
+
+# Initialize the number of steps
+steps = 0
+
+# Loop until the destination is reached",0.0
+75,2016,13,2,part1_failed,,124,,,
+76,2016,14,1,wrong_output,"932
+",23890,,"
+from hashlib import md5
+
+def generate_keys(salt, pad_length):
+  index = 0
+  count = 0
+  while count < pad_length:
+    hash = md5((salt + str(index)).encode('utf-8')).hexdigest()
+    triples = [c * 3 for c in hash]
+    for triple in triples:
+      if triple in hash[hash.find(triple) + 1:hash.find(triple) + 1 + 1000]:
+        count += 1
+        if count == pad_length:
+          return index
+    index += 1
+
+with open('input.txt') as f:
+  salt = f.read().strip()
+print(generate_keys(salt, 64))
+",0.0
+77,2016,14,2,part1_failed,,22696,,,
+78,2016,15,1,runtime_error,,400589,"Traceback (most recent call last):
+  File ""/tmp/tmpu2c1pyea/tmp.py"", line 15, in <module>
+    discs = [Disc(*[int(x) for x in line.strip().split()[3:]]) for line in f]
+  File ""/tmp/tmpu2c1pyea/tmp.py"", line 15, in <listcomp>
+    discs = [Disc(*[int(x) for x in line.strip().split()[3:]]) for line in f]
+  File ""/tmp/tmpu2c1pyea/tmp.py"", line 15, in <listcomp>
+    discs = [Disc(*[int(x) for x in line.strip().split()[3:]]) for line in f]
+ValueError: invalid literal for int() with base 10: 'positions;'
+","
+class Disc:
+    def __init__(self, positions, start):
+        self.positions = positions
+        self.start = start
+        self.current = start % positions
+
+    def tick(self):
+        self.current = (self.current + 1) % self.positions
+
+    def is_aligned(self, time):
+        return (self.start + time) % self.positions == 0
+
+with open('input.txt') as f:
+    discs = [Disc(*[int(x) for x in line.strip().split()[3:]]) for line in f]
+
+time = 0
+while not all(d.is_aligned(time) for d in discs):
+    time += 1
+
+print(f""Press the button at time={time} to get a capsule."")
+",0.0
+79,2016,15,2,part1_failed,,3045959,,,
+80,2016,16,1,timeout_error,,10100011010101011,TIMEOUT,"
+s = input('input.txt').strip()
+while len(s) < 272:
+    s += '0' + ''.join(reversed('1' if c=='0' else '0' for c in s))
+
+checksum = s[:272]
+while len(checksum) % 2 == 0:
+    checksum = ''.join('1' if c==nxt else '0' for c, nxt in zip(checksum, checksum[1:]))
+
+print(checksum)
+",0.0
+81,2016,16,2,part1_failed,,01010001101011001,,,
+82,2016,17,1,runtime_error,,RDDRULDDRR,"  File ""/tmp/tmpfp8m9lbl/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import hashlib
+
+def valid_move(path, doors):
+    # up
+    if doors[0] in ""bcde"" or path.endswith('D'):
+        c_path = path+'U'
+        return c_path
+    # down
+    if doors[1] in ""bcde"" or path.endswith('U'):
+        c_path = path+'D'
+        return c_path
+    # left
+    if doors[2] in ""bcde"" or path.endswith('R'):
+        c_path = path+'L'
+        return c_path
+    # right
+    if doors[3] in ""bcde"" or path.endswith('L'):
+        c_path = path+'R'
+        return c_path
+
+with open('input.txt') as f:
+    code = f.read().strip()
+
+door_map = {
+    'U': 0,
+    'D': 1,
+    'L': 2,
+    'R': 3
+}
+
+# start at top left room
+path = ''
+
+while True:
+    h = hashlib.md5(code",0.0
+83,2016,17,2,part1_failed,,766,,,
+84,2016,18,1,syntax_error,,1913,"  File ""/tmp/tmpm1hl0anf/tmp.py"", line 6
+    next_row = ['.' if (all(room[num_row-1-n][pos] in ['.', '^']) for n, pos in enumerate([(0,-1),(0, 0),(0, 1)]))+all(room[num_row-1-n][pos] in ['^']) for n, pos in enumerate([(1,-1),(1, 0)]) else '^' for num_row-1 >= n >= 0]
+                                                                                                                                                        ^
+SyntaxError: invalid syntax
+","
+with open('input.txt') as row1:
+    safe_area = 0
+    room = list(row1.read().splitlines())
+    for num_row in range(1, 41):
+        next_row = ['.' if (all(room[num_row-1-n][pos] in ['.', '^']) for n, pos in enumerate([(0,-1),(0, 0),(0, 1)]))+all(room[num_row-1-n][pos] in ['^']) for n, pos in enumerate([(1,-1),(1, 0)]) else '^' for num_row-1 >= n >= 0]
+        room.append(next_row)
+    for index, row in enumerate(room):
+        for elem in row:
+            if elem == '.':
+                safe_area += 1
+
+print(safe_area)
+",0.0
+85,2016,18,2,part1_failed,,19993564,,,
+86,2016,19,1,timeout_error,,1808357,TIMEOUT,"
+with open(""input.txt"", ""r"") as f:
+    elves = int(f.read())
+elves_list = list(range(1, elves + 1))
+current_elf = 0
+while len(elves_list) > 1:
+    to_remove = (current_elf + 1) % len(elves_list)
+    elves_list.pop(to_remove)
+    current_elf = to_remove % len(elves_list)
+print(elves_list[0])
+",0.0
+87,2016,19,2,part1_failed,,1407007,,,
+88,2016,20,1,wrong_output,,32259706,,"
+allowed_ips = set()
+
+with open(""input.txt"") as f:
+    for line in f:
+        start, end = map(int, line.split('-'))
+        for ip in range(start, end + 1):
+            allowed_ips.add(ip)
+
+for ip in range(4294967296):
+    if ip not in allowed_ips:
+        print(ip)
+        break
+",0.0
+89,2016,20,2,part1_failed,,113,,,
+90,2016,21,1,runtime_error,,gbhafcde,"  File ""/tmp/tmpmkrj4oet/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+def scramble(password, instructions):
+  for instruction in instructions:
+    if instruction.startswith(""swap position""):
+      match = re.match(r""swap position (\d+) with position (\d+)"", instruction)
+      i = int(match.group(1))
+      j = int(match.group(2))
+      password[i], password[j] = password[j], password[i]
+    elif instruction.startswith(""swap letter""):
+      match = re.match(r""swap letter (\w) with letter (\w)"", instruction)
+      x = match.group(1)
+      y = match.group(2)
+      i = password.index(x)
+      j = password.index(y)
+      password[i], password[j] = password[j], password[i]
+    elif instruction.startswith(""rotate left""):
+      match = re.match(r""rotate left (\d+) step"", instruction)
+      n = int(match.group(1))
+      password = password[n:] + password[:n]
+    elif instruction.startswith(""rotate right""):
+      match = re",0.0
+91,2016,21,2,part1_failed,,bcfaegdh,,,
+92,2016,22,1,wrong_output,"The number of viable pairs of nodes is: 901
+",901,,"
+from typing import List
+
+# Read the input file (input.txt) and parse the data
+with open(""input.txt"") as f:
+    lines = f.readlines()
+
+nodes_info = []  # List of tuples containing node information (Node name, Used, Avail)
+for line in lines[2:]:
+    parts = line.split()
+    nodes_info.append((parts[0], int(parts[2][:-1]), int(parts[3][:-1])))
+
+# Count the number of viable pairs of nodes
+viable_pairs = 0
+for node_a in nodes_info:
+    if node_a[1] == 0:
+        continue  # Skip empty nodes
+
+    for node_b in nodes_info:
+        if node_a == node_b:
+            continue  # Skip comparing a node to itself
+
+        if node_a[1] <= node_b[2]:
+            viable_pairs += 1
+
+# Print the result
+print(f""The number of viable pairs of nodes is: {viable_pairs}"")
+",0.0
+93,2016,22,2,part1_failed,,238,,,
+94,2016,23,1,runtime_error,,12516,"  File ""/tmp/tmp58rep9v5/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import math
+
+def main():
+    # Read input from file
+    with open('input.txt', 'r') as f:
+        lines = f.readlines()
+
+    # Initialize variables
+    reg = {}  # Register
+    instr_ptr = 0  # Instruction pointer
+    toggled = False  # Flag to indicate if an instruction has been toggled
+
+    # Loop through instructions until the program terminates or an invalid instruction is encountered
+    while True:
+        # Get the current instruction
+        instr = lines[instr_ptr].split()
+
+        # Check if the instruction is a valid one
+        if instr[0] not in ['cpy', 'inc', 'dec', 'jnz', 'tgl']:
+            break
+
+        # Check if the instruction has been toggled
+        if toggled:
+            if len(instr) == 2:
+                instr[0] = 'dec' if instr[0] == 'inc' else 'inc'
+            elif len(instr) == 3:
+                instr[0] = 'cpy' if instr[0] == 'jnz' else 'jnz'
+
+        # Execute the instruction
+        ",0.0
+95,2016,23,2,part1_failed,,479009076,,,
+96,2016,24,1,runtime_error,,498,"  File ""/tmp/tmpt2gr1b_t/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+def find_shortest_path(grid):
+  # Find the starting position.
+  start_x, start_y = 0, 0
+  for i, row in enumerate(grid):
+    for j, col in enumerate(row):
+      if col == 0:
+        start_x, start_y = i, j
+        break
+
+  # Create a queue of points to visit.
+  queue = [(start_x, start_y)]
+
+  # Create a visited set to keep track of visited points.
+  visited = set()
+
+  # Create a distance array to keep track of the shortest distance to each point.
+  distance = [[sys.maxsize for _ in row] for row in grid]
+  distance[start_x][start_y] = 0
+
+  # Iterate over the queue of points to visit.
+  while queue:
+    # Get the current point.
+    x, y = queue.pop(0)
+    
+    visited.add((x,y))
+    
+    # check all unvisited neighbors
+    for dx, dy in [(1,0), (-1,0), (",0.0
+97,2016,24,2,part1_failed,,804,,,
+98,2016,25,1,runtime_error,,196,"  File ""/tmp/tmpx6riv_19/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+data = [int(x) for x in open(""input.txt"").readlines()]
+registers = {'a': 0, 'b': 0}
+
+def run():
+    i = 0
+    while i < len(data):
+        if data[i] == 1:
+            registers['a'] = registers['b'] | 65536
+            registers['b'] = 9132803
+        elif data[i] == 2:
+            registers['b'] = 65536 * registers['a'] + registers['b']
+            registers['a'] = 0
+        elif data[i] == 3:
+            registers['b'] = registers['b'] & 16777215
+            registers['a'] = 0
+        elif data[i] == 4:
+            registers['a'] = registers['b']
+        elif data[i] == 5:
+            registers['b'] = registers['a']
+        elif data[i] == 6:
+            registers['b'] = registers['a'] & registers['b']
+        ",0.0
+99,2016,25,2,part1_failed,,,,,
+100,2017,1,1,wrong_output,,1177,,"
+sum([int(digit) for d, digit in enumerate(open('input.txt').read().strip()) if digit == open('input.txt').read().strip()[(d + 1) % len(open('input.txt').read().strip())]])
+",0.0
+101,2017,1,2,part1_failed,,1060,,,
+102,2017,2,1,no_error,"45158
+",45158,,"
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
+
+checksum = 0
+
+for line in lines:
+    nums = [int(num) for num in line.split()]
+    checksum += max(nums) - min(nums)
+
+print(checksum)
+",0.0
+103,2017,2,2,wrong_output,"294.0
+",294,,"
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
+
+checksum = 0
+
+for line in lines:
+    nums = [int(num) for num in line.split()]
+    for num1 in nums:
+        for num2 in nums:
+            if num1 != num2 and num1 % num2 == 0:
+                checksum += num1 / num2
+
+print(checksum)
+",0.0
+104,2017,3,1,runtime_error,,438,"  File ""/tmp/tmpv5jv8llo/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as input:
+    target = int(input.read())
+
+n = 1
+while n * n < target:
+    n += 2
+
+grid = [[0] * n for _ in range(n)]
+
+i, j = n // 2, n // 2
+v = 1
+while v <= target:
+    if grid[i][j] != 0:
+        i, j = i + 1, j
+    else:
+        grid[i][j] = v
+        k, l = i, j
+        while k >= 0 and k < n and l >= 0 and l < n and grid[k][l] == 0:
+            grid[k][l] = v
+            k, l = k - 1, l - 1
+        v += 1
+        while grid[i][j] != 0:
+            j = (j + 1) % n
+
+ans = 0
+for k in range(n):
+    for l in range(n):
+        if grid[k][l] == target:
+            ans = abs",0.0
+105,2017,3,2,part1_failed,,266330,,,
+106,2017,4,1,runtime_error,,383,"Traceback (most recent call last):
+  File ""/tmp/tmpe8e656k8/tmp.py"", line 4, in <module>
+    words = valid_passphrases[i].split(' ')
+IndexError: list index out of range
+","
+valid_passphrases = open('input.txt').read().splitlines()
+for i in range(len(valid_passphrases)):
+    words = valid_passphrases[i].split(' ')
+    duplicates = set()
+    for j in range(len(words)):
+        if words[j] in duplicates:
+            valid_passphrases.pop(i)
+            break
+        duplicates.add(words[j])
+print(len(valid_passphrases))
+",0.0
+107,2017,4,2,part1_failed,,265,,,
+108,2017,5,1,no_error,"391540
+",391540,,"
+with open('input.txt') as f:
+  offsets = [int(line) for line in f]
+
+steps = 0
+i = 0
+while 0 <= i < len(offsets):
+  steps += 1
+  new_pos = i + offsets[i]
+  offsets[i] += 1
+  i = new_pos
+
+print(steps)
+",0.0
+109,2017,5,2,wrong_output,"16
+",30513679,,"
+with open('input.txt') as f:
+  offsets = [int(line) for line in f]
+
+steps = 0
+i = 0
+while 0 <= i < len(offsets):
+  steps += 1
+  new_pos = i + offsets[i]
+  if abs(offsets[i]) >= 3:
+    offsets[i] -= 1
+  else:
+    offsets[i] += 1
+  i = new_pos
+
+print(steps)
+",0.0
+110,2017,6,1,runtime_error,,6681,"Traceback (most recent call last):
+  File ""/tmp/tmp08307ohn/tmp.py"", line 18, in <module>
+    reallocate(banks)
+  File ""/tmp/tmp08307ohn/tmp.py"", line 9, in reallocate
+    banks[index] = banks[index] + 1
+TypeError: can only concatenate str (not ""int"") to str
+","
+def reallocate(banks):
+  banks = banks[:]  # Make a copy
+  while True:
+    index, blocks = max(enumerate(banks), key=lambda x: x[1])
+    banks[index] = 0
+    while blocks:
+      index = (index + 1) % len(banks)
+      banks[index] = banks[index] + 1
+      blocks = blocks - 1
+    seen = set()
+    while ','.join(map(str, banks)) in seen:
+      return len(seen)
+    seen.add(','.join(map(str, banks)))
+
+with open('input.txt') as f:
+  banks = f.read().strip().split()
+  reallocate(banks)
+",0.0
+111,2017,6,2,part1_failed,,2392,,,
+112,2017,7,1,runtime_error,,cyrupz,"Traceback (most recent call last):
+  File ""/tmp/tmpxmah6lgp/tmp.py"", line 15, in <module>
+    programs[name] = {'weight': weight, 'children': children.split(', ')}
+AttributeError: 'NoneType' object has no attribute 'split'
+","
+import re
+
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
+
+programs = {}
+
+for line in lines:
+    match = re.match(r'(\w+) \((\d+)\)(?: -> (.*))?', line)
+    if match:
+        name = match.group(1)
+        weight = int(match.group(2))
+        children = match.group(3)
+        programs[name] = {'weight': weight, 'children': children.split(', ')}
+
+# Start at the end and work our way back
+
+def find_root(programs):
+    for program in programs.keys():
+        if program not in [child for children in programs.values() for child in children]:
+            return find_bottom_program(programs, program)
+
+# Find the bottom program recursively
+
+def find_bottom_program(programs, program):
+    if not programs[program]['children']:
+        return program
+    else:
+        return find_bottom_program(programs, programs[program]['children'][0])
+
+print(find_root(programs))
+",0.0
+113,2017,7,2,part1_failed,,193,,,
+114,2017,8,1,syntax_error,,4448,"Traceback (most recent call last):
+  File ""/tmp/tmp1fny4huk/tmp.py"", line 9, in <module>
+    if eval(str(register.get(val, 0)) + num):
+  File ""<string>"", line 1
+    0wnh
+     ^
+SyntaxError: unexpected EOF while parsing
+","
+register = {}
+with open('input.txt') as f:
+    for line in f:
+        instr, cond = line.split(' if ')
+        reg, op, num = instr.split()
+        num, _, val = cond.partition(' ')
+
+        if eval(str(register.get(val, 0)) + num):
+            if op == 'inc':
+                register[reg] = register.get(reg, 0) + int(num)
+            else:
+                register[reg] = register.get(reg, 0) - int(num)
+
+largest = max(x for x in register.values())
+
+print('The largest register value is:', largest)
+",0.0
+115,2017,8,2,part1_failed,,6582,,,
+116,2017,9,1,wrong_output,"-174952
+",7640,,"
+total_score = 0
+depth = 0
+inside_garbage = False
+for c in open('input.txt').read():
+    if not inside_garbage:
+        if c == '{':
+            depth += 1
+        elif c == '}':
+            total_score += depth
+            depth -= 1
+        elif c == '<':
+            inside_garbage = True
+    else:
+        if c == '!':
+            next(open('input.txt'))
+        elif c == '>':
+            inside_garbage = False
+print(total_score)
+",0.0
+117,2017,9,2,part1_failed,,4368,,,
+118,2017,10,1,runtime_error,,46600,"Traceback (most recent call last):
+  File ""/tmp/tmp6rj3hmyy/tmp.py"", line 3, in <module>
+    lengths = list(map(int, input))
+ValueError: invalid literal for int() with base 10: ','
+","
+input = list(open(""input.txt"", ""r"").readline())
+lengths = list(map(int, input))
+
+numbers = list(range(256))
+skip_size = 0
+cur = 0
+
+for length in lengths:
+    to_reverse = numbers[cur:cur + length]
+    to_reverse.reverse()
+    numbers[cur:cur + length] = to_reverse
+
+    cur += length
+    cur += skip_size
+    cur = cur % len(numbers)
+
+    skip_size += 1
+
+print(numbers[0] * numbers[1])
+",0.0
+119,2017,10,2,part1_failed,,23234babdc6afa036749cfa9b597de1b,,,
+120,2017,11,1,no_error,"696
+",696,,"
+input_file = open(""input.txt"", ""r"")
+commands = [line.strip().split("","") for line in input_file.readlines()][0]
+x, y = 0, 0
+direction = {""n"": (0, 1), ""ne"": (1, 1), ""se"": (1, 0),
+                 ""s"": (0, -1), ""sw"": (-1, -1), ""nw"": (-1, 0)}
+for command in commands:
+    dx, dy = direction[command]
+    x, y = x + dx, y + dy
+print(max(abs(x), abs(y)))
+",0.0
+121,2017,11,2,no_error,"1461
+",1461,,"
+input_file = open(""input.txt"", ""r"")
+commands = [line.strip().split("","") for line in input_file.readlines()][0]
+x, y = 0, 0
+max_dist = 0
+direction = {""n"": (0, 1), ""ne"": (1, 1), ""se"": (1, 0),
+                 ""s"": (0, -1), ""sw"": (-1, -1), ""nw"": (-1, 0)}
+for command in commands:
+    dx, dy = direction[command]
+    x, y = x + dx, y + dy
+    max_dist = max(max_dist, max(abs(x), abs(y)))
+print(max_dist)
+",0.0
+122,2017,12,1,no_error,"288
+",288,,"
+with open('input.txt', 'r') as f:
+    programs = f.read().splitlines()
+
+# Create a dictionary of programs and their connections
+program_connections = {}
+for program in programs:
+    program_id, connections = program.split(' <-> ')
+    program_connections[int(program_id)] = [int(connection) for connection in connections.split(', ')]
+
+# Function to perform a depth-first search of the program connections
+def dfs(program_id, visited):
+    # Mark the program as visited
+    visited.add(program_id)
+
+    # Recursively visit all of the program's connections
+    for connection in program_connections[program_id]:
+        if connection not in visited:
+            dfs(connection, visited)
+
+# Perform a depth-first search starting from program ID 0
+visited = set()
+dfs(0, visited)
+
+# Print the number of programs in the group that contains program ID 0
+print(len(visited))
+",0.0
+123,2017,12,2,runtime_error,,211,"  File ""/tmp/tmpos0k8n8t/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Read the program connections from the input file
+with open('input.txt', 'r') as f:
+    programs = f.read().splitlines()
+
+# Create a dictionary of programs and their connections
+program_connections = {}
+for program in programs:
+    program_id, connections = program.split(' <-> ')
+    program_connections[int(program_id)] = [int(connection) for connection in connections.split(', ')]
+
+# Function to perform a depth-first search of the program connections
+def dfs(program_id, visited):
+    # Mark the program as visited
+    visited.add(program_id)
+
+    # Recursively visit all of the program's connections
+    for connection in program_connections[program_id]:
+        if connection not in visited:
+            dfs(connection, visited)
+
+# Count the number of groups
+num_groups = 0
+
+# While there are still unvisited programs, perform a depth-first search and increment the group count
+visited = set()
+for program_id in program_connections:
+    if program_id not in visited:
+        dfs(program_id, visited)
+        ",0.0
+124,2017,13,1,wrong_output,"Trip severity: 0
+",1624,,"
+with open('input.txt') as f:
+    layers = [tuple([int(x) for x in line.split(': ')]) for line in f]
+max_layer = max(x for x, _ in layers) + 1
+
+delay, caught = 0, False
+while delay <= max_layer and not caught:
+    for depth, range_ in layers:
+        scan_pos = (delay + depth) % (2 * (range_ - 1))
+        if scan_pos == 0:
+            caught = True
+            severity = depth * range_
+            break
+    if not caught: delay += 1
+
+if caught:
+    print(f'Trip severity: {severity}')
+else:
+    print('You made it through the firewall undetected.')
+",0.0
+125,2017,13,2,part1_failed,,3923436,,,
+126,2017,14,1,runtime_error,,8148,"  File ""/tmp/tmpyi9hb5zw/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import hashlib
+import numpy as np
+
+def knot_hash(key, n_rounds=64, list_size=256):
+    key_ascii = [ord(c) for c in key] + [17, 31, 73, 47, 23]
+    key_ascii *= int(n_rounds/4)
+
+    # Initialize list
+    pos, skip, circular_list = 0, 0, list(range(list_size))
+
+    # Run rounds
+    for length in key_ascii:
+        sublist = circular_list[pos: pos + length]
+        sublist.reverse()
+        circular_list = circular_list[: pos] + sublist + circular_list[pos + length :]
+        pos = (pos + skip + length) % list_size
+        skip += 1
+
+    # Convert to dense hash
+    dense_hash = []
+    for block in range(16):
+        block_hash = np.uint8(circular_list[block * 16: block * 16 + 16]).prod()
+        dense_hash",0.0
+127,2017,14,2,part1_failed,,1180,,,
+128,2017,15,1,timeout_error,,650,TIMEOUT,"
+mul_a, mul_b = 16807, 48271
+div = 2147483647
+a, b = int(open('input.txt').read().strip().split('\n')[0].split()[-1]), int(open('input.txt').read().strip().split('\n')[1].split()[-1])
+count = 0
+for _ in range(40_000_000):
+    while True:
+        a = (a * mul_a) % div
+        if a % 4 == 0: break
+    while True:
+        b = (b * mul_b) % div
+        if b % 8 == 0: break
+    if bin(a)[-16:] == bin(b)[-16:]:
+        count += 1
+print(count)
+",0.0
+129,2017,15,2,part1_failed,,336,,,
+130,2017,16,1,no_error,"nlciboghjmfdapek
+",nlciboghjmfdapek,,"
+# Read the dance moves from the input file
+with open(""input.txt"", ""r"") as f:
+    dance_moves = f.read().strip().split("","")
+
+# Initialize the list of program positions
+programs = list(""abcdefghijklmnop"")
+
+# Perform the dance moves
+for move in dance_moves:
+    if move[0] == ""s"":
+        n = int(move[1:])
+        programs = programs[-n:] + programs[:-n]
+    elif move[0] == ""x"":
+        pos1, pos2 = map(int, move[1:].split(""/""))
+        programs[pos1], programs[pos2] = programs[pos2], programs[pos1]
+    elif move[0] == ""p"":
+        prog1, prog2 = move[1:].split(""/"")
+        pos1 = programs.index(prog1)
+        pos2 = programs.index(prog2)
+        programs[pos1], programs[pos2] = programs[pos2], programs[pos1]
+
+# Print the order of the programs after the dance
+print("""".join(programs))
+",0.0
+131,2017,16,2,runtime_error,,nlciboghmkedpfja,"  File ""/tmp/tmpwhmqy1fi/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Read the dance moves from the input file
+with open(""input.txt"", ""r"") as f:
+    dance_moves = f.read().strip().split("","")
+
+# Initialize the list of program positions
+programs = list(""abcdefghijklmnop"")
+
+# Perform the dance moves
+for _ in range(1000000000):
+    for move in dance_moves:
+        if move[0] == ""s"":
+            n = int(move[1:])
+            programs = programs[-n:] + programs[:-n]
+        elif move[0] == ""x"":
+            pos1, pos2 = map(int, move[1:].split(""/""))
+            programs[pos1], programs[pos2] = programs[pos2], programs[pos1]
+        elif move[0] == ""p"":
+            prog1, prog2 = move[1:].split(""/"")
+            pos1 = programs.index(prog1)
+            pos2 = programs.index(prog2)
+            programs[pos1], programs[pos2] = programs[pos2], programs[pos1]
+
+# Print the order of the programs after the",0.0
+132,2017,17,1,no_error,"640
+",640,,"
+with open('input.txt') as f: steps = int(f.read())
+buf = [0]
+pos = 0
+for number in range(1, 2018):
+    pos = (pos + steps) % len(buf) + 1
+    buf.insert(pos, number)
+print(buf[buf.index(2017) + 1])
+",0.0
+133,2017,17,2,timeout_error,,47949463,TIMEOUT,"
+with open('input.txt') as f: steps = int(f.read())
+buf = [0]
+pos = 0
+for number in range(1, 50000001):
+    pos = (pos + steps) % len(buf) + 1
+    buf.insert(pos, number)
+print(buf[buf.index(0) + 1])
+",0.0
+134,2017,18,1,runtime_error,,4601,"  File ""/tmp/tmpum3jxk5w/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as input_file:
+    instructions = input_file.read().splitlines()
+
+registers = {c: 0 for c in 'abcdefghijklmnopqrstuvwxyz'}
+last_sound_played = None
+
+ip = 0
+while ip < len(instructions):
+    instruction = instructions[ip].split()
+    opcode, x = instruction[0], instruction[1]
+    if len(instruction) == 3:
+        y = instruction[2]
+    else:
+        y = None
+
+    x = registers.get(x, int(x))
+    y = registers.get(y, int(y))
+
+    if opcode == 'snd':
+        last_sound_played = x
+    elif opcode == 'set':
+        registers[x] = y
+    elif opcode == 'add':
+        registers[x] += y
+    elif opcode == 'mul':
+        registers[x] *= y
+    elif opcode == 'mod':
+        registers[x] %= y
+    elif opcode == 'rcv':
+        if x != 0:
+            print(last_sound_played)
+            break
+    elif",0.0
+135,2017,18,2,part1_failed,,6858,,,
+136,2017,19,1,wrong_output,"               - --  | |          ||
++|-----++|  | |         |  -|-|-+---+ |   | | |  |      |  |   |-|----|-- | | |  |      |  |  
+ +-|-    |  |  
+  ||  | |  |       |  |  
+ ||  |+-- |  |  
+  | ||  || |  |||        |  |  
+|-|+ || |  |||+--- |  |  
+ | |  || |  |||| |     | |  |  
+ | | ---||| |     | |  |  
+ | | | || |  ||| |     | |  |  
+ | | | || |  ||| |--  | |  |  
+ | | | || |  ||| ||      | |  |  
+ | |+|-|-|--|||-|---  | |  |+ 
+ | |||| || |  ||| ||       | |  |||| 
+ | ||+-|-|--+|+-  -|-|  |||| 
+ | ||  || |  ||||||  ||       |  |  |||| 
+-||+ || |  |||||| |-     |  |  ||+
+  | |||| || |  ||||||   ||      |  |  || 
+  | |||| || |  ||+|-  ||      +-|  || 
+  | |||| || |  || ||||  ||         |  || 
+-|----|| ||||  ||     |  || 
+ | |||| || | | || ||||  ||           |  || 
+ | |||| || | | || ||||  ||       +-  |+
+ | |||| || | | || ||||  ||       ||  | |  |  
+ | |||| || +---|       |+--+ 
+ | |||| ||  | || ||||  |       |  | |  ||  
+|-|+ ||  | ||+||---|---- | |  + 
+| | ||  ||  | ||||||||  |       ||  | |      
+| | ||  ||  | ||||||||  |     ----- 
+| | ||  ||  | ||||||||  |        ||  | |     
+| |+-|-|-|-|-----|---- 
+| |||||  ||  | ||||||||  |        ||  | |      
+| |||||  ||  | ||||||||  |        ||  | |      
+| |||||  ||  | ||||||||  |        ||  | |      
+| |||||  || |--------- |--    
+| |||||  || | ||||||||  |        |  || |     
+| |||||  || | ||||||||  | -- |  |+-   
+| |||||  || | ||||||||  |        | |  | | ||   
+| ||||| +-|--|||--        | |  | | ||   
+| ||||| |||| | ||||||||          | |  | | ||   
+| ||||| ||+-||||||||          | |  | | ||   
+| ||||| ||  |||||||||||          | |  | | ||   
+| ||||| ||  |||||||||||       -|  | |   
+| ||||| ||  |||||||||||       |    |  |  | |   
+| ||||| ||  |||||||||||       |  +---|-
+| ||||| ||  |||||||||||       |  |  |  |  | |  ||
+| ||||| ||  |||||||||||       |  |  |  |  | |  ||
+| ||||| ||  |||||||||||       |  |  |  |   |  ||
+| ||||| ||  |||||||||||       |  |  |  |  | |  ||
+| ||||| ||  |||||||||||       |  |  |  |  | |  ||
+| -|--|||||||||||       |  |  |  |  | |  ||
+| |||||| ||   |||||||||||       |  |  |  |  | |  ||
+| |||||| ||   |||||||||||     |  |  |  |  | |  ||
+| |||||| ||   ||||||||||| |       |  |  |  |  | |  ||
+| |||||| ||   ||||||||||| |       |  |  |  |  | | ||
+| |||||| ||   ||||||||||| |       |  |  |  |  | | |||
+| |||||| ||   ||---+      |  |  |  |  | | |||
+| |||||| ||   |||||||||| ||       |  |  |  |  | | |||
+| ||||+--|-||-| ||       |  |  |  |  | | |||
+| ||||  || | ||||||| | ||       |  |  |  |  | | |||
+| ||||  || | |||+----  |   +  | | |||
+| ||||  || | ||| || | ||    |   |     |   | | |||
+| ||||+-|-----||  -----  | | |||
+| |||||| | || ||| || |||||   |   |     ||   | | |||
+| ||||+|-+-|-|---|-++-----|
+| ||||  |  ||| || |||||   | | |||     | ||   | | |  |
+| |||| +-+||---|||-|-- | +- | | |  |
+| |||| ||| || ||| || |||||   | | |||    |    | | |  |
+| |||| ||| ||+||+-||-  | | |||    |  --|-|
+| |||| ||| |||  || || ||||||   | | |||    |   | | | |||
+| |||| +-----||-- | |||    |   | | | |||
+| ||||  | |||  || || ||||||    | |||    |   | | | |||
+| |-|-----+|| ||||||    | |||    |   | | | |||
+|  ||||  | |||  ||| || ||||||    | |||    |   | | | |||
+|  +-+ | |||  +-|---  ----   | | | |||
+|   |||| | |||   | || ||||||||  | | |||       | | | |||
+| ||-|+|||   +||||||||  | | |||    ---|+| |||
+|  |||| ||||||    ||||||||||||  | | |||      | |||| |||
+|  |||+|||||-----||------  | |||| |||
+|  ||| ||||||    ||||||||||||  | | |||       | |||| |||
+|  ||| |+|- |+-----|-     | |||| |||
+|  ||| | |||   | |||||||||  | | ||| |      | |||| |||
+|  ||| | |||   | ||||||||| -|-|-|--|--- | |||| |||
+|  ||| | |||   | ||||||||| | | | ||| |       | |||| |||
+|  ||+|||   +|||||||| | +- | |||| |||
+|  || ||||||    |||||||| | || ||| |     || | |||| |||
+|  || |-|---------++    || | |||| |||
+|  || |||||||    |||||||| | || | |||    || | |||| |||
+|  || |||||||    -||--||--|------+|| |||
+|  || |||||||    ||||||||| | || | |||    || |  || |||
+| || |||||||    ||||||||| | || | |||    || |  +|
+|  || |||||||    ||||||||| | || | |||    || |  |  |
++ || |||||||    ||||||||| | ||-|||    || |  |   | || |||||||    ||||||||| | |||  |||    || |  |   |+|| |||||||    ||||||||| | |||  |||    || |  |   ||| || |||||||    ||||||||| | |||  |||    || |  |  |
+ ||| ||||| +-||||||||| | |||  |||   ----
+ ||| |  ||||| |  ||||||||| | |||  |||   || |  |  
+ ||| |  ||||| |  --|-----|--  
+ ||| |  ||||| |  |||||||| | |||  |||   || |    
+ -----|-||-|----|||-  || |    
+ || |  ||||| |  |||||||| | |||  |||    || |    
+ || |  ||||| |  ||+---+ || |    
+ || |  ||||| |  || |||| | |||  |||  || || |    
+ || -----|| ||+-|---|| || |    
+ || ||  ||||| |   || ||  | |||  |||  ||| || |    
+ || ||  ||-++------||  ||+| |    
+ || ||  |||| |  ||  ||  | |||  ||  || | |    
+ || ||  |||| |  ||  ||  | |||  ||  || | |    
+ || ||  |||| |  ||  ||  | |||  ||  || | |    
++-||-||---|----------|--- 
+| || ||  |||| |  ||  ||  | |||  ||  || | |   
+| || ||  |||+--------||  +| |   
+| || ||  ||| |  ||  ||  | ||| ||   | |   
+| || ||  ||| |  || --|+ ||   | |   
+| || ||  ||| |  || ||  | |  ||   | |   
+| || ||  |||+------ -| |   
+| || ||  |||| |  || ||  |  |     | |   
+| || ||  |||| +|--   | |   
+| || ||  ||||   || ||  | ||    | |   
+| || ||  ||||   || ||  | ||    | |   
+| || ||  ||||   || ||  | ||    | |   
+| || ||  ||||   || ||  | ||    | |   
+| || ||  ||||   || ||  | ||    | |   
+| || |+-||----|---- | |   
+| || |  ||||   |  ||  | ||  |  | |   
+| || |  ||||   |  ||  | -----| || |  ||||   |  ||  | |  |  | |   | || |  |||| +--| |  +--|-- | || |  |||| |  |  || | |    | |    | || |  |||| |  | |-----|-| || |  |||| |  | || | |    | |    
+| +-----|---| |    
+|   |  |||| |  | || | |     | |    
+|   |  |||+-|-|     | |    
+|   |  ||| |  | ||  |     | |    
+|   |  ||| |  | ||  |     | |    
+|   |  ||| |  | ||  |     | |    
++-- ||| | ||  +-- 
+   | | ||| || | ||       | |     
+   | | ||| || | ||   - | |     
+   | | ||| || | ||     | | |     
++| + -----|-----
+|  |  |  | | ||     | | |     |
++- |  | | ||     | | |     |
+  | | |  | | ||     | | |     |
+  | | |  | |----- +---+|
+  | | |  |  | ||   | |   | |    |||
+ -----|-------|--- |||
+ | | | |  |  | ||   | |   | |  || |||
+ | | | |  |  | |+-- |   | |  || |||
+ | | | |  |  | |    |   | |  || |||
+ | | | |  |  | ----| | -|||
+ | | | |  |  |     |  | | | |||
+++| | |  |      |  | | | |||
+|| | | |  | |      |  | | | |||
+|| | |+|++-|-     |  | | | |||
+|| | || |||| | | |     |  | | | |||
+|| -|--|-|---  |  | | | |||
+||  || |||| | | |  |   |  | | | |||
+||  || |||| | | -----| |||
+||  || |||| | | ||    |  |  | |||
++-| |+|--|-   |  |  | |||
+   | | | | | ||     |  |  | |||
+   | +-|-- ----  | |||
+   |  | | |      |    | |||
++ |  +    |    | |||
+|  |  | || | ||    |    | |||
+----|-|-||-  ---| |||
+  |  | || | ||      |   | |||
+  --||-------+|
+  ||  | || | ||      |   |  |
+ |-| +-+||      |   |  |
+ || |||    ||      |   |  |
+ -----------|   | |||    ||      |   ||   ++  +||---    | |   |  ||      |        | |  |--- -|-     | |  |  ||      |       -|---|----     | |  |  ||     |    
+  -- -- 
+   |  ||    ||   
+  ---+ --|-  | |      ||   --|--   |  ||    ---  |  ||    
+",GSXDIPWTU,,"
+import re
+
+with open('input.txt') as f:
+    diagram = f.read()
+
+# Find the starting position
+x = diagram.find('|')
+
+# Follow the path until we reach the end
+path = ''
+while True:
+    # Check for a vertical line
+    if re.match(r'\|', diagram[x]):
+        # Move down one line
+        x += diagram.find('|', x + 1) - x
+        # Add the letter to the path
+        path += diagram[x + 2]
+
+    # Check for a horizontal line
+    elif re.match(r'-', diagram[x]):
+        # Move right one space
+        x += 1
+        # Add the letter to the path
+        path += diagram[x + 2]
+
+    # Check for a '+'
+    elif re.match(r'\+', diagram[x]):
+        # Turn left and move down
+        x = diagram.find('|', x + 1)
+
+    # Check for the end of the path
+    else:
+        break
+
+# Print the path
+print(path)
+",0.0
+137,2017,19,2,part1_failed,,16100,,,
+138,2017,20,1,runtime_error,,344,"Traceback (most recent call last):
+  File ""/tmp/tmp2biduq96/tmp.py"", line 8, in <module>
+    particles.append([[int(n) for n in p[1:-1].split(',')] for p in line[3:-1].split(', ')])
+  File ""/tmp/tmp2biduq96/tmp.py"", line 8, in <listcomp>
+    particles.append([[int(n) for n in p[1:-1].split(',')] for p in line[3:-1].split(', ')])
+  File ""/tmp/tmp2biduq96/tmp.py"", line 8, in <listcomp>
+    particles.append([[int(n) for n in p[1:-1].split(',')] for p in line[3:-1].split(', ')])
+ValueError: invalid literal for int() with base 10: '=<153'
+","
+def manhattan_distance(p): return abs(p[0]) + abs(p[1]) + abs(p[2])
+
+particles = []
+
+with open('input.txt', 'r') as f:
+    for line in f:
+        particles.append([[int(n) for n in p[1:-1].split(',')] for p in line[3:-1].split(', ')])
+
+closest = -1
+min_distance = float('inf')
+
+for k, p in enumerate(particles):
+    for a, v, pos in zip(*p):
+        v[0] += a[0]
+        v[1] += a[1]
+        v[2] += a[2]
+        pos[0] += v[0]
+        pos[1] += v[1]
+        pos[2] += v[2]
+    distance = manhattan_distance(pos)
+    if distance < min_distance:
+        min_distance = distance
+        closest = k
+
+print(closest)
+",0.0
+139,2017,20,2,part1_failed,,404,,,
+140,2017,21,1,runtime_error,,179,"  File ""/tmp/tmpzgghvae7/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def enhance(rules, inp, flip, rotate):
+  """"""
+  Rotate and flip the image if needed to match the rule.
+  """"""
+  for i in range(4):
+    ri = inp if i == 0 else inp[::, ::-1]
+    for j in range(4):
+      rj = ri if j == 0 else ri[::-1, :]
+      if rj in rules:
+        return rules[rj]
+
+def iterate(inp, rules):
+  """"""
+  Apply all rules to the image.
+  """"""
+  n = len(inp)
+  if n % 2 == 0:
+    m = 3
+  elif n % 3 == 0:
+    m = 4
+  out = np.zeros([n * m, n * m], dtype=object)
+  for i in range(0, n, m):
+    for j in range(0, n, m):
+      out[i * m:(i + m), j * m:(j + m)] = enhance(rules, inp[i:i + m, j:j + m], flip=True, rotate",0.0
+141,2017,21,2,part1_failed,,2766750,,,
+142,2017,22,1,runtime_error,,5280,"  File ""/tmp/tmp39otwa82/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+    # Build the map
+    map_lines = [list(line.strip()) for line in f.readlines()]
+    map_height, map_width = len(map_lines), len(map_lines[0])
+
+    # Initialize the carrier position and infection count
+    carrier_x, carrier_y, infections = map_width // 2, map_height // 2, 0
+
+    # Define the direction vectors
+    directions = {'L': (-1, 0), 'U': (0, -1), 'R': (1, 0), 'D': (0, 1)}
+
+    # Simulate the bursts of activity
+    for _ in range(10000):
+        infection = map_lines[carrier_y][carrier_x] == '.'
+
+        # Change direction based on node status
+        if infection:
+            direction = 'L' if directions[direction][1] == 0 else 'U'
+        else:
+            direction = 'R' if directions[direction][0] == 0 else 'D'
+
+        # Update carrier position and infection",0.0
+143,2017,22,2,part1_failed,,2512261,,,
+144,2017,23,1,wrong_output,"0
+",6724,,"
+def parse(ln):
+    tokens = ln.split(' ')
+    if tokens == ['mul', 'a', 'b']:
+        return lambda a, b: (a * b,1)
+    return lambda a, b: (a,0)
+
+if __name__ == ""__main__"":
+    with open(""input.txt"",""r"") as f:
+        data = f.readlines()
+    ins = [parse(ln) for ln in data]
+    a = 0
+    b = 0
+    mul = 0
+    for i in ins:
+        a, m = i(a, b)
+        mul += m
+    print(mul)
+",0.0
+145,2017,23,2,part1_failed,,903,,,
+146,2017,24,1,runtime_error,,2006,"Traceback (most recent call last):
+  File ""/tmp/tmplvd5gkwb/tmp.py"", line 20, in <module>
+    print(max(strongest))
+ValueError: max() arg is an empty sequence
+","
+def is_stronger(a, b):
+  return sum(a) > sum(b)
+
+def try_add(bridges, part, remaining):
+  for r in remaining:
+    if part[-1] == r[0]:
+      b = part + [r]
+      if is_stronger(b, max(bridges)):
+        bridges.append(b)
+        try_add(bridges, b, remaining[:remaining.index(r)] + remaining[remaining.index(r)+1:])
+
+strongest = []
+
+with open(""input.txt"", ""r"") as input:
+  components = input.read().split(""\n"")
+  components = [[int(x) for x in c.strip().split('/')] for c in components if c.strip()]
+  try_add(strongest, [[-1]], components)
+
+print(max(strongest))
+",0.0
+147,2017,24,2,part1_failed,,1994,,,
+148,2017,25,1,runtime_error,,2846,"  File ""/tmp/tmp9c8sygdk/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+class TuringMachine:
+  def __init__(self, tape, states, state):
+    self.tape = tape
+    self.states = states
+    self.state = states[state]
+
+  def run(self, steps):
+    for _ in range(steps):
+      self.step()
+
+  def step(self):
+    value = self.tape.get(self.cursor, 0)
+    self.tape[self.cursor] = self.state[value][0]
+    self.cursor += self.state[value][1]
+    self.state = self.states[self.state[value][2]]
+
+class TuringTape:
+  def __init__(self):
+    self.tape = {}
+    self.cursor = 0
+
+  def get(self, key, default=0):
+    return self.tape.get(key, default)
+
+tape = TuringTape()
+
+states = {
+    'A': {
+        0: (1, 1, 'B'),
+        1: (0, -1, 'B')
+    },
+    'B': {
+        0: (1,",0.0
+149,2017,25,2,part1_failed,,,,,
+150,2018,1,1,wrong_output,"294294
+",490,,"
+with open('input.txt', 'r') as f:
+    frequencies = f.readlines()
+
+freq = sum(int(freq[1:]) for freq in frequencies)
+print(freq)
+",0.0
+151,2018,1,2,part1_failed,,70357,,,
+152,2018,2,1,no_error,"7163
+",7163,,"
+from collections import Counter
+
+with open('input.txt') as f:
+    box_ids = [line.strip() for line in f]
+
+twos, threes = 0, 0
+for box_id in box_ids:
+    c = Counter(box_id)
+    twos += 2 in c.values()
+    threes += 3 in c.values()
+
+print(twos * threes)
+",0.0
+153,2018,2,2,no_error,"ighfbyijnoumxjlxevacpwqtr
+",ighfbyijnoumxjlxevacpwqtr,,"
+from itertools import combinations
+
+with open('input.txt') as f:
+    box_ids = [line.strip() for line in f]
+
+for bid1, bid2 in combinations(box_ids, 2):
+    diffs = [bid1[i] != bid2[i] for i in range(len(bid1))]
+    n_diffs = sum(diffs)
+    if n_diffs == 1:
+        common_letters = ''.join(letter for letter, diff in zip(bid1, diffs) if not diff)
+        print(common_letters)
+        break
+",0.0
+154,2018,3,1,runtime_error,,109716,"Traceback (most recent call last):
+  File ""/tmp/tmpo9rf1fbh/tmp.py"", line 3, in <module>
+    claims = [tuple(int(i) for i in line.split()) for line in f]
+  File ""/tmp/tmpo9rf1fbh/tmp.py"", line 3, in <listcomp>
+    claims = [tuple(int(i) for i in line.split()) for line in f]
+  File ""/tmp/tmpo9rf1fbh/tmp.py"", line 3, in <genexpr>
+    claims = [tuple(int(i) for i in line.split()) for line in f]
+ValueError: invalid literal for int() with base 10: '#1'
+","
+with open('input.txt') as f:
+    claims = [tuple(int(i) for i in line.split()) for line in f]
+
+fabric = [[0] * 1000 for _ in range(1000)]
+counter = 0
+for i in claims:
+    for x in range(i[1], i[1] + i[3]):
+        for y in range(i[2], i[2] + i[4]):
+            fabric[x][y] += 1
+            if fabric[x][y] == 2:
+                counter += 1
+
+print('Number of square inches:', counter)
+",0.0
+155,2018,3,2,part1_failed,,124,,,
+156,2018,4,1,runtime_error,,73646,"  File ""/tmp/tmpgzhwflq6/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_input(file):
+    with open(file, ""r"") as f:
+        return sorted([line.rstrip(""\n"") for line in f.readlines()])
+
+def guard_stats(guards: list):
+    guard_sleeps = {}
+    for line in guards:
+        date, _, action = line.split("" "")
+        _, guard, _ = action.split(""#"")
+        minutes = [int(time) for time in date[12:].split("":"")]
+        try:
+            guard_sleeps[guard] += list(range(minutes[1], 60))
+        except KeyError:
+            guard_sleeps[guard] = list(range(minutes[1], 60))
+    return guard_sleeps
+
+def most_asleep(guards: dict):
+    max_minutes = max(guards.values())
+    max_minutes_guard = [guard for guard in guards if guards[guard] == max_minutes][0]
+    most_mins_asleep = max(set(max_minutes), key = max_minutes.count)
+    return max_minutes_guard, most_mins",0.0
+157,2018,4,2,part1_failed,,4727,,,
+158,2018,5,1,no_error,"9686
+",9686,,"
+with open('input.txt') as f:
+    line = f.readline().strip()
+
+while True:
+    reduced = False
+    i = 0
+    while i < len(line) - 1:
+        if (line[i].isupper() and line[i + 1].islower() and
+                line[i].lower() == line[i + 1]):
+            line = line[:i] + line[i + 2:]
+            reduced = True
+            continue
+        if (line[i].islower() and line[i + 1].isupper() and
+                line[i + 1].lower() == line[i]):
+            line = line[:i] + line[i + 2:]
+            reduced = True
+            continue
+        i += 1
+    if not reduced:
+        break
+
+print(len(line))
+",0.0
+159,2018,5,2,timeout_error,,5524,TIMEOUT,"
+with open('input.txt') as f:
+    line = f.readline().strip()
+
+units = set(line.lower())
+lens = {}
+for u in units:
+    reduced = ''.join(c for c in line if c.lower() != u)
+    while True:
+        reduced = ''.join(
+            c for i, c in enumerate(reduced[:-1])
+            if (c.isupper() and reduced[i + 1].islower() and c.lower() == reduced[i + 1] or
+                c.islower() and reduced[i + 1].isupper() and c == reduced[i + 1].lower()))
+    lens[u] = len(reduced)
+
+print(min(lens.values()))
+",0.0
+160,2018,6,1,runtime_error,,3909,"  File ""/tmp/tmphb36a2e1/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import collections
+import sys
+
+inp = open(sys.argv[1]).read().splitlines()
+
+coords = []
+
+for line in inp:
+    x, y = line.split(',')
+    coords.append((int(x), int(y)))
+
+# max and min x/y values to reduce computations
+maxx = max(c[0] for c in coords)
+minx = min(c[0] for c in coords)
+maxy = max(c[1] for c in coords)
+miny = min(c[1] for c in coords)
+
+areas = collections.defaultdict(int)
+dist = collections.defaultdict(int)
+# check each point from the smallest x/y to the largest
+# if two points are equidistant from a point, none of them is counted
+# infinite areas are those at the 'border' of the grid
+# points at max/min are never max values because they have an 'infinite' area
+
+for x in range(minx-1, maxx+2):
+    for y in range(miny-1, maxy+2):
+        for i, (coord_x, coord_y)",0.0
+161,2018,6,2,part1_failed,,36238,,,
+162,2018,7,1,runtime_error,,GKRVWBESYAMZDPTIUCFXQJLHNO,"  File ""/tmp/tmpvsm5dubk/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+
+def read_input():
+  with open(""input.txt"") as f:
+    lines = f.readlines()
+    return [line.strip() for line in lines]
+
+def parse_input(lines):
+  dependencies = defaultdict(list)
+  for line in lines:
+    words = line.split()
+    dependencies[words[1]].append(words[7])
+  return dependencies
+
+def get_next_step(dependencies):
+  available_steps = [step for step in dependencies if not dependencies[step]]
+  if not available_steps:
+    return None
+  return min(available_steps)
+
+def complete_step(dependencies, step):
+  for dep in dependencies:
+    if step in dependencies[dep]:
+      dependencies[dep].remove(step)
+
+def main():
+  lines = read_input()
+  dependencies = parse_input(lines)
+  result = []
+  while True:
+    next_step = get_next_step(dependencies)
+    if not next_step:
+      break
+    result.append(next_step)
+    complete_step(dependencies, next",0.0
+163,2018,7,2,part1_failed,,903,,,
+164,2018,8,1,runtime_error,,47244,"Traceback (most recent call last):
+  File ""/tmp/tmppuftei80/tmp.py"", line 4, in <module>
+    num = sum(node[i:i+2*node[i+1]+2] if node[i]>0 else node[i+2:i+2*node[i+1]+2] for i in range(0, len(node), node[0]+2))
+TypeError: unsupported operand type(s) for +: 'int' and 'list'
+","
+with open('input.txt') as f:
+    node = list(map(int, f.read().split()))
+    num = sum(node[i:i+2*node[i+1]+2] if node[i]>0 else node[i+2:i+2*node[i+1]+2] for i in range(0, len(node), node[0]+2))
+
+print(num)
+",0.0
+165,2018,8,2,part1_failed,,17267,,,
+166,2018,9,1,runtime_error,,384288,"  File ""/tmp/tmp91ux7cti/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+class Circle:
+    def __init__(self, max_marble):
+        self.circle = [0]
+        self.current_index = 0
+        self.max_marble = max_marble
+
+    def insert_marble(self, marble):
+        # If marble is a multiple of 23, remove 7 marbles counter-clockwise
+        if marble % 23 == 0:
+            for _ in range(7):
+                self.current_index = (self.current_index - 1) % len(self.circle)
+            # Remove the marble 7 marbles counter-clockwise
+            removed_marble = self.circle.pop(self.current_index)
+            # Add the removed marble and the current marble to the player's score
+            self.score += removed_marble + marble
+        # Otherwise, insert the marble after the current marble
+        else:
+            self.current_index = (self.current_index + 2) % len(self.circle)
+            self.circle.insert(self.current_index, marble)
+
+    def get_score(self):
+        return self.score
+
+",0.0
+167,2018,9,2,part1_failed,,3189426841,,,
+168,2018,10,1,runtime_error,,GFNKCGGH,"  File ""/tmp/tmpzeg9c7xh/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def main():
+    input = open('input.txt', 'r')
+    points = []
+    for line in input:
+        parts = line.replace('position=<', '').replace('> velocity=<', '>')
+        x_position, y_position, x_velocity, y_velocity = map(int, parts.split(' '))
+        points.append([x_position, y_position, x_velocity, y_velocity])
+
+    # find the min_x and max_x of all the points to find the boundaries
+    min_x = min(points, key = lambda x: x[0])[0]
+    max_x = max(points, key = lambda x: x[0])[0]
+
+    # find the min_y and max_y of all the points to find the boundaries
+    min_y = min(points, key = lambda x: x[1])[1]
+    max_y = max(points, key = lambda x: x[1])[1]
+
+    # find the time when all points will be contained in the boundaries
+    time = 0
+    while True:
+        # calculate the new",0.0
+169,2018,10,2,part1_failed,,10274,,,
+170,2018,11,1,wrong_output,,"235,63",,"
+def read_file(file: str) -> int:
+    with open(file) as f:
+        return int(f.read())
+
+
+def power_level(x, y, serial_number) -> int:
+    rack_id = x + 10
+    return (rack_id * y + serial_number) * rack_id // 100 % 10 - 5
+
+
+def max_power(serial_number) -> tuple:
+    max_power, max_x, max_y = -float('inf'), -1, -1
+    for x in range(1, 300 - 2):
+        for y in range(1, 300 - 2):
+            power = sum(
+                power_level(x + i, y + j, serial_number) for i in range(3) for j in range(3)
+            )
+            if power > max_power:
+                max_power, max_x, max_y = power, x, y
+
+    return max_x, max_y
+
+",0.0
+171,2018,11,2,part1_failed,,"229,251,16",,,
+172,2018,12,1,runtime_error,,4110,"  File ""/tmp/tmpos6qzdwy/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_input(input):
+    lines = input.split(""\n"")
+
+    initial_state = lines[0].split("" "")[2]
+    rules = {rule.split("" => "")[0]: rule.split("" => "")[1] for rule in lines[2:]}
+
+    return initial_state, rules
+
+
+def plant_pots(initial_state, rules, generations):
+    state = initial_state
+
+    for generation in range(generations):
+        next_state = []
+
+        for i in range(len(state) - 5, len(state) + 5):
+            pattern = ""."" * 5
+            for j in range(-2, 3):
+                if i + j >= 0 and i + j < len(state):
+                    pattern = pattern[0:j + 2] + state[i + j] + pattern[j + 3:]
+
+            next_state.append(rules.get(pattern, "".""))
+
+        state = """".join(next_state)
+
+    return state
+
+
+def sum_plant_pots(state):
+    sum = 0
+
+    for i, plant in enumerate(state",0.0
+173,2018,12,2,part1_failed,,2650000000466,,,
+174,2018,13,1,runtime_error,,"79,128","  File ""/tmp/tmpxik7pr2c/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+class Cart:
+    def __init__(self, x, y, direction):
+        self.x = x
+        self.y = y
+        self.direction = direction
+        self.next_turn = 'l'
+
+    def turn_left(self):
+        if self.direction == '>':
+            self.direction = '^'
+        elif self.direction == '^':
+            self.direction = '<'
+        elif self.direction == '<':
+            self.direction = 'v'
+        elif self.direction == 'v':
+            self.direction = '>'
+
+    def turn_right(self):
+        if self.direction == '>':
+            self.direction = 'v'
+        elif self.direction == '^':
+            self.direction = '>'
+        elif self.direction == '<':
+            self.direction = '^'
+        elif self.direction == 'v':
+            self.direction = '<'
+
+    def move(self, tracks):
+        if self.direction == '>':
+            self.x += 1
+        elif self.direction == '^':
+            self.y -= 1
+        elif",0.0
+175,2018,13,2,part1_failed,,"3,42",,,
+176,2018,14,1,wrong_output,"1332417415
+",9411137133,,"
+elf1 = 0
+elf2 = 1
+
+recipes = [3, 7]
+
+def combine(a, b):
+    return [int(x) for x in str(int(a) + int(b))]
+
+while len(recipes) < 460000:
+    combined = combine(recipes[elf1], recipes[elf2])
+    recipes.extend(combined)
+    elf1 = (elf1 + recipes[elf1] + 1) % len(recipes)
+    elf2 = (elf2 + recipes[elf2] + 1) % len(recipes)
+
+print("""".join(map(str, recipes[459990:460000])))
+",0.0
+177,2018,14,2,part1_failed,,20317612,,,
+178,2018,15,1,runtime_error,,201638,"  File ""/tmp/tmpcy0yq0wm/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+class GameMap():
+  def __init__(self, rows, cols, content):
+    self.rows = rows
+    self.cols = cols
+    self.grid = [[' ' for _ in range(cols)] for _ in range(rows)]
+
+    for (y, x, v) in content:
+      self.grid[y][x] = v
+  
+  def inBounds(self, x, y):
+    return x >= 0 and y >= 0 and x < self.cols and y < self.rows
+  
+  def get(self, x, y):
+    if self.inBounds(x, y): return self.grid[y][x]
+  
+  def __repr__(self):
+    lines = []
+    for row in self.grid:
+      lines.append(' '.join(row))
+    return ""\n"".join(lines)
+
+class Entity():
+  def __init__(self, type, x, y, hp):
+    self.type = type
+    self.x = x
+    self.y = y
+    self.hp = hp
+  
+  def is",0.0
+179,2018,15,2,part1_failed,,95764,,,
+180,2018,16,1,runtime_error,,642,"  File ""/tmp/tmpaqy445xb/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+samples = []
+
+with open(""input.txt"") as f:
+  for line in f:
+    if line[0] == 'B':
+      before, instruction, after = line.strip().split(""\n"")
+
+      sample = (before, instruction, after)
+      samples.append(sample)
+
+three_or_more = 0
+
+for sample in samples:
+  before = sample[0].strip('[]').split(',')
+  before = list(map(int, before))
+
+  instruction = sample[1].split()
+  instruction = list(map(int, instruction))
+  opcode = instruction[0]
+
+  registers = [r for r in before]
+
+  if opcode == 0:
+    registers[instruction[3]] = registers[instruction[1]] + registers[instruction[2]]
+  elif opcode == 1:
+    registers[instruction[3]] = registers[instruction[1]] + instruction[2]
+  elif opcode == 2:
+    registers[instruction[3]] = registers[instruction[1]] * registers[instruction[2]]
+  elif opcode == 3:
+    registers[instruction",0.0
+181,2018,16,2,part1_failed,,481,,,
+182,2018,17,1,runtime_error,,31788,"  File ""/tmp/tmpfqzp9o7o/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+clay_regex = [re.compile(r'x=(\d+), y=(\d+)\.\.(\d+)'),
+              re.compile(r'y=(\d+), x=(\d+)\.\.(\d+)')]
+
+def parse(data):
+    clay = set()
+    for line in data.splitlines():
+        for reg in clay_regex:
+            match = reg.fullmatch(line)
+            if match is not None:
+                groups = match.groups()
+                if len(groups) == 3:
+                    x0, y0, y1 = int(groups[0]), int(groups[1]), int(groups[2])
+                    clay.update((x, y) for y in range(y0, y1+1) for x in range(x0, x0+1))
+                else:
+                    y0, x0, x1 = int(groups[0]), int(groups[1]), int(groups[2])
+                    clay.update((x, y) for x in range(x0, x1+1) for y in range(y0, y0+1",0.0
+183,2018,17,2,part1_failed,,25800,,,
+184,2018,18,1,runtime_error,,653184,"  File ""/tmp/tmpmkllfx1n/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f: grid, rows, cols = f.read().strip().splitlines(), len(grid), len(grid[0])
+def adj(y, x):
+  return [grid[(y+dy)%rows][(x+dx)%cols] for dy in (-1,0,1) for dx in (-1,0,1)]
+def tick():
+  global grid
+  ng = [['.' for _ in row] for row in grid]
+  for y, row in enumerate(grid):
+    for x, cell in enumerate(row):
+      if cell == '.':
+        ng[y][x] = '|' if adj(y,x).count('|') >= 3 else '.'
+      elif cell == '|':
+        ng[y][x] = '#' if adj(y,x).count('#') >= 3 else '|'
+      else:
+        if '#' in adj(y,x) or '|' in adj(y,x): ng[y][x] = '#'
+        else: ng[y][x] = '.'
+  grid = ng
+tick()
+print(""After 10",0.0
+185,2018,18,2,part1_failed,,169106,,,
+186,2018,19,1,runtime_error,,2520,"  File ""/tmp/tmp5hwobpp6/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open(""input.txt"", ""r"") as f:
+    lines = f.readlines()
+f.close()
+
+ip = 0
+
+registers = [0, 0, 0, 0, 0, 0]
+
+def process_command(command: str):
+  command = command.replace("","", """").split("" "")
+  operator = command[0]
+  if operator == ""addi"":
+    registers[int(command[1])] += int(command[2])
+  elif operator == ""addr"":
+    registers[int(command[1])] += registers[int(command[2])]
+  elif operator == ""bani"":
+    registers[int(command[1])] &= int(command[2])
+  elif operator == ""banr"":
+    registers[int(command[1])] &= registers[int(command[2])]
+  elif operator == ""bori"":
+    registers[int(command[1])] |= int(command[2])
+  elif operator == ""borr"":
+    registers[int(command[1])] |= registers[int(command[2])]
+  elif operator == ""eqri"":
+    registers[",0.0
+187,2018,19,2,part1_failed,,27941760,,,
+188,2018,20,1,runtime_error,,4432,"  File ""/tmp/tmp_7oz9ojf/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+with open(""input.txt"", ""r"") as f:
+    regex = f.readline().strip()
+
+# Preprocess the regex to eliminate empty options
+regex = regex.replace(""(|)"", """")
+
+# Find all the routes in the regex
+routes = re.findall(""\([^)]+\)"", regex)
+
+# Create a graph of the rooms and doors
+graph = {}
+for route in routes:
+    # Split the route into individual steps
+    steps = route[1:-1].split(""|"")
+
+    # Add the rooms and doors to the graph
+    for step in steps:
+        # Get the current room and the next room
+        current_room, next_room = step[0], step[1:]
+
+        # Add the current room to the graph if it doesn't already exist
+        if current_room not in graph:
+            graph[current_room] = set()
+
+        # Add the next room to the graph if it doesn't already exist
+        if next_room not in graph:
+            graph[next_room] = set()
+
+        # Add the door between the current room and the next room to the graph
+        graph",0.0
+189,2018,20,2,part1_failed,,8681,,,
+190,2018,21,1,runtime_error,,2159153,"  File ""/tmp/tmpbit6vcgw/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_register_line(line):
+  return [int(num) for num in line.split()[2:]]
+
+def parse_instruction_line(line):
+  return line.split()[0:3] + parse_register_line(line)
+
+def perform_instruction(registers, instruction):
+  op, ra, rb, rc = instruction
+  registers[rc] = {
+    'bani': registers[ra] & registers[rb],
+    'banr': registers[ra] & rb,
+    'bori': registers[ra] | registers[rb],
+    'borr': registers[ra] | rb,
+    'eqir': int(registers[ra] == rb),
+    'eqri': int(ra == registers[rb]),
+    'eqrr': int(registers[ra] == registers[rb]),
+    'gtir': int(registers[ra] > rb),
+    'gtri': int(ra > registers[rb]),
+    'gtrr': int(registers[ra] > registers[rb]),
+    'seti': ra,
+    'setr': registers[ra]
+  }[",0.0
+191,2018,21,2,part1_failed,,7494885,,,
+192,2018,22,1,runtime_error,,11972,"  File ""/tmp/tmpu851kt4b/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from typing import List, Tuple, Union, Dict
+
+Point = Tuple[int, int]
+Regions = Dict[Point, Union[int, str]]
+
+
+def get_geologic_index(point: Point, depth: int) -> int:
+    x, y = point
+    if x == 0 and y == 0:
+        return 0
+    if x == target_point[0] and y == target_point[1]:
+        return 0
+    if y == 0:
+        return x * 16807
+    if x == 0:
+        return y * 48271
+    return (
+        get_erosion_level((x - 1, y)) * get_erosion_level((x, y - 1))
+        # This is probably the trickiest part of the code,
+        # if you don't pay enough attention, it's easy to think that
+        # get_erosion_level((x - 1, y)) equals get_erosion_level((x, y - 1))
+        # It will cause wrong results.
+    )
+
+
+",0.0
+193,2018,22,2,part1_failed,,1092,,,
+194,2018,23,1,runtime_error,,270,"  File ""/tmp/tmpwo1ex2bl/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+# Open input file and read lines into a list
+with open('input.txt') as f:
+    lines = f.readlines()
+
+# Create a dictionary to store the nanobot positions and signal radii
+nanobots = {}
+strongest_signal_radius = 0
+for line in lines:
+    # Use regex to extract the position and signal radius from each line
+    pos_match = re.match('pos=<(-?\d+),(-?\d+),(-?\d+)>', line)
+    r_match = re.match('r=(\d+)', line)
+    pos = (int(pos_match.group(1)), int(pos_match.group(2)), int(pos_match.group(3)))
+    r = int(r_match.group(1))
+    if r > strongest_signal_radius:
+      strongest_signal_radius = r
+
+    nanobots[pos] = r
+
+# Calculate the strongest nanobot and count the nanobots in its signal range
+strongest_pos = None
+count_in_range = 0
+for pos, r in nanobots.items():
+",0.0
+195,2018,23,2,part1_failed,,106323091,,,
+196,2018,24,1,runtime_error,,14377,"  File ""/tmp/tmpzc1g3ywz/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import collections
+
+with open('input.txt', 'r') as f:
+    data = f.read()
+
+immune, infection = data.split(""\n\n"")
+immune = immune.split(""\n"")
+infection = infection.split(""\n"")
+
+Group = collections.namedtuple(""Group"", [""size"", ""hp"", ""immune_to"", ""weak_to"", ""attack_type"", ""damage"", ""initiative""])
+# Convert strings into namedtuples
+immune = [Group(*[int(x.split("" "")[i]) for i in [0, 1, 14, 15]]) for x in immune]
+infection = [Group(*[int(x.split("" "")[i]) for i in [0, 1, 14, 15]]) for x in infection]
+
+def simulate(immune, infection, boost):
+    """"""
+    Simulates the battle.
+    Returns (True, number of units in the winning army) if immune system won, (False, number of units in the winning army) if the infection won
+    """"""
+    # Boost immune system hp
+    for group in immune:
+        group.hp += boost",0.0
+197,2018,24,2,part1_failed,,6947,,,
+198,2018,25,1,runtime_error,,363,"  File ""/tmp/tmpmzu5yqqa/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from itertools import combinations
+
+def manhattan_distance(p1, p2):
+    return sum(abs(a - b) for a, b in zip(p1, p2))
+
+def is_in_constellation(point, constellation):
+    for c in constellation:
+        if manhattan_distance(point, c) <= 3:
+            return True
+    return False
+
+def find_constellations(points):
+    constellations = []
+    for point in points:
+        found_constellation = False
+        for constellation in constellations:
+            if is_in_constellation(point, constellation):
+                constellation.add(point)
+                found_constellation = True
+                break
+        if not found_constellation:
+            constellations.append({point})
+    return constellations
+
+def main():
+    with open(""input.txt"") as f:
+        points = [tuple(int(c) for c in line.strip().split("","")) for line in f]
+    constellations = find_constellations(points)
+    print(""Number of constellations:"", len(constellations))
+
+if __name__ == ""__main__"":
+",0.0
+199,2018,25,2,part1_failed,,,,,
+200,2019,1,1,no_error,"3336439
+",3336439,,"
+with open('input.txt') as f:
+    masses = [int(line) for line in f]
+
+# Calculate the fuel requirement for each module
+fuel_requirements = [int(mass / 3) - 2 for mass in masses]
+
+# Sum up the fuel requirements
+total_fuel_requirement = sum(fuel_requirements)
+
+# Print the total fuel requirement
+print(total_fuel_requirement)
+",0.0
+201,2019,1,2,no_error,"5001791
+",5001791,,"
+def calculate_fuel_requirement(mass):
+    # Calculate the fuel requirement for the given mass
+    fuel_requirement = int(mass / 3) - 2
+
+    # If the fuel requirement is negative, return 0
+    if fuel_requirement < 0:
+        return 0
+
+    # Recursively calculate the fuel requirement for the fuel mass
+    return fuel_requirement + calculate_fuel_requirement(fuel_requirement)
+
+
+with open('input.txt') as f:
+    masses = [int(line) for line in f]
+
+# Calculate the total fuel requirement by summing up the fuel requirements for each module
+total_fuel_requirement = sum(calculate_fuel_requirement(mass) for mass in masses)
+
+# Print the total fuel requirement
+print(total_fuel_requirement)
+",0.0
+202,2019,2,1,wrong_output,"7264
+",4138658,,"
+with open('input.txt') as f:
+    orig = list(map(int, f.read().split(',')))
+
+for noun in range(100):
+    for verb in range(100):
+        prog = orig[:]
+        prog[1] = noun
+        prog[2] = verb
+
+        i = 0
+        while True:
+            if prog[i] == 99:
+                break
+            elif prog[i] == 1:
+                prog[prog[i+3]] = prog[prog[i+1]] + prog[prog[i+2]]
+            elif prog[i] == 2:
+                prog[prog[i+3]] = prog[prog[i+1]] * prog[prog[i+2]]
+            i += 4
+
+        if prog[0] == 19690720:
+            result = 100 * noun + verb
+            break
+
+print(result)
+",0.0
+203,2019,2,2,part1_failed,,7264,,,
+204,2019,3,1,runtime_error,,248,"  File ""/tmp/tmpk98t4nlk/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def manhattan_distance(point1, point2):
+    return abs(point1[0] - point2[0]) + abs(point1[1] - point2[1])
+
+def trace_wire(wire):
+    current_position = (0, 0)
+    visited_positions = set()
+
+    for segment in wire.split("",""):
+        direction = segment[0]
+        distance = int(segment[1:])
+
+        if direction == ""U"":
+            for y in range(current_position[1], current_position[1] + distance):
+                position = (current_position[0], y)
+                visited_positions.add(position)
+            current_position = (current_position[0], current_position[1] + distance)
+
+        elif direction == ""D"":
+            for y in range(current_position[1], current_position[1] - distance, -1):
+                position = (current_position[0], y)
+                visited_positions.add(position)
+            current_position = (current_position[0], current_position[1] - distance)
+
+        ",0.0
+205,2019,3,2,part1_failed,,28580,,,
+206,2019,4,1,runtime_error,,454,"Traceback (most recent call last):
+  File ""/tmp/tmpwxqzk1wu/tmp.py"", line 23, in <module>
+    for password in range(int(range[0]), int(range[1]) + 1):
+TypeError: 'list' object is not callable
+","
+def is_valid(password):
+  adjacent_digits_are_the_same = False
+  digits_never_decrease = True
+  previous_digit = None
+
+  for digit in password:
+    if digit == previous_digit:
+      adjacent_digits_are_the_same = True
+    elif previous_digit is not None and digit < previous_digit:
+      digits_never_decrease = False
+      break
+
+    previous_digit = digit
+
+  return adjacent_digits_are_the_same and digits_never_decrease
+
+with open('input.txt') as f:
+  range = f.readline().split('-')
+
+  num_valid_passwords = 0
+
+  for password in range(int(range[0]), int(range[1]) + 1):
+    if is_valid(str(password)):
+      num_valid_passwords += 1
+
+  print(num_valid_passwords)
+",0.0
+207,2019,4,2,part1_failed,,288,,,
+208,2019,5,1,runtime_error,,6069343,"  File ""/tmp/tmpadg9_yzs/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+codes = [(1,3),(2,4)]
+
+def getParameter(program, mode, ip, relbase):
+    if mode==0:
+        return program[program[ip]]
+    elif mode==1:
+        return program[ip]
+    elif mode==2:
+        return program[program[ip]+relbase]
+
+def writeParameter(program, mode, ip, relbase, val):
+    if mode==0:
+        program[program[ip]] = val
+    elif mode==2:
+        program[program[ip]+relbase] = val
+
+ip=0
+relbase=0
+program=[int(x) for x in open(""input.txt"").read().split("","")]+[0]*1000
+while True:
+    opcode = int(str(program[ip])[-2:])
+    modes = [int(x) for x in str(program[ip])[:-2][::-1]]+[0]*4
+    if opcode == 99:
+        print(""Program finished"")
+        break
+    elif opcode == 1:
+        a= getParameter(program,modes[0],ip+",0.0
+209,2019,5,2,part1_failed,,3188550,,,
+210,2019,6,1,no_error,"142497
+",142497,,"
+orbits = {}
+with open('input.txt') as f:
+    for orbit in f:
+        a, b = orbit.strip('\n').split(')')
+        orbits[b] = a
+
+count = 0
+for i in orbits:
+    while i in orbits:
+        i = orbits[i]
+        count += 1
+
+print(count)
+",0.0
+211,2019,6,2,wrong_output,"248
+",301,,"
+orbits = {}
+path_you = []
+path_san = []
+
+with open('input.txt') as f:
+    for orbit in f:
+        a, b = orbit.strip('\n').split(')')
+        orbits[b] = a
+
+i = 'YOU'
+while i in orbits:
+    i = orbits[i]
+    path_you.append(i)
+
+i = 'SAN'
+while i in orbits:
+    i = orbits[i]
+    path_san.append(i)
+
+steps = len(path_you) + len(path_san)
+for step1, obj in enumerate(path_you[::-1]):
+    if obj in path_san:
+        steps -= step1 + path_san.index(obj)
+        break
+print(steps)
+",0.0
+212,2019,7,1,runtime_error,,77500,"  File ""/tmp/tmpdevtet2j/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from itertools import permutations
+
+def get_signal(sequence, phases):
+  inputs = [0] + phases
+  output = 0
+  for sequence, phase in zip(sequence, phases):
+    index = 0
+    while index < len(sequence):
+      operation = sequence[index] % 100
+      input_mode_1 = (sequence[index] // 100) % 10
+      input_mode_2 = (sequence[index] // 1000) % 10
+
+      if operation == 1:
+        index += 4
+        op1 = sequence[index - 3] if input_mode_1 == 0 else sequence[index - 3]
+        op2 = sequence[index - 2] if input_mode_2 == 0 else sequence[index - 2]
+        sequence[index - 1] = op1 + op2
+
+      elif operation == 2:
+        index += 4
+        op1 = sequence[index - 3] if input_mode_1 == 0 else sequence[index - 3]
+        op2 = sequence",0.0
+213,2019,7,2,part1_failed,,22476942,,,
+214,2019,8,1,no_error,1742,1742,,"
+with open('input.txt') as f:
+    data = f.read().strip()
+
+layers = [data[n:n+25*6] for n in range(0, len(data), 25*6)]
+layer_zeros = [layer.count('0') for layer in layers]
+least_zeros = min(layer_zeros)
+idx_least_zeros = layer_zeros.index(least_zeros)
+
+ones = layers[idx_least_zeros].count('1')
+twos = layers[idx_least_zeros].count('2')
+
+print('The result is:', (ones * twos))
+",0.0
+215,2019,8,2,wrong_output,"The result is: 011000011010001111100110010010000101000110000100101000000010010101110010010101100001000100100001111010010100100010010000100100111001100001001111010010
+",GJYEA,,"
+with open('input.txt') as f:
+    data = f.read().strip()
+
+layers = [data[n:n+25*6] for n in range(0, len(data), 25*6)]
+
+final = []
+for i in range(0, 25*6):
+    for layer in layers:
+        if layer[i] != '2':
+            final.append(layer[i])
+            break
+
+print('The result is:', ''.join(final))
+",0.0
+216,2019,9,1,runtime_error,,3780860499,"  File ""/tmp/tmpk7o_aqr_/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+from enum import IntEnum
+from collections import defaultdict
+
+def read_file(filename):
+  with open(filename, 'r') as f:
+    return f.read().strip('\n')
+
+program_str = read_file('input.txt')
+program = [int(i) for i in program_str.split(',')] + [0] * 100000
+
+class Mode(IntEnum):
+  POSITION = 0
+  IMMEDIATE = 1
+  RELATIVE = 2
+
+class Opcode(IntEnum):
+  ADD = 1
+  MUL = 2
+  INPUT = 3
+  OUTPUT = 4
+  JUMP_TRUE = 5
+  JUMP_FALSE = 6
+  LESS_THAN = 7
+  EQUALS = 8
+  REL_BASE = 9
+  HALT = 99
+
+def run(prog):
+  ip, rb, halted, op, parameters, input_buffer, output_buffer = 0, 0, False, 0, [], [], []
+  parameter_modes = []
+
+  while not halted:
+    opcode, m = divmod(",0.0
+217,2019,9,2,part1_failed,,33343,,,
+218,2019,10,1,runtime_error,,309,"  File ""/tmp/tmpoqosgo4j/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import numpy as np
+from typing import List, Set
+from collections import Counter
+
+def count_obstacles(x: int, y: int, asteroid_map: np.ndarray, x_axis: int, y_axis: int) -> int:
+    cnt_blocked = 0
+    while True:
+        x += x_axis
+        y += y_axis
+        if (x < 0 or x == asteroid_map.shape[0] or
+            y < 0 or y == asteroid_map.shape[1]):
+            break
+        if asteroid_map[x, y] == '#':
+            cnt_blocked += 1
+    return cnt_blocked
+
+def count_visible(asteroid_map: np.ndarray) -> int:
+    max_cnt = 0
+    for i in range(asteroid_map.shape[0]):
+        for j in range(asteroid_map.shape[1]):
+            if asteroid_map[i, j] != '#':
+                continue
+            cnt_visible = len({x for x in range(1, 361)})
+            for direction in range(1, 36",0.0
+219,2019,10,2,part1_failed,,416,,,
+220,2019,11,1,runtime_error,,2336,"  File ""/tmp/tmp518p88xb/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+
+with open('input.txt', 'r') as f:
+    prog = [int(x) for x in f.readline().split(',')]
+
+grid = defaultdict(bool)  # False is black, True is white
+pos = (0, 0)  # (col, row)
+direction = 0 
+# 0 is up, 1 is right, 2 is down, 3 is left
+
+pc = 0
+relbase = 0
+
+def run():
+    global pc
+    global relbase
+
+    while True:
+        instruction = str(prog[pc])
+        op = int(instruction[-2:])
+        p1_mode = int(instruction[-3]) if len(instruction) > 2 else 0
+        p2_mode = int(instruction[-4]) if len(instruction) > 3 else 0
+        p3_mode = int(instruction[-5]) if len(instruction) > 4 else 0
+            
+        if op == 99:
+            return
+
+        p1 = prog[pc + 1] if p1_mode else prog[relbase",0.0
+221,2019,11,2,part1_failed,,UZAEKBLP,,,
+222,2019,12,1,runtime_error,,6220,"  File ""/tmp/tmp0_z69f94/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+moons = [list(map(int, line.lstrip(' <xyz=').rstrip('>').split(','))) for line in open(""input.txt"")]
+vel = [[0] * 3 for _ in moons]
+
+def compute_total_energy():
+    pot, kin = 0, 0
+    for moon in moons:
+        pot += sum(map(abs, moon))
+        kin += sum(map(abs, vel[moons.index(moon)]))
+    return pot * kin
+
+def simulate(iterations):
+    for _ in range(iterations):
+        # apply gravity between all moons in pairs
+        for m1 in moons:
+            for m2 in moons:
+                for ax in range(3):
+                    if m1[ax] < m2[ax]:
+                        m1[ax] += 1
+                        m2[ax] -= 1
+                    elif m1[ax] > m2[ax]:
+                        m1[ax] -= 1
+                        m2[ax] += 1
+
+        # apply velocity to moons
+        for m, v in zip(moons, vel):
+            for",0.0
+223,2019,12,2,part1_failed,,548525804273976,,,
+224,2019,13,1,runtime_error,,270,"  File ""/tmp/tmp571wvih5/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+from enum import Enum
+import heapq
+import sys
+
+def read_int_codes(file):
+    with open(file, ""r"") as f:
+        return list(map(int, f.read().split("","")))
+
+class Color(Enum):
+    BLACK = 0
+    WHITE = 255
+
+class Ball(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.vx = 1
+        self.vy = 1
+
+class Paddle(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class Tile(object):
+    def __init__(self, tile_id, x, y):
+        self.tile_id = tile_id
+        self.x = x
+        self.y = y
+
+    @property
+    def is_empty_tile(self):
+        return self.tile_id == 0
+
+    @property
+    def is_block_tile(self):
+        return self.tile_id == 2",0.0
+225,2019,13,2,part1_failed,,12535,,,
+226,2019,14,1,runtime_error,,532506,"  File ""/tmp/tmpl2975mf0/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+from collections import defaultdict
+
+def parse_reaction(line):
+  """"""Parse a chemical reaction line into a dictionary.""""""
+  inputs, output = line.split('=>')
+  inputs = [tuple(int(n), c) for n, c in re.findall(r'(\d+) ([A-Z]+)', inputs)]
+  output = tuple(re.findall(r'(\d+) ([A-Z]+)', output)[0])
+  return inputs, output
+
+def calculate_ore(requirements, excess_chemicals):
+  """"""Calculate the amount of ORE required to produce a certain amount of a chemical.""""""
+  ore = 0
+  while True:
+    # Check if we have enough excess chemicals to fulfill the requirements.
+    for chemical, amount in requirements.items():
+      if chemical in excess_chemicals and amount <= excess_chemicals[chemical]:
+        requirements[chemical] -= excess_chemicals[chemical]
+        excess_chemicals.pop(chemical)
+        continue
+
+      # If we don't have enough excess chemicals, we need to produce more.
+      if chemical == 'ORE':
+        ore += amount
+        requirements.pop('",0.0
+227,2019,14,2,part1_failed,,2595245,,,
+228,2019,15,1,runtime_error,,300,"  File ""/tmp/tmpyikdsu7h/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Read the Intcode program from the input file.
+with open('input.txt') as f:
+    program = list(map(int, f.read().split(',')))
+
+# Create an Intcode computer.
+class IntcodeComputer:
+    def __init__(self, program, inputs):
+        self.program = program.copy()
+        self.inputs = inputs.copy()
+        self.index = 0
+        self.relative_base = 0
+
+    def run(self):
+        while True:
+            # Get the opcode and parameters from the current instruction.
+            opcode = self.program[self.index] % 100
+            params = [self.get_param(i) for i in range(1, 4)]
+
+            # Execute the instruction based on the opcode.
+            if opcode == 1:
+                self.program[params[2]] = params[0] + params[1]
+                self.index += 4
+            elif opcode == 2:
+                self.program[params[2]] = params[0] * params[1]
+                self.index += 4
+",0.0
+229,2019,15,2,part1_failed,,312,,,
+230,2019,16,1,runtime_error,,68317988,"  File ""/tmp/tmp7v6837cc/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def fft(data, phases=100, pattern_offset=1):
+  """"""
+  Flawed Frequency Transmission algorithm (FFT).
+
+  Args:
+    data: A list of integers representing the initial state.
+    phases: The number of phases to run.
+    pattern_offset: Pattern offset.
+
+  Returns:
+    The final output list after the specified number of phases.
+  """"""
+
+  def pattern_generator(length, offset=1):
+    """"""
+    Generate the FFT pattern.
+
+    Args:
+      length: The length of the pattern to generate.
+      offset: Offset of the pattern.
+
+    Yields:
+      The pattern values as a generator.
+    """"""
+    base_pattern = [0, 1, 0, -1]
+    # Repeat the base pattern multiple times, according to the output list position
+    pattern = base_pattern * (length - 1) + base_pattern[:offset]
+    while True:
+      yield from pattern
+
+  # Perform the FFT algorithm
+  for _ in range(phases):
+    new_data = []
+    pattern = pattern_generator(len(data))",0.0
+231,2019,16,2,part1_failed,,53850800,,,
+232,2019,17,1,runtime_error,,9876,"  File ""/tmp/tmp3mh63xa6/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+class Intcode:
+    def __init__(self, program, inputs):
+        self.memory = program[:]
+        self.inputs = inputs[:]
+        self.output = []
+        self.ip = 0
+        self.relative_base = 0
+
+    def get(self, p):
+        if 0 <= p < len(self.memory):
+            return self.memory[p]
+        else:
+            return 0
+
+    def set(self, p, v):
+        if 0 <= p < len(self.memory):
+            self.memory[p] = v
+        else:
+            for i in range(p - len(self.memory) + 1):
+                self.memory.append(0)
+            self.memory[p] = v
+
+    def run(self):
+        while True:
+            i = self.ip
+            op = self.get(i) % 100
+            m1 = self.get(i) // 100 % 10
+            m2 = self.get(i) // 1000 % 10
+            ",0.0
+233,2019,17,2,part1_failed,,1234055,,,
+234,2019,18,1,runtime_error,,6316,"  File ""/tmp/tmp_53bn4p4/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict, deque
+from heapq import heappush, heappop
+
+def shortest_path(grid):
+  """"""Returns the shortest path to collect all keys in a grid.""""""
+
+  # Find the starting position and all keys and doors.
+  start_x, start_y = None, None
+  keys = defaultdict(list)
+  doors = defaultdict(list)
+  for i, row in enumerate(grid):
+    for j, cell in enumerate(row):
+      if cell == '@':
+        start_x, start_y = i, j
+      elif cell.islower():
+        keys[cell].append((i, j))
+      elif cell.isupper():
+        doors[cell].append((i, j))
+
+  # Define the heuristic function.
+  def heuristic(x1, y1, x2, y2):
+    """"""Estimates the Manhattan distance between two points.""""""
+    return abs(x2 - x1) + abs(y2 - y1)
+
+  # Initialize the open and closed sets.
+  open_set = [(0, start_x, start_y)]
+  closed_set = set",0.0
+235,2019,18,2,part1_failed,,1648,,,
+236,2019,19,1,runtime_error,,150,"  File ""/tmp/tmpzrgmniss/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from enum import Enum, auto
+
+class Direction(Enum):
+  UP = auto()
+  DOWN = auto()
+  LEFT = auto()
+  RIGHT = auto()
+
+class State:
+  WALL = '#'
+  EMPTY = '.'
+  DRONE_STATIONARY = '0'
+  DRONE_MOVING = '1'
+
+def run_program(program, x, y):
+  """"""Runs the Intcode program with the given input and returns the output.
+
+  The input is provided in the form of a list of integers. The program will halt when it encounters an opcode of 99.
+
+  Args:
+    program: The Intcode program to run.
+    x: The X coordinate of the drone.
+    y: The Y coordinate of the drone.
+
+  Returns:
+    The output of the program.
+  """"""
+
+  inputs = [x, y]
+  outputs = []
+  i = 0
+  while i < len(program):
+    opcode = program[i] % 100
+    parameter_modes = program[i] // 100
+    if opcode == 99:
+      break
+    ",0.0
+237,2019,19,2,part1_failed,,12201460,,,
+238,2019,20,1,runtime_error,,608,"  File ""/tmp/tmpcda_u_kd/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def bfs(start, end, grid):
+    queue = [(start, 0)]
+    while queue:
+        u, dist = queue.pop(0)
+        if u == end:
+            return dist
+        for v in [(u[0] - 1, u[1]), (u[0] + 1, u[1]), (u[0], u[1] - 1), (u[0], u[1] + 1)]:
+            if 0 <= v[0] < len(grid) and 0 <= v[1] < len(grid[0]) and grid[v[0]][v[1]] != '#':
+                queue.append((v, dist + 1))
+
+def generate_grid(grid, portals):
+    for pair in portals:
+        for c in (pair[0], pair[1]):
+            grid[c[0] - 1][c[1] - 1] = '%'
+    return grid
+
+with open(""input.txt"") as f:
+    data = f.read().splitlines()
+
+grid = [['X' for _ in range(len(data",0.0
+239,2019,20,2,part1_failed,,6706,,,
+240,2019,21,1,runtime_error,,19358688,"  File ""/tmp/tmpmsidop2b/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+    prog = f.read()
+import queue
+class Robot:
+    def __init__(self,prog):
+        self.q=queue.Queue()
+        for char in prog+'\n': self.q.put(ord(char))
+        self.inputs_pending=True
+        self.out=''
+    def send_inputs(self,ins):
+        self.q.put(ord('\n'))
+        for char in ins: self.q.put(ord(char))
+        self.q.put(ord('\n'))
+        self.inputs_pending=False
+    def read_outputs(self):
+        while True:
+            if self.q.empty(): return None
+            char=self.q.get()
+            if self.q.empty():
+                if char==255:
+                    return(self.out[-1] if len(self.out)>0 else '')
+                return(chr(char)+self.read_outputs())
+            if char!=ord('\n'): self.out+=chr(char)
+robot=Robot(prog)
+",0.0
+241,2019,21,2,part1_failed,,1141236756,,,
+242,2019,22,1,runtime_error,,1252,"  File ""/tmp/tmpygzhfrm7/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+  instructions = [line.rstrip() for line in f]
+
+deck = list(range(10007))
+N = len(deck)
+
+
+def deal_into_new_stack(deck):
+  a = deck.copy()
+  for i in range(N):
+    deck[N - i - 1] = a[i]
+
+
+def cut_n(deck, n):
+  a = deck.copy()
+  if n >= 0:
+    for i in range(N):
+      deck[i] = a[(i + n) % N]
+  else:
+    for i in range(N):
+      deck[i] = a[(i - n - 1) % N]
+
+
+def deal_with_increment_n(deck, n):
+  a = deck.copy()
+  for i in range(N):
+    pos = (i * n) % N
+    deck[pos] = a[i]
+
+
+for instruc in instructions:
+  a = instruc.split()
+  if a[0] == 'deal' and",0.0
+243,2019,22,2,part1_failed,,46116012647793,,,
+244,2019,23,1,runtime_error,,24922,"  File ""/tmp/tmppatd3k0o/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import math
+
+def run(code, input_values):
+    ip = 0
+    relative_base = 0
+    output_values = []
+
+    while True:
+        instruction = code[ip]
+
+        opcode = instruction % 100
+        p1_mode = (instruction // 100) % 10
+        p2_mode = (instruction // 1000) % 10
+        p3_mode = (instruction // 10000) % 10
+
+        if opcode == 99:  # Halt
+            break
+
+        elif opcode == 1:  # Add
+            p1_value = code[code[ip + 1]] if p1_mode == 0 else code[ip + 1]
+            p2_value = code[code[ip + 2]] if p2_mode == 0 else code[ip + 2]
+            p3_address = code[ip + 3] if p3_mode == 0 else relative_base + code[ip + 3]
+            code[p3_address] = p1_",0.0
+245,2019,23,2,part1_failed,,19478,,,
+246,2019,24,1,runtime_error,,1151290,"  File ""/tmp/tmprts_rr7u/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+  grid = [list(row) for row in list(f)[2: ]]
+
+def adjacent_bugs(grid, i, j):
+  bugs = 0
+  for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+    if  0 <= i + di < 5 and 0 <= j + dj < 5:
+      bugs += grid[i + di][j + dj] == '#'
+    else:
+      bugs += grid[0 if di == -1 else 4 if di == 1 else i][0 if dj == -1 else 4 if dj == 1 else j] == '#'
+  return bugs
+
+def minute(grid):
+  new_grid = [['.' for _ in range(5)] for _ in range(5)]
+  for i in range(5):
+    for j in range(5):
+      bugs = adjacent_bugs(grid, i, j)
+      if grid[i][j] == '#':
+        new_grid[i][j] = '#' if",0.0
+247,2019,24,2,part1_failed,,1953,,,
+248,2019,25,1,runtime_error,,25166400,"  File ""/tmp/tmprie4p4lm/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import fileinput
+import re
+import sys
+
+program = [int(n) for n in fileinput.input(""input.txt"")] + [0] * 2000
+
+grid = {}
+
+class Computer:
+
+    def __init__(self, memory, inputs, outputs):
+        self.mem = memory
+        self.ip = 0
+        self.rel = 0
+        self.inputs = inputs
+        self.outputs = outputs
+
+    def get(self, address):
+        if 0 <= address < len(self.mem):
+            return self.mem[address]
+        else:
+            return 0
+
+    def put(self, address, value):
+        while address >= len(self.mem): self.mem.append(0)
+        self.mem[address] = value
+
+    def compute(self):
+        while True:
+            opcode = self.mem[self.ip] % 100
+            param1 = self.get(self.ip + 1)
+            param2 = self.get(self.ip + 2)
+            param3 = self.get(self.ip +",0.0
+249,2019,25,2,part1_failed,,,,,
+250,2020,1,1,no_error,"928896
+",928896,,"
+with open('input.txt') as f:
+    nums = [int(num) for num in f]
+
+for num1 in nums:
+    for num2 in nums:
+        if num1 + num2 == 2020:
+            print(num1 * num2)
+            exit()
+",0.0
+251,2020,1,2,no_error,"295668576
+",295668576,,"
+with open('input.txt') as f:
+    nums = [int(num) for num in f]
+
+for num1 in nums:
+    for num2 in nums:
+        for num3 in nums:
+            if num1 + num2 + num3 == 2020:
+                print(num1 * num2 * num3)
+                exit()
+",0.0
+252,2020,2,1,runtime_error,,434,"Traceback (most recent call last):
+  File ""/tmp/tmpd9ksqcge/tmp.py"", line 10, in <module>
+    print(sum(is_valid(password, line) for line in f))
+  File ""/tmp/tmpd9ksqcge/tmp.py"", line 10, in <genexpr>
+    print(sum(is_valid(password, line) for line in f))
+NameError: name 'password' is not defined
+","
+import re
+
+def is_valid(password, policy):
+    nums, char = policy.split()
+    low, high = map(int, nums.split('-'))
+    return low <= password.count(char) <= high
+
+with open('input.txt') as f:
+    print(sum(is_valid(password, line) for line in f))
+",0.0
+253,2020,2,2,part1_failed,,509,,,
+254,2020,3,1,wrong_output,"Number of trees hit: 292
+",292,,"
+with open('input.txt') as f:
+  forest = [line.strip('\n') for line in f.readlines()]
+
+  x = 0  # horizontal position
+  y = 0  # vertical position/line counter
+  trees_hit = 0  # number of trees hit
+
+  while y < len(forest) - 1:  # ignore last line
+      x = (x + 3) % len(forest[0])  # wrap around in horizontal direction
+      y += 1  # move down
+
+      if forest[y][x] == '#':  # hit a tree
+          trees_hit += 1
+
+  print(f""Number of trees hit: {trees_hit}"")
+",0.0
+255,2020,3,2,part1_failed,,9354744432,,,
+256,2020,4,1,wrong_output,"254
+",233,,"
+valid_passports = 0
+
+with open('input.txt') as f:
+    passport = {}
+    for line in f:
+        if not line.strip():
+            if len(passport) == 7 or (len(passport) == 8 and 'cid' in passport):
+                valid_passports += 1
+            passport = {}
+        else:
+            key_values = line.strip().split()
+            for kv in key_values:
+                k, v = kv.split(':')
+                passport[k] = v
+
+if len(passport) == 7 or (len(passport) == 8 and 'cid' in passport):
+    valid_passports += 1
+
+print(valid_passports)
+",0.0
+257,2020,4,2,part1_failed,,111,,,
+258,2020,5,1,no_error,"987
+",987,,"
+with open(""input.txt"") as f:
+    boarding_passes = [line.strip() for line in f.readlines()]
+
+seat_ids = []
+for boarding_pass in boarding_passes:
+    row = int(boarding_pass[:7].replace(""F"", ""0"").replace(""B"", ""1""), 2)
+    column = int(boarding_pass[7:].replace(""L"", ""0"").replace(""R"", ""1""), 2)
+    seat_id = row * 8 + column
+    seat_ids.append(seat_id)
+
+print(max(seat_ids))
+",0.0
+259,2020,5,2,wrong_output,,603,,"
+with open(""input.txt"") as f:
+    boarding_passes = [line.strip() for line in f.readlines()]
+
+seat_ids = []
+for boarding_pass in boarding_passes:
+    row = int(boarding_pass[:7].replace(""F"", ""0"").replace(""B"", ""1""), 2)
+    column = int(boarding_pass[7:].replace(""L"", ""0"").replace(""R"", ""1""), 2)
+    seat_id = row * 8 + column
+    seat_ids.append(seat_id)
+
+seat_ids.sort()
+
+for i in range(1, len(seat_ids) - 1):
+    if seat_ids[i] - 1 != seat_ids[i - 1] and seat_ids[i] + 1 != seat_ids[i + 1]:
+        print(seat_ids[i])
+",0.0
+260,2020,6,1,wrong_output,"6760
+",6775,,"
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
+
+# Split lines into groups.
+groups = []
+current_group = []
+for line in lines:
+    if line == '\n':
+        groups.append(current_group)
+        current_group = []
+    else:
+        current_group.append(line.strip())
+
+# Count the number of unique ""yes"" answers in each group.
+total_count = 0
+for group in groups:
+    # Convert each person's answers to a set of questions.
+    person_answers = [set(person) for person in group]
+    # Find the union of all person's answers in the group.
+    group_answers = set.union(*person_answers)
+    total_count += len(group_answers)
+
+print(total_count)
+",0.0
+261,2020,6,2,part1_failed,,3356,,,
+262,2020,7,1,runtime_error,,226,"  File ""/tmp/tmpvp_9qb8n/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+def count_valid_bags(rules):
+    """"""Counts the number of bag colors that can eventually contain at least one shiny gold bag.""""""
+
+    # Initialize the set of valid bag colors.
+    valid_bags = set()
+
+    # Iterate over the rules.
+    for rule in rules:
+        # Extract the bag color and its contents from the rule.
+        bag_color, contents = rule.split("" bags contain "")
+
+        # If the bag contains at least one shiny gold bag, add its color to the set of valid bags.
+        if ""shiny gold"" in contents:
+            valid_bags.add(bag_color)
+
+        # Otherwise, check if the bag's contents contain any valid bags.
+        else:
+            for content in contents.split("", ""):
+                # Extract the number and color of the bag from the content.
+                count, color = content.split("" "")
+
+                # If the bag contains a valid bag, add its color to the set of valid bags.
+                if color in valid_bags:
+                    valid_bags.add(bag_color)
+
+    # Return the number of valid bag colors.
+",0.0
+263,2020,7,2,part1_failed,,9569,,,
+264,2020,8,1,no_error,"1384
+",1384,,"
+def run_boot_code(code):
+    accumulator = 0
+    idx = 0
+    executed_instructions = set()
+    while True:
+        if idx in executed_instructions:
+            break
+        executed_instructions.add(idx)
+        instruction, argument = code[idx].split()
+        argument = int(argument)
+        if instruction == ""acc"":
+            accumulator += argument
+            idx += 1
+        elif instruction == ""jmp"":
+            idx += argument
+        elif instruction == ""nop"":
+            idx += 1
+    return accumulator
+
+with open(""input.txt"") as f:
+    code = f.readlines()
+print(run_boot_code(code))
+",0.0
+265,2020,8,2,runtime_error,,761,"  File ""/tmp/tmpjcvl2cs_/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def has_loop(code):
+    accumulator = 0
+    idx = 0
+    executed_instructions = set()
+    while True:
+        if idx in executed_instructions or idx == len(code):
+            return idx in executed_instructions, accumulator
+        executed_instructions.add(idx)
+        instruction, argument = code[idx].split()
+        argument = int(argument)
+        if instruction == ""acc"":
+            accumulator += argument
+            idx += 1
+        elif instruction == ""jmp"":
+            idx += argument
+        elif instruction == ""nop"":
+            idx += 1
+
+
+def modify_and_run(code, modify_idx):
+    code[modify_idx] = code[modify_idx].replace(""jmp"", ""nop"") if ""jmp"" in code[modify_idx] else code[modify_idx].replace(""nop"", ""jmp"")
+    has_loop_flag, accumulator = has_loop(code)
+    code[modify_idx] = code[modify_idx].replace(""jmp"", ""nop"") if ""jmp"" in code[modify_idx] else code[modify_idx].replace(""nop",0.0
+266,2020,9,1,wrong_output,"12
+",258585477,,"
+with open('input.txt') as f:
+    nums, i, preamble = [int(line) for line in f], 0, 25
+    while any([nums[j] + nums[k] == nums[i] for j in range(i - preamble, i) for k in range(j + 1, i)]): i += 1
+    print(nums[i])
+",0.0
+267,2020,9,2,part1_failed,,36981213,,,
+268,2020,10,1,no_error,"2263
+",2263,,"
+jolts = [int(line) for line in open(""input.txt"")]
+jolts.sort()
+
+jolts = [0] + jolts + [jolts[-1] + 3]
+jolts.sort()
+
+diff1 = 0
+diff3 = 0
+for jolti, jolt in enumerate(jolts):
+    diff = jolt - jolts[jolti - 1]
+    if diff == 1:
+        diff1 += 1
+    elif diff == 3:
+        diff3 += 1
+
+print(diff1 * diff3)
+",0.0
+269,2020,10,2,no_error,"396857386627072
+",396857386627072,,"
+jolts = [int(line) for line in open(""input.txt"")]
+jolts.sort()
+
+jolts = [0] + jolts + [jolts[-1] + 3]
+jolts.sort()
+
+cache = {}
+def arrangements(jolti):
+    if jolti in cache:
+        return cache[jolti]
+    if jolti == len(jolts) - 1:
+        return 1
+    ret = 0
+    for i in range(jolti + 1, min(jolti + 4, len(jolts))):
+        if jolts[i] - jolts[jolti] <= 3:
+            ret += arrangements(i)
+    cache[jolti] = ret
+    return ret
+
+print(arrangements(0))
+",0.0
+270,2020,11,1,runtime_error,,2368,"  File ""/tmp/tmp8wd3s0xz/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import numpy as np
+
+def read_input(filename):
+    with open(filename, 'r') as f:
+        return np.array([[c for c in line.strip()] for line in f])
+
+def count_occupied(seat_map):
+    return np.sum(seat_map == '#')
+
+def check_adjacent(seat_map, row, col):
+    num_occupied = 0
+    for i in range(row-1, row+2):
+        for j in range(col-1, col+2):
+            if i >= 0 and i < seat_map.shape[0] and j >= 0 and j < seat_map.shape[1]:
+                if seat_map[i, j] == '#' and not (i == row and j == col):
+                    num_occupied += 1
+    return num_occupied
+
+def update_seats(seat_map):
+    new_seat_map = np.copy(seat_map)
+    for i in range(seat_map.shape[0]):
+        for j in range(seat_map.shape[1]):
+            if seat_",0.0
+271,2020,11,2,part1_failed,,2124,,,
+272,2020,12,1,runtime_error,,962,"  File ""/tmp/tmpvle2b2hw/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import math
+
+def update_location(location, action, value):
+  if action == 'N':
+    location[1] += value
+  elif action == 'S':
+    location[1] -= value
+  elif action == 'E':
+    location[0] += value
+  elif action == 'W':
+    location[0] -= value
+  elif action == 'L':
+    location[2] -= value
+    location[2] %= 360
+  elif action == 'R':
+    location[2] += value
+    location[2] %= 360
+  elif action == 'F':
+    if location[2] == 0:
+      location[0] += value
+    elif location[2] == 90:
+      location[1] += value
+    elif location[2] == 180:
+      location[0] -= value
+    elif location[2] == 270:
+      location[1] -= value
+
+with open('input.txt', 'r') as f:
+    actions = [line.split() for line in f.readlines()]
+
+location",0.0
+273,2020,12,2,part1_failed,,56135,,,
+274,2020,13,1,wrong_output,"91
+",2095,,"
+with open('input.txt') as f:
+  t, bus_ids = f.read().splitlines()
+w, earliest_bus = sorted((int(bid), int(bid) - int(t) % int(bid)) for bid in bus_ids.split(',') if bid != 'x')[0]
+print(w * earliest_bus)
+",0.0
+275,2020,13,2,part1_failed,,598411311431841,,,
+276,2020,14,1,runtime_error,,14553106347726,"  File ""/tmp/tmppepmp7d0/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def apply_mask(value, mask):
+  """"""Applies the given bitmask to the given value.
+
+  The mask is a string of 36 bits, written with the most significant bit
+  (representing `2^35`) on the left and the least significant bit (`2^0`, that
+  is, the `1`s bit) on the right.
+
+  The current bitmask is applied to values immediately before they are written to
+  memory: a `0` or `1` overwrites the corresponding bit in the value, while an
+  `X` leaves the bit in the value unchanged.
+
+  Args:
+    value: The value to be masked.
+    mask: The bitmask to apply.
+
+  Returns:
+    The masked value.
+  """"""
+  # Convert the value and mask to binary strings
+  value_binary = bin(value)[2:].zfill(36)
+  mask_binary = mask.replace('X', '0')  # Ignore Xs for now
+  # Apply the mask to the value
+  masked_value_binary = ''.join(
+      [char if mask_char == '0' else mask",0.0
+277,2020,14,2,part1_failed,,2737766154126,,,
+278,2020,15,1,no_error,468,468,,"
+def mem_game(startings, turns=2020):
+    mem = {}
+    curr = 0
+    for i, n in enumerate(startings):
+        mem[n] = i
+        curr = n
+
+    for turn in range(i + 1, turns):
+        if curr in mem:
+            n = turn - 1 - mem[curr]
+        else:
+            n = 0
+
+        mem[curr] = turn - 1
+        curr = n
+
+    return curr
+
+
+if __name__ == ""__main__"":
+    data = open('input.txt', 'r').read().strip('\n')
+    nums = [int(x) for x in data.split("","")]
+
+    print(""The 2020th number spoken is:"", mem_game(nums))
+",0.0
+279,2020,15,2,no_error,1801753,1801753,,"
+def mem_game(startings, turns=30000000):
+    mem = {}
+    curr = 0
+    for i, n in enumerate(startings):
+        mem[n] = i
+        curr = n
+
+    for turn in range(i + 1, turns):
+        if curr in mem:
+            n = turn - 1 - mem[curr]
+        else:
+            n = 0
+
+        mem[curr] = turn - 1
+        curr = n
+
+    return curr
+
+
+if __name__ == ""__main__"":
+    data = open('input.txt', 'r').read().strip('\n')
+    nums = [int(x) for x in data.split("","")]
+
+    print(""The 30000000th number spoken is:"", mem_game(nums))
+",0.0
+280,2020,16,1,runtime_error,,26026,"  File ""/tmp/tmpuok35bdo/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_rule(rule):
+    """"""Parses a rule into a tuple of (field_name, range1, range2).
+
+    Args:
+        rule: The rule to parse.
+
+    Returns:
+        A tuple of (field_name, range1, range2).
+    """"""
+    field_name, ranges = rule.split("": "")
+    range1, range2 = ranges.split("" or "")
+    range1 = list(map(int, range1.split(""-"")))
+    range2 = list(map(int, range2.split(""-"")))
+    return field_name, range1, range2
+
+
+def is_valid_value(value, ranges):
+    """"""Checks if a value is valid for any of the given ranges.
+
+    Args:
+        value: The value to check.
+        ranges: A list of tuples of (min, max).
+
+    Returns:
+        True if the value is valid for any of the given ranges, False otherwise.
+    """"""
+    for range in ranges:
+        if range[0] <= value <= range[1]:
+            return True
+    return False
+
+
+def parse_ticket(",0.0
+281,2020,16,2,part1_failed,,1305243193339,,,
+282,2020,17,1,runtime_error,,263,"  File ""/tmp/tmpgga7m_rv/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import json
+
+def main():
+  # Read the input.
+  with open('input.txt', 'r') as f:
+    cubes = json.load(f)
+
+  # Simulate the six cycles.
+  for _ in range(6):
+    cubes = cycle(cubes)
+
+  # Count the active cubes.
+  active_cubes = sum(sum(sum(row) for row in layer) for layer in cubes)
+
+  # Print the result.
+  print(f""After six cycles, there are {active_cubes} active cubes."")
+
+
+def cycle(cubes):
+  # Get the dimensions of the cube grid.
+  x_min = min(x for x, _, _ in cubes)
+  x_max = max(x for x, _, _ in cubes)
+  y_min = min(y for _, y, _ in cubes)
+  y_max = max(y for _, y, _ in cubes)
+  z_min = min(z for _, _, z in cubes)
+  z_max = max(z for _, _, z in cubes)
+
+  # Create a new cube grid to store the results of",0.0
+283,2020,17,2,part1_failed,,1680,,,
+284,2020,18,1,runtime_error,,31142189909908,"  File ""/tmp/tmphql2o50h/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def evaluate(expression):
+    while '(' in expression:
+        start = expression.rindex('(')
+        end = expression.index(')', start)
+        expression = expression[:start] + str(evaluate(expression[start + 1:end])) + expression[end + 1:]
+
+    tokens = expression.split()
+    while len(tokens) > 1:
+        i = 1
+        while i < len(tokens):
+            if tokens[i] == '+':
+                tokens[i - 1] = int(tokens[i - 1]) + int(tokens[i + 1])
+                tokens.pop(i)
+                tokens.pop(i)
+                i -= 1
+            elif tokens[i] == '*':
+                tokens[i - 1] = int(tokens[i - 1]) * int(tokens[i + 1])
+                tokens.pop(i)
+                tokens.pop(i)
+                i -= 1
+            i += 1
+
+    return int(tokens[0])
+
+with open('input.txt') as f:
+    expressions = f.read().splitlines()",0.0
+285,2020,18,2,part1_failed,,323912478287549,,,
+286,2020,19,1,runtime_error,,173,"  File ""/tmp/tmp2_kj6kok/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+# Get the rules and messages from the input file
+with open('input.txt', 'r') as f:
+    lines = f.readlines()
+
+# Split the rules and messages into separate lists
+rules = lines[:lines.index('\n')]
+messages = lines[lines.index('\n')+1:]
+
+# Parse the rules into a dictionary
+parsed_rules = {}
+for rule in rules:
+    rule_num, rule_str = rule.split(': ')
+    if '""' in rule_str:
+        parsed_rules[rule_num] = rule_str[1:-1]
+    else:
+        parsed_rules[rule_num] = [x.split(' ') for x in rule_str.split('|')]
+
+# Function to check if a message matches the given rule
+def matches_rule(message, rule_num):
+    if rule_num in parsed_rules:
+        rule = parsed_rules[rule_num]
+        if isinstance(rule, str):
+            return message == rule
+        else:
+            for option in rule:
+                if all(matches_rule(message[i:i+len",0.0
+287,2020,19,2,part1_failed,,367,,,
+288,2020,20,1,runtime_error,,15003787688423,"  File ""/tmp/tmpb1nbjbog/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import numpy as np
+import re
+
+with open('input.txt') as f:
+    tiles = f.read().split('\n\n')
+
+tile_ids = {}
+tile_imgs = {}
+
+for tile in tiles:
+    tile_lines = tile.splitlines()
+    tile_id = int(re.search('Tile (\d+):', tile_lines[0]).group(1))
+    tile_img = np.array([[c == '#' for c in line] for line in tile_lines[1:]])
+    tile_ids[tile_id] = tile_img
+    tile_imgs[tile_id] = tile_img
+
+tile_size = len(tile_imgs[0])
+
+def rotate(tile_img, n):
+    return np.rot90(tile_img, n)
+
+def flip(tile_img, axis):
+    return np.flip(tile_img, axis)
+
+def get_edges(tile_img):
+    top_edge = tile_img[0, :]
+    bottom_edge = tile_img[-1, :]
+    left_edge = tile_img[:, 0",0.0
+289,2020,20,2,part1_failed,,1705,,,
+290,2020,21,1,runtime_error,,2542,"  File ""/tmp/tmpu462qfn6/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import Counter
+
+def parse_input(filename):
+  with open(filename) as f:
+    foods = [line.strip() for line in f]
+
+  ingredients = []
+  allergens = []
+  for food in foods:
+    i, a = food.split("" (contains "")
+    if a.endswith("")""):
+      a = a[:-1]
+    ingredients.append(i.split())
+    allergens.append(a.split("", ""))
+
+  return ingredients, allergens
+
+def find_safe_ingredients(ingredients, allergens):
+  safe_ingredients = set()
+  for ingredient in ingredients[0]:
+    if all(ingredient not in food for food in ingredients):
+      safe_ingredients.add(ingredient)
+
+  return safe_ingredients
+
+def main():
+  ingredients, allergens = parse_input(""input.txt"")
+  safe_ingredients = find_safe_ingredients(ingredients, allergens)
+
+  count = 0
+  for ingredient in safe_ingredients:
+    for food in ingredients:
+      if ingredient in food:
+        count += 1
+
+  print(count)
+
+if __name__ == ""__",0.0
+291,2020,21,2,part1_failed,,"hkflr,ctmcqjf,bfrq,srxphcm,snmxl,zvx,bd,mqvk",,,
+292,2020,22,1,runtime_error,,34255,"Traceback (most recent call last):
+  File ""/tmp/tmp_me3_acy/tmp.py"", line 3, in <module>
+    deck1 = list(map(int, f.readline().split()))
+ValueError: invalid literal for int() with base 10: 'Player'
+","
+with open(""input.txt"", ""r"") as f:
+    deck1 = list(map(int, f.readline().split()))
+    deck2 = list(map(int, f.readline().split()))
+
+while deck1 and deck2:
+    c1 = deck1.pop(0)
+    c2 = deck2.pop(0)
+    if c1 > c2:
+        deck1.append(c1)
+        deck1.append(c2)
+    else:
+        deck2.append(c2)
+        deck2.append(c1)
+
+winner_deck = deck1 if deck1 else deck2
+score = 0
+for i, card in enumerate(winner_deck):
+    score += card * (len(winner_deck) - i)
+
+print(score)
+",0.0
+293,2020,22,2,part1_failed,,33369,,,
+294,2020,23,1,runtime_error,,49576328,"Traceback (most recent call last):
+  File ""/tmp/tmpd7ys1k8c/tmp.py"", line 13, in <module>
+    index = cups.index(dest)
+ValueError: 1 is not in list
+","
+cups = list(map(int, open(""input.txt"").read()))
+
+for _ in range(100):
+    current = cups[0]
+    pickup = cups[1:4]
+    cups = cups[4:]
+    dest = current - 1
+    while dest in pickup or dest < 1:
+        dest -= 1
+        if dest < 1:
+            dest = max(cups)
+    index = cups.index(dest)
+    cups = cups[:index+1] + pickup + cups[index+1:]
+    cups.append(cups.pop(0))
+
+index = cups.index(1)
+print(''.join(map(str, cups[index+1:] + cups[:index])))
+",0.0
+295,2020,23,2,part1_failed,,511780369955,,,
+296,2020,24,1,runtime_error,,356,"  File ""/tmp/tmp825qp4e7/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __repr__(self):
+        return f'({self.x}, {self.y})'
+
+class HexGrid:
+    def __init__(self):
+        self.grid = {}
+
+    def flip_tile(self, p):
+        if p in self.grid:
+            del self.grid[p]
+        else:
+            self.grid[p] = True
+
+    def count_black(self):
+        return len(self.grid)
+
+def main():
+    grid = HexGrid()
+    with open('input.txt', 'r') as f:
+        for line in f:
+            instructions = line.rstrip()
+            p = Point(0, 0)
+            for c in instructions:
+                if c == 'e':
+                    p.x += 1
+                elif c == 'w':
+                    p.x",0.0
+297,2020,24,2,part1_failed,,3887,,,
+298,2020,25,1,timeout_error,,711945,TIMEOUT,"
+def transform(subject, loop_size):
+    value = 1
+    for _ in range(loop_size):
+        value = (value * subject) % 20201227
+    return value
+
+def find_loop_size(public_key):
+    subject_number = 7
+    loop_size = 0
+    while True:
+        loop_size += 1
+        if transform(subject_number, loop_size) == public_key:
+            return loop_size
+
+def calculate_encryption_key(public_key, loop_size):
+    return transform(public_key, loop_size)
+
+with open('input.txt', 'r') as f:
+    card_public_key, door_public_key = [int(line) for line in f.read().splitlines()]
+
+card_loop_size = find_loop_size(card_public_key)
+encryption_key = calculate_encryption_key(door_public_key, card_loop_size)
+
+print(encryption_key)
+",0.0
+299,2020,25,2,part1_failed,,,,,
+300,2021,1,1,no_error,"1532
+",1532,,"
+with open('input.txt') as f:
+    measurements = [int(line) for line in f.readlines()]
+
+print(sum(a < b for a, b in zip(measurements[:-1], measurements[1:])))
+",0.0
+301,2021,1,2,wrong_output,"1484
+",1571,,"
+with open('input.txt') as f:
+    measurements = [int(line) for line in f.readlines()]
+
+print(sum(a < b for a, b in zip(measurements[:-2], measurements[2:])))
+",0.0
+302,2021,2,1,no_error,"1990000
+",1990000,,"
+with open('input.txt', 'r') as f:
+    commands = f.read().splitlines()
+
+horizontal_position = 0
+depth = 0
+
+for command in commands:
+    direction, value = command.split(' ')
+    value = int(value)
+    if direction == 'forward':
+        horizontal_position += value
+    elif direction == 'down':
+        depth += value
+    elif direction == 'up':
+        depth -= value
+
+print(horizontal_position * depth)
+",0.0
+303,2021,2,2,no_error,"1975421260
+",1975421260,,"
+with open('input.txt', 'r') as f:
+    commands = f.read().splitlines()
+
+horizontal_position = 0
+depth = 0
+aim = 0
+
+for command in commands:
+    direction, value = command.split(' ')
+    value = int(value)
+    if direction == 'forward':
+        horizontal_position += value
+        depth += aim * value
+    elif direction == 'down':
+        aim += value
+    elif direction == 'up':
+        aim -= value
+
+print(horizontal_position * depth)
+",0.0
+304,2021,3,1,no_error,"3549854
+",3549854,,"
+with open('input.txt') as f:
+    lines = [line.strip() for line in f]
+
+#Transpose
+transposed = [list(x) for x in zip(*lines)]
+gamma = ''.join(['0' if x.count('0') > x.count('1') else '1' for x in transposed])
+epsilon = ''.join(['1' if x.count('0') > x.count('1') else '0' for x in transposed])
+
+print(int(gamma, 2) * int(epsilon, 2))
+",0.0
+305,2021,3,2,runtime_error,,3765399,"Traceback (most recent call last):
+  File ""/tmp/tmpa9xyt6pw/tmp.py"", line 18, in <module>
+    print(calc_rating(lines, 0, False) * calc_rating(lines, 0, True))
+  File ""/tmp/tmpa9xyt6pw/tmp.py"", line 16, in calc_rating
+    return calc_rating(data, i + 1, least)
+  File ""/tmp/tmpa9xyt6pw/tmp.py"", line 16, in calc_rating
+    return calc_rating(data, i + 1, least)
+  File ""/tmp/tmpa9xyt6pw/tmp.py"", line 16, in calc_rating
+    return calc_rating(data, i + 1, least)
+  [Previous line repeated 995 more times]
+  File ""/tmp/tmpa9xyt6pw/tmp.py"", line 6, in calc_rating
+    if len(data) == 1:
+RecursionError: maximum recursion depth exceeded while calling a Python object
+","
+with open('input.txt') as f:
+    lines = [line.strip() for line in f]
+
+def calc_rating(data, i, least):
+    if len(data) == 1:
+        return int(data[0], 2)
+    zeros = [x for x in data if x[i] == '0']
+    ones = [x for x in data if x[i] == '1']
+    if len(zeros) > len(ones):
+        data = ones if least else zeros
+    elif len(ones) > len(zeros):
+        data = zeros if least else ones
+    else:
+        data = ones if least else zeros
+    return calc_rating(data, i + 1, least)
+
+print(calc_rating(lines, 0, False) * calc_rating(lines, 0, True))
+",0.0
+306,2021,4,1,runtime_error,,49860,"  File ""/tmp/tmpq67qtoru/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import numpy as np
+
+# read the input
+with open(""input.txt"") as f:
+    numbers = [int(num) for num in f.readline().split("","")]
+    boards = [
+        np.array([[int(num) for num in row.split()] for row in f.read().splitlines()])
+        for _ in range(5)
+    ]
+
+# mark the boards as numbers are called
+for number in numbers:
+    for board in boards:
+        board[board == number] = -1
+
+# check for winning boards
+for board in boards:
+    # check for a winning row
+    if np.any(np.all(board == -1, axis=1)):
+        unmarked_sum = np.sum(board[board != -1])
+        print(""Winning board score:"", unmarked_sum * number)
+        exit()
+
+    # check for a winning column
+    if np.any(np.all(board == -1, axis=0)):
+        unmarked_sum = np.sum(board[board != -1])
+        print(""Winning board score:"", unmarked_sum * number)
+        ",0.0
+307,2021,4,2,part1_failed,,24628,,,
+308,2021,5,1,runtime_error,,6710,"  File ""/tmp/tmp7qps142o/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+with open('input.txt', 'r') as f:
+    lines = [line.strip() for line in f.readlines()]
+
+# Parse the lines into (x1, y1, x2, y2) tuples
+line_segments = [(int(part.split(',')[0]) for part in line.split(' -> ')) for line in lines]
+
+# Create a grid to store the number of lines that cover each point
+grid = [[0 for _ in range(1000)] for _ in range(1000)]
+
+# Iterate over the line segments and increment the grid values for each point they cover
+for x1, y1, x2, y2 in line_segments:
+    if x1 == x2:
+        for y in range(min(y1, y2), max(y1, y2) + 1):
+            grid[x1][y] += 1
+    elif y1 == y2:
+        for x in range(min(x1, x2), max(x1, x2) + 1):
+            grid[x][y1] += 1
+
+",0.0
+309,2021,5,2,part1_failed,,20121,,,
+310,2021,6,1,no_error,"380243
+",380243,,"
+with open(""input.txt"") as f:
+    fish = list(map(int, f.read().split("","")))
+
+for _ in range(80):
+    for i in range(len(fish)):
+        if fish[i] == 0:
+            fish.append(8)
+            fish[i] = 6
+        else:
+            fish[i] -= 1
+
+print(len(fish))
+",0.0
+311,2021,6,2,timeout_error,,1708791884591,TIMEOUT,"
+with open(""input.txt"") as f:
+    fish = list(map(int, f.read().split("","")))
+
+for _ in range(256):
+    for i in range(len(fish)):
+        if fish[i] == 0:
+            fish.append(8)
+            fish[i] = 6
+        else:
+            fish[i] -= 1
+
+print(len(fish))
+",0.0
+312,2021,7,1,wrong_output,"The crabs should align at position 313 using 172148.5 fuel.
+",344297,,"
+crabs = []
+with open(""input.txt"") as f:
+    crabs = [int(x) for x in f.read().split("","")]
+
+crabs.sort()
+
+fuel = []
+for i in range(crabs[0], crabs[-1] + 1):
+    fuel.append(sum([abs(crab - i) for crab in crabs]))
+
+print(""The crabs should align at position"", min(range(len(fuel)), key=fuel.__getitem__), ""using"", fuel[min(range(len(fuel)), key=fuel.__getitem__)] / 2, ""fuel."")
+",0.0
+313,2021,7,2,part1_failed,,97164301,,,
+314,2021,8,1,runtime_error,,440,"  File ""/tmp/tmpmt1um1q2/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+# Read the input file
+with open(""input.txt"", ""r"") as f:
+    lines = [line for line in f.readlines()]
+
+# Compile the regex patterns for the unique digits
+unique_digits = {
+    1: re.compile(r""(?P<segments>[c|f]{2})""),
+    4: re.compile(r""(?P<segments>[b|c|d|f]{4})""),
+    7: re.compile(r""(?P<segments>[a|b|c|f]{3})""),
+    8: re.compile(r""(?P<segments>[a|b|c|d|e|f|g]{7})""),
+}
+
+# Count the occurrences of the unique digits in the output values
+unique_digit_count = 0
+for line in lines:
+    output_values = line.split("" | "")[1].split()
+    for output_value in output_values:
+        for digit, pattern in unique_digits.items():
+            if pattern.match(output_value):
+                unique_digit_count += 1
+
+# Print the result",0.0
+315,2021,8,2,part1_failed,,1046281,,,
+316,2021,9,1,no_error,"462
+",462,,"
+with open('input.txt') as f:
+    lines = f.read().splitlines()
+
+grid = [[int(x) for x in line] for line in lines]
+width = len(grid[0])
+height = len(grid)
+
+low_points = []
+
+for y in range(height):
+    for x in range(width):
+        neighbors = []
+        if x > 0:
+            neighbors.append(grid[y][x-1])
+        if x < width - 1:
+            neighbors.append(grid[y][x+1])
+        if y > 0:
+            neighbors.append(grid[y-1][x])
+        if y < height - 1:
+            neighbors.append(grid[y+1][x])
+
+        if all(grid[y][x] < n for n in neighbors):
+            low_points.append(grid[y][x])
+
+print(sum(low_points) + len(low_points))
+",0.0
+317,2021,9,2,runtime_error,,1397760,"  File ""/tmp/tmpl2ac09qm/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+    lines = f.read().splitlines()
+
+grid = [[int(x) for x in line] for line in lines]
+width = len(grid[0])
+height = len(grid)
+
+basin_sizes = []
+
+def get_basin_size(x, y):
+  if (x < 0 or x >= width or y < 0 or y >= height or grid[y][x] == 9):
+    return 0
+
+  if grid[y][x] == -1:
+    return 0
+
+  grid[y][x] = -1
+
+  return 1 + get_basin_size(x-1, y) + get_basin_size(x+1, y) + get_basin_size(x, y-1) + get_basin_size(x, y+1)
+
+for y in range(height):
+  for x in range(width):
+    if grid[y][x] != 9:
+      basin_sizes.append(get_basin_size(x, y))
+
+basin_sizes.sort(reverse=True",0.0
+318,2021,10,1,runtime_error,,299793,"  File ""/tmp/tmp08jusrs0/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def is_corrupted(line):
+    stack = []
+    for char in line:
+        if char in ['(', '[', '{', '<']:
+            stack.append(char)
+        else:
+            if not stack:
+                return char
+            if char == ')' and stack[-1] == '(':
+                stack.pop()
+            elif char == ']' and stack[-1] == '[':
+                stack.pop()
+            elif char == '}' and stack[-1] == '{':
+                stack.pop()
+            elif char == '>' and stack[-1] == '<':
+                stack.pop()
+            else:
+                return char
+    return None
+
+def get_syntax_error_score(char):
+    syntax_error_score = {
+        ')': 3,
+        ']': 57,
+        '}': 1197,
+        '>': 25137
+    }
+    return syntax_error_score[char]
+
+with open('input.txt') as f:
+    lines = f.readlines()
+
+corrupted_lines = []
+syntax_error_score =",0.0
+319,2021,10,2,part1_failed,,3654963618,,,
+320,2021,11,1,runtime_error,,1793,"  File ""/tmp/tmplwlnymi7/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+grid = []
+
+with open('input.txt') as f:
+    for line in f:
+        grid.append([int(x) for x in line.strip()])
+
+nRows = len(grid)
+nCols = len(grid[0])
+
+def neighbors(r, c):
+    adjacent = [(r+i, c+j) for i in range(-1, 2) for j in range(-1, 2)]
+    adjacent = [pos for pos in adjacent if 0 <= pos[0] < nRows and 0 <= pos[1] < nCols]
+    return adjacent
+
+flashes = 0
+
+for step in range(100):
+    # Increase energy of all octopuses
+    for r in range(nRows):
+        for c in range(nCols):
+            grid[r][c] += 1
+    
+    # Check for flashes
+    flashes_this_step = 0
+    while True:
+        flashed = False
+        for r in range(nRows):
+            for c in range(nCols):
+                if grid[r][c] > 9",0.0
+321,2021,11,2,part1_failed,,247,,,
+322,2021,12,1,runtime_error,,3887,"  File ""/tmp/tmpmx76rh6u/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from itertools import permutations
+
+small_caves = set()
+cave_connections = dict()
+with open('input.txt', 'r') as f:
+    for line in f:
+        caves = line.strip().split('-')
+        for cave in caves:
+            if cave.islower():
+                small_caves.add(cave)
+        if caves[0] in cave_connections:
+            cave_connections[caves[0]].append(caves[1])
+        else:
+            cave_connections[caves[0]] = [caves[1]]
+        if caves[1] in cave_connections:
+            cave_connections[caves[1]].append(caves[0])
+        else:
+            cave_connections[caves[1]] = [caves[0]]
+
+all_paths = []
+for permutation in permutations(cave_connections['start']):
+    path = ['start'] + list(permutation) + ['end']
+    # Check if the path visits any small cave more than once
+    if any(path.count(cave) > 1 for cave in small_caves):
+",0.0
+323,2021,12,2,part1_failed,,104834,,,
+324,2021,13,1,runtime_error,,712,"  File ""/tmp/tmp0qi1fz40/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def transparent_paper(input_file):
+    with open(input_file, 'r') as f:
+        dots, folds = f.read().split('\n\n')
+    coords = [tuple(map(int, dot.split(','))) for dot in dots.splitlines()]
+    instructions = [(axis, int(pos)) for axis, pos in (fold.split(' ')[2].split('=') for fold in folds.splitlines())]
+
+    maxX, maxY = max(coord[0] for coord in coords), max(coord[1] for coord in coords)
+    visible_dots = set()
+
+    for axis, pos in instructions:
+        if axis == 'x':
+            maxX = pos - 1
+            for x, y in coords:
+                if x > pos:
+                    x = 2*pos - x
+                visible_dots.add((x, y))
+        else:
+            maxY = pos - 1
+            for x, y in coords:
+                if y > pos:
+                    y = 2*pos - y
+                visible_dots.add((x, y))
+
+        break
+    ",0.0
+325,2021,13,2,part1_failed,,BLHFJPJF,,,
+326,2021,14,1,runtime_error,,2233,"  File ""/tmp/tmpj7p6_m3b/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def polymerize(template, rules, steps):
+  for _ in range(steps):
+    new_template = ''
+    for i in range(len(template) - 1):
+      pair = template[i : i + 2]
+      new_template += pair[0] + rules.get(pair, '')
+    new_template += template[-1]
+    template = new_template
+  return template
+
+
+def main():
+  with open('input.txt') as f:
+    template, rules = f.read().splitlines()
+    rules = dict(rule.split(' -> ') for rule in rules.splitlines())
+
+  template = polymerize(template, rules, 10)
+
+  element_counts = dict()
+  for char in template:
+    element_counts[char] = element_counts.get(char, 0) + 1
+
+  max_count = max(element_counts.values())
+  min_count = min(element_counts.values())
+
+  print(""Most common element - Least common element ="", max_count - min_count)
+
+
+if __name__ == '__main__':
+  main",0.0
+327,2021,14,2,part1_failed,,2884513602164,,,
+328,2021,15,1,runtime_error,,423,"  File ""/tmp/tmpq1vxj71p/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import queue
+import math
+
+class Node:
+    def __init__(self, risk_level, x, y):
+        self.risk_level = risk_level
+        self.x = x
+        self.y = y
+        self.total_risk = math.inf  # Initialize to infinity
+
+def find_lowest_total_risk(risk_levels):
+    # Number of rows and columns in the risk_levels matrix
+    nrows = len(risk_levels)
+    ncols = len(risk_levels[0])
+
+    # Initialize the total risk of all nodes to infinity
+    total_risks = [[math.inf for _ in range(ncols)] for _ in range(nrows)]
+
+    # Set the total risk of the starting node to 0
+    start_node = Node(risk_levels[0][0], 0, 0)
+    start_node.total_risk = 0
+    
+    # Initialize a queue of nodes to explore
+    queue = queue.PriorityQueue()
+    queue.put((0, start_node))  # Priority is based on lowest total risk
+    
+    # While there are still nodes",0.0
+329,2021,15,2,part1_failed,,2778,,,
+330,2021,16,1,runtime_error,,947,"  File ""/tmp/tmp76jqmr45/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_packet(bits):
+    version = int(bits[:3], 2)
+    type_id = int(bits[3:6], 2)
+
+    if type_id == 4:  # literal value
+        value = """"
+        while True:
+            group = bits[6:11]
+            value += group[1:]
+            bits = bits[11:]
+            if group[0] == ""0"":
+                break
+
+        return version, int(value, 2), bits
+
+    length_type_id = bits[6]
+    bits = bits[7:]
+
+    if length_type_id == ""0"":
+        bits_len = int(bits[:15], 2)
+        bits = bits[15:]
+        versions = 0
+        subpackets = []
+        while bits_len > 0:
+            version, value, bits = parse_packet(bits)
+            versions += version
+            subpackets.append(value)
+            bits_len -= len(bits)
+
+    else:
+        packets_num = int(bits[:11], 2)",0.0
+331,2021,16,2,part1_failed,,660797830937,,,
+332,2021,17,1,runtime_error,,8646,"  File ""/tmp/tmpvuzee923/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+def simulate(velx, vely, target_x_min, target_x_max, target_y_min, target_y_max):
+  """"""Simulates the trajectory of a probe.
+  
+  Args:
+    velx: The initial velocity in the x direction.
+    vely: The initial velocity in the y direction.
+    target_x_min: The minimum x coordinate of the target area.
+    target_x_max: The maximum x coordinate of the target area.
+    target_y_min: The minimum y coordinate of the target area.
+    target_y_max: The maximum y coordinate of the target area.
+  Returns:
+    A tuple containing: (1) True if the probe lands in the target area,
+                       False otherwise;
+                       (2) The maximum y coordinate reached by the probe.
+  """"""
+  x, y = 0, 0
+  max_y = 0
+  while True:
+    x += velx
+    y += vely
+    max_y = max(max_y, y)
+
+    # Check if the probe has landed in the target",0.0
+333,2021,17,2,part1_failed,,5945,,,
+334,2021,18,1,runtime_error,,4184,"  File ""/tmp/tmp8ld86kn5/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import ast
+
+nums = []
+with open('input.txt', 'r') as f:
+    for line in f:
+        nums.append(ast.literal_eval(line.strip()))
+
+while len(nums) > 1:
+    n1 = nums.pop(0)
+    n2 = nums.pop(0)
+    nums.insert(0, [n1, n2])
+
+def explode(num):
+    for i, n in enumerate(num):
+        if isinstance(n, list):
+            res = explode(n)
+            if res is not None:
+                return res, i
+    return None, -1
+
+def split(num):
+    for i, n in enumerate(num):
+        if isinstance(n, int) and n >= 10:
+            return [n // 2, (n + 1) // 2], i
+    return None, -1
+
+def reduce(num):
+    while True:
+        res, i = explode(num)
+        if res is not None:
+            n, index = res
+            if i == 0:
+                if index",0.0
+335,2021,18,2,part1_failed,,4731,,,
+336,2021,19,1,runtime_error,,405,"  File ""/tmp/tmpwyvtto18/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import numpy as np
+
+def parse_input(filename):
+    scanners = []
+    beacons = []
+    with open(filename) as f:
+        for line in f:
+            if line.startswith(""---""):
+                scanner = []
+                scanners.append(scanner)
+            else:
+                x, y, z = map(int, line.split("",""))
+                beacons.append((x, y, z))
+                scanner.append((x, y, z))
+    return scanners, beacons
+
+def distance(p1, p2):
+    return np.linalg.norm(np.array(p1) - np.array(p2))
+
+def overlaps(s1, s2, threshold=12):
+    """"""Check if two scanners overlap by at least `threshold` beacons.""""""
+    for b1 in s1:
+        for b2 in s2:
+            if distance(b1, b2) <= 1000:
+                return True
+    return False
+
+def find_rotation(s1, s2):
+    """"""Find the rotation matrix that aligns scanner s2 to scanner s1.""""""",0.0
+337,2021,19,2,part1_failed,,12306,,,
+338,2021,20,1,runtime_error,,5682,"  File ""/tmp/tmpsc29jtnf/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def enhance(image, algorithm, steps=2):
+  """"""Return an enhanced image by applying the given algorithm.""""""
+
+  # Pad the image with a border of dots to account for the infinite size of the image.
+  padded_image = [[['.'] * 3 for _ in range(len(image[0]) + 2)]] + \
+                 [['.' + row + '.' for row in image], ] + \
+                 [[['.'] * 3 for _ in range(len(image[0]) + 2)]]
+
+
+  # Use the algorithm to enhance the image.
+  enhanced_image = []
+  for i in range(1, len(padded_image) - 1):
+    row = []
+    for j in range(1, len(padded_image[0]) - 1):
+      # Convert the 3x3 block around (i, j) to a binary string.
+      block_string = ''
+      for di in range(-1, 2):
+        for dj in range(-1, 2):
+          block_string += '1' if padded_image[i + di][j + dj",0.0
+339,2021,20,2,part1_failed,,17628,,,
+340,2021,21,1,runtime_error,,504972,"Traceback (most recent call last):
+  File ""/tmp/tmpbd3t3_gd/tmp.py"", line 6, in <module>
+    start = [int(x) - 1 for x in open(""input.txt"").read().split()]
+  File ""/tmp/tmpbd3t3_gd/tmp.py"", line 6, in <listcomp>
+    start = [int(x) - 1 for x in open(""input.txt"").read().split()]
+ValueError: invalid literal for int() with base 10: 'Player'
+","
+from collections import Counter
+
+d = Counter()
+scores = [0, 0]
+start = [int(x) - 1 for x in open(""input.txt"").read().split()]
+for x in range(1000):
+    a = b = 0
+    for _ in range(3):
+        d[3 * x + a + b + 1] += 1
+        a, b = b, (3 * x + a + b + 1) % 10
+    start[x % 2] = (start[x % 2] + a + b) % 10
+    scores[x % 2] += a + b + 1
+    if scores[x % 2] >= 1000:
+        break
+print(scores[(x + 1) % 2] * sum(k * v for k, v in d.items()))
+",0.0
+341,2021,21,2,part1_failed,,446968027750017,,,
+342,2021,22,1,no_error,"600458
+",600458,,"
+on = set()
+
+with open('input.txt') as f:
+    for line in f:
+        op, rest = line.split()
+        x, y, z = rest.split(',')
+        x0, x1 = [int(n) for n in x[2:].split('..')]
+        y0, y1 = [int(n) for n in y[2:].split('..')]
+        z0, z1 = [int(n) for n in z[2:].split('..')]
+        for x in range(max(-50, x0), min(51, x1 + 1)):
+            for y in range(max(-50, y0), min(51, y1 + 1)):
+                for z in range(max(-50, z0), min(51, z1 + 1)):
+                    if op == 'on':
+                        on.add((x, y, z))
+                    else:
+                        on.discard((x, y, z))
+
+print(len(on))
+",0.0
+343,2021,22,2,timeout_error,,1334275219162622,TIMEOUT,"
+on = set()
+
+with open('input.txt') as f:
+    for line in f:
+        op, rest = line.split()
+        x, y, z = rest.split(',')
+        x0, x1 = [int(n) for n in x[2:].split('..')]
+        y0, y1 = [int(n) for n in y[2:].split('..')]
+        z0, z1 = [int(n) for n in z[2:].split('..')]
+        for x in range(x0, x1 + 1):
+            for y in range(y0, y1 + 1):
+                for z in range(z0, z1 + 1):
+                    if op == 'on':
+                        on.add((x, y, z))
+                    else:
+                        on.discard((x, y, z))
+
+print(len(on))
+",0.0
+344,2021,23,1,runtime_error,,19019,"  File ""/tmp/tmpf_0yda5_/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import Counter
+from dataclasses import dataclass
+from itertools import product
+from typing import List, Tuple, Dict
+
+
+@dataclass(order=True, frozen=True)
+class Amphipod:
+    """"""Represents an amphipod.""""""
+
+    room: int
+    hallway: int
+
+    def __repr__(self) -> str:
+        return f""{chr(ord('A') + self.room)}{self.hallway}""
+
+
+def parse_input(input_text: str) -> tuple:
+    """"""Parse the input text into the initial state of the amphipods and a dictionary of room depths.
+    Args:
+        input_text (str): The input text.
+
+    Returns:
+        tuple: A tuple containing the initial state of the amphipods and a dictionary of room depths.
+    """"""
+
+    # Initialize the amphipod list.
+    amphipods = []
+    room_depths = {}
+    for i, row in enumerate(input_text.splitlines()):
+        if row.startswith(""###""):
+            for j, char in enumerate(row[3:-3]):
+                if char.isalpha():
+                    amphipods.append(Amp",0.0
+345,2021,23,2,part1_failed,,47533,,,
+346,2021,24,1,runtime_error,,49917929934999,"  File ""/tmp/tmp0tzofevf/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_instructions(filename):
+  with open(filename) as f:
+    return [line.strip().split() for line in f.readlines()]
+
+# Execute MONAD instructions on the given input
+def execute(instructions, inputs):
+  w, x, y, z = [0] * 4
+  ip, ii = 0, 0
+  while ip < len(instructions):
+    inst, a, b = instructions[ip]
+    if inst == ""inp"":
+      a_val = int(inputs[ii])
+      ii += 1
+    elif inst == ""add"":
+      b_val = int(b)
+    elif inst == ""mul"":
+      b_val = int(b)
+    elif inst == ""div"":
+      b_val = int(b)
+    elif inst == ""mod"":
+      b_val = int(b)
+    elif inst == ""eql"":
+      b_val = int(b) if isinstance(b, str) else b
+
+    if inst == ""inp"":
+      exec(f""{a} = a_val"", globals(), locals())
+    elif",0.0
+347,2021,24,2,part1_failed,,11911316711816,,,
+348,2021,25,1,runtime_error,,489,"  File ""/tmp/tmpzaunlkdf/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+def move_herd(herd, rows, cols):
+    for y in range(rows):
+        for x in range(cols):
+            dy, dx = herd[y][x]
+            ny = (y + dy) % rows
+            nx = (x + dx) % cols
+            if herd[ny][nx] == (0, 0):
+                herd[y][x], herd[ny][nx] = (0, 0), herd[y][x]
+
+def part_one(grid):
+    rows, cols = len(grid), len(grid[0])
+
+    # Initialize herd lists
+    east_herd = [[(0, 0) for _ in range(cols)] for _ in range(rows)]
+    south_herd = [[(0, 0) for _ in range(cols)] for _ in range(rows)]
+
+    # Populate herds with locations
+    for y, row in enumerate(grid):
+        for x, char in enumerate(row):
+            if char == '>':
+                east_herd[y][x] = (0, 1)
+            elif char == 'v",0.0
+349,2021,25,2,part1_failed,,,,,
+350,2022,1,1,no_error,70116,70116,,"
+with open('input.txt') as f:
+  lines = f.read().splitlines()
+
+calorie_counts = []
+current_elf_calories = 0
+
+for line in lines:
+  if line == '':
+    calorie_counts.append(current_elf_calories)
+    current_elf_calories = 0
+  else:
+    current_elf_calories += int(line)
+
+# Find the elf with the most calories
+max_calories = max(calorie_counts)
+
+# Print the result
+print(""The elf carrying the most calories is carrying"", max_calories, ""calories."")
+",0.0
+351,2022,1,2,no_error,206582,206582,,"
+with open('input.txt') as f:
+  lines = f.read().splitlines()
+
+calorie_counts = []
+current_elf_calories = 0
+
+for line in lines:
+  if line == '':
+    calorie_counts.append(current_elf_calories)
+    current_elf_calories = 0
+  else:
+    current_elf_calories += int(line)
+
+# Find the three elves with the most calories
+calorie_counts.sort(reverse=True)
+top_three_calories = sum(calorie_counts[:3])
+
+# Print the result
+print(""The top three elves are carrying"", top_three_calories, ""calories in total."")
+",0.0
+352,2022,2,1,runtime_error,,12276,"  File ""/tmp/tmpuxcuo4ei/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+# Open the input file
+with open('input.txt', 'r') as f:
+    # Read the input file line by line
+    lines = f.readlines()
+
+# Initialize the total score
+total_score = 0
+
+# Iterate over each line in the input file
+for line in lines:
+    # Split the line into the opponent's choice and your choice
+    opponent_choice, your_choice = line.split()
+
+    # Calculate the score for the round
+    round_score = 0
+
+    # Add the score for your choice
+    if your_choice == 'X':
+        round_score += 1
+    elif your_choice == 'Y':
+        round_score += 2
+    elif your_choice == 'Z':
+        round_score += 3
+
+    # Add the score for the outcome of the round
+    if opponent_choice == 'A' and your_choice == 'X':
+        round_score += 3
+    elif opponent_choice == 'A' and your_choice == 'Y':
+        round_score += 6
+    elif opponent_choice == 'A' and your_choice",0.0
+353,2022,2,2,part1_failed,,9975,,,
+354,2022,3,1,no_error,8053,8053,,"
+import string
+
+def get_priority(c):
+    if 'a' <= c <= 'z':
+        return ord(c) - ord('a') + 1
+    else:
+        return ord(c) - ord('A') + 27
+
+def get_duplicates(s1, s2):
+    duplicates = set()
+    for c in s1:
+        if c in s2:
+            duplicates.add(c)
+    return duplicates
+
+def main():
+    with open('input.txt', 'r') as f:
+        lines = f.readlines()
+
+    total_priority = 0
+    for line in lines:
+        line = line.strip()
+        half = len(line) // 2
+        compartment1 = line[:half]
+        compartment2 = line[half:]
+        duplicates = get_duplicates(compartment1, compartment2)
+        for c in duplicates:
+            total_priority += get_priority(c)
+
+    print(""The sum of the priorities of the duplicate items is:"", total_priority)
+
+if __name__ == '__main__':
+    main()
+",0.0
+355,2022,3,2,runtime_error,,2425,"  File ""/tmp/tmp07c30ejb/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import string
+
+def get_priority(c):
+    if 'a' <= c <= 'z':
+        return ord(c) - ord('a') + 1
+    else:
+        return ord(c) - ord('A') + 27
+
+def get_duplicates(s1, s2, s3):
+    duplicates = set()
+    for c in s1:
+        if c in s2 and c in s3:
+            duplicates.add(c)
+    return duplicates
+
+def main():
+    with open('input.txt', 'r') as f:
+        lines = f.readlines()
+
+    total_priority = 0
+    for i in range(0, len(lines), 3):
+        line1 = lines[i].strip()
+        line2 = lines[i + 1].strip()
+        line3 = lines[i + 2].strip()
+        duplicates = get_duplicates(line1, line2, line3)
+        for c in duplicates:
+            total_priority += get_priority(c)
+
+    print(""The sum of the priorities of the duplicate items is:"", total",0.0
+356,2022,4,1,no_error,"441
+",441,,"
+def parse(line):
+    return list(map(lambda x: list(map(int, x.split(""-""))), line.strip().split("","")))
+
+with open(""input.txt"") as f:
+    lines = f.readlines()
+
+overlaps = 0
+for line in lines:
+    elves = parse(line)
+    r1, r2 = elves[0], elves[1]
+    if (r1[0] <= r2[0] and r1[1] >= r2[1]) or (r2[0] <= r1[0] and r2[1] >= r1[1]):
+        overlaps += 1
+
+print(overlaps)
+",0.0
+357,2022,4,2,no_error,"861
+",861,,"
+def parse(line):
+    return list(map(lambda x: list(map(int, x.split(""-""))), line.strip().split("","")))
+
+with open(""input.txt"") as f:
+    lines = f.readlines()
+
+overlaps = 0
+for line in lines:
+    elves = parse(line)
+    r1, r2 = elves[0], elves[1]
+    if (r1[0] <= r2[0] and r1[1] >= r2[0]) or (r2[0] <= r1[0] and r2[1] >= r1[0]):
+        overlaps += 1
+
+print(overlaps)
+",0.0
+358,2022,5,1,runtime_error,,FCVRLMVQP,"Traceback (most recent call last):
+  File ""/tmp/tmpviphcnf8/tmp.py"", line 16, in <module>
+    move, frm, to = [int(x) for x in line.split()]
+  File ""/tmp/tmpviphcnf8/tmp.py"", line 16, in <listcomp>
+    move, frm, to = [int(x) for x in line.split()]
+ValueError: invalid literal for int() with base 10: 'move'
+","
+with open('input.txt') as f:
+    lines = f.readlines()
+
+# initialize stacks
+stacks = [[] for _ in range(9)]
+
+# populate stacks
+for line in lines[:8]:
+    for i, crate in enumerate(line[1::4]):
+        if crate != ' ':
+            stacks[i].insert(0, crate)
+
+# perform moves
+for line in lines[10:]:
+    move, frm, to = [int(x) for x in line.split()]
+    for _ in range(move):
+        stacks[to-1].append(stacks[frm-1].pop())
+
+# print top of each stack
+print(''.join([stack.pop() for stack in stacks]))
+",0.0
+359,2022,5,2,part1_failed,,RWLWGJGFD,,,
+360,2022,6,1,no_error,1109,1109,,"
+with open('input.txt', 'r') as file:
+    # Read the data from the input file
+    datastream = file.read()
+
+    # Set the initial window size and starting position
+    window_size = 4
+    start_position = window_size
+
+    # Iterate over the datastream
+    while start_position <= len(datastream):
+        # Get the current window of characters
+        window = datastream[start_position - window_size:start_position]
+
+        # Check if all characters in the window are different
+        if len(set(window)) == window_size:
+            print(f'The first start-of-packet marker is after character {start_position}.')
+            break
+
+        # Increment the starting position
+        start_position += 1
+",0.0
+361,2022,6,2,wrong_output,"The first start-of-message marker is after character 3965.
+",3965,,"
+with open('input.txt', 'r') as file:
+    # Read the data from the input file
+    datastream = file.read()
+
+    # Set the initial window size and starting position
+    window_size = 14
+    start_position = window_size
+
+    # Iterate over the datastream
+    while start_position <= len(datastream):
+        # Get the current window of characters
+        window = datastream[start_position - window_size:start_position]
+
+        # Check if all characters in the window are different
+        if len(set(window)) == window_size:
+            print(f'The first start-of-message marker is after character {start_position}.')
+            break
+
+        # Increment the starting position
+        start_position += 1
+",0.0
+362,2022,7,1,wrong_output,"0
+",1443806,,"
+import os
+
+def get_dir_sizes(path):
+    dir_sizes = {}
+    for root, dirs, files in os.walk(path):
+        dir_sizes[root] = sum(os.path.getsize(os.path.join(root, file)) for file in files)
+    return dir_sizes
+
+dir_sizes = get_dir_sizes(""input.txt"")
+
+print(sum(size for size in dir_sizes.values() if size <= 100000))
+",0.0
+363,2022,7,2,part1_failed,,942298,,,
+364,2022,8,1,runtime_error,,1807,"  File ""/tmp/tmpxiys8km2/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+with open('input.txt') as f:
+    grid = [list(map(int, row.strip())) for row in f]
+    rows, cols = len(grid), len(grid[0])
+
+# Count visible trees on the boundaries
+visible = 2 * rows + 2 * cols - 4
+
+# Check trees inside the grid
+for r in range(1, rows - 1):
+    for c in range(1, cols - 1):
+        # Check visibility in each direction
+        vis = True
+        for i in range(r - 1, -1, -1):
+            if grid[i][c] >= grid[r][c]:
+                vis = False
+                break
+        if vis:
+            visible += 1
+            continue
+
+        vis = True
+        for i in range(r + 1, rows):
+            if grid[i][c] >= grid[r][c]:
+                vis = False
+                break
+        if vis:
+            visible += 1
+            continue
+
+        vis = True
+        for i in range(c - 1, -1, -1):
+",0.0
+365,2022,8,2,part1_failed,,480000,,,
+366,2022,9,1,runtime_error,,6087,"  File ""/tmp/tmpdx7yy6ru/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+R, L, U, D = 0, 1, 2, 3
+dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+def get_dir(d):
+    if d == 'U':
+        return U
+    elif d == 'D':
+        return D
+    elif d == 'L':
+        return L
+    else:
+        return R
+
+def adjacent(h, t):
+    return abs(h[0] - t[0]) <= 1 and abs(h[1] - t[1]) <= 1
+
+def move(h, t):
+    if not adjacent(h, t):
+        if h[0] == t[0]:
+            if h[1] > t[1]:
+                return (h[0], t[1] + 1)
+            else:
+                return (h[0], t[1] - 1)
+        elif h[1] == t[1]:
+            if h[0] > t[0]:
+                return (t[0] + 1, h",0.0
+367,2022,9,2,part1_failed,,2493,,,
+368,2022,10,1,runtime_error,,15360,"  File ""/tmp/tmps8_ylhbd/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def main():
+  signal_strengths = []
+
+  # Read the input file
+  with open('input.txt') as f:
+    lines = f.readlines()
+
+  cycle_count = 1
+  x_register = 1
+
+  # Process each instruction in the input file
+  for line in lines:
+    line = line.strip()
+
+    # Process the ""addx"" instruction
+    if line.startswith('addx'):
+      value = int(line.split()[1])
+      x_register += value
+      cycle_count += 1
+
+      # Check if we're at one of the interesting cycles and calculate the signal strength
+      if cycle_count in [20, 60, 100, 140, 180, 220]:
+        signal_strength = cycle_count * x_register
+        signal_strengths.append(signal_strength)
+
+  # Calculate the sum of the signal strengths
+  sum_signal_strengths = sum(signal_strengths)
+
+  # Print the result
+  print(sum_signal_strengths)
+
+if __name",0.0
+369,2022,10,2,part1_failed,,PHLHJGZA,,,
+370,2022,11,1,runtime_error,,69918,"  File ""/tmp/tmp5rjodi_d/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def parse_monkey(monkey_str):
+    """"""Parse a monkey definition string into a dictionary.
+
+    The monkey definition string is a multiline string that contains the following information:
+    - Monkey number
+    - Starting items
+    - Operation
+    - Test
+      - Divisible by
+      - If true
+      - If false
+
+    Args:
+      monkey_str: The monkey definition string.
+
+    Returns:
+      A dictionary representing the monkey.
+    """"""
+    monkey = {}
+
+    # Parse the monkey number.
+
+    monkey['number'] = int(monkey_str[7:9])
+
+    # Parse the starting items.
+
+    starting_items_str = monkey_str[19:-1].split(', ')
+    starting_items = [int(item) for item in starting_items_str]
+    monkey['starting_items'] = starting_items
+
+    # Parse the operation.
+
+    operation_str = monkey_str[29:].split(' = ')
+    if operation_str[1] == 'old * old':
+        monkey['operation'] = lambda old: old * old
+    else:
+        monkey['operation",0.0
+371,2022,11,2,part1_failed,,19573408701,,,
+372,2022,12,1,runtime_error,,504,"Traceback (most recent call last):
+  File ""/tmp/tmptqzgnzlr/tmp.py"", line 18, in <module>
+    print(bfs(input.index('S'), input.index('\n'), 'z'))
+  File ""/tmp/tmptqzgnzlr/tmp.py"", line 11, in bfs
+    if input[y][x] == 'E':
+IndexError: string index out of range
+","
+input = open(""input.txt"", ""r"").read()
+
+def valid(x, y, z):
+  return (0 <= x < len(input)) and (0 <= y < len(input)) and input[y][x] <= z
+
+def bfs(x, y, z):
+  queue = [(x, y, 0)]
+  while queue:
+    x, y, steps = queue.pop(0)
+    if input[y][x] == 'E':
+      return steps
+    for a, b in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
+      i, j = x + a, y + b
+      if valid(i, j, z):
+        queue.append((i, j, steps + 1))
+
+print(bfs(input.index('S'), input.index('\n'), 'z'))
+",0.0
+373,2022,12,2,part1_failed,,500,,,
+374,2022,13,1,runtime_error,,5503,"  File ""/tmp/tmpe5nq78zj/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import json
+
+def compare(left, right):
+  '''
+  Compares two values, left and right.
+
+  If both values are integers, the lower integer should come first.
+  If both values are lists, compare the first value of each list, then the second value, and so on.
+  If the left list runs out of items first, the inputs are in the right order.
+  If the right list runs out of items first, the inputs are not in the right order.
+  If the lists are the same length and no comparison makes a decision about the order, continue checking the next part of the input.
+  If exactly one value is an integer, convert the integer to a list which contains that integer as its only value, then retry the comparison.
+  '''
+
+  # If both values are integers, compare them directly.
+  if isinstance(left, int) and isinstance(right, int):
+    if left < right:
+      return -1
+    elif left > right:
+      return 1
+    else:
+      return 0
+
+  # If both values are lists, compare them recursively.
+  elif isinstance(left, list) and isinstance(",0.0
+375,2022,13,2,part1_failed,,20952,,,
+376,2022,14,1,runtime_error,,825,"  File ""/tmp/tmpw202_caa/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def get_max(lines):
+    a = [0] * 2
+    for line in lines:
+        nums = line.rstrip('\n').split(',')
+        for i, num in enumerate(nums):
+            if int(num) > a[i]:
+                a[i] = int(num)
+    return a
+
+def get_lines(lines):
+    lines_ = []
+    for line in lines:
+        nums = line.rstrip('\n').split(',')
+        nums_ = [int(x) for x in nums]
+        if len(nums) == 2:
+            lines_ += [(nums_[0], nums_[1])]
+        if len(nums) == 3:
+            lines_ += [(nums_[0], nums_[1]), (nums_[2], nums_[1])]
+        if len(nums) == 4:
+            lines_ += [(nums_[0], nums_[1]), (nums_[2], nums_[3])]
+    return lines_
+
+def draw(lines, x_max, y_max, n):
+    grid = []
+    for _ in range(y_max + ",0.0
+377,2022,14,2,part1_failed,,26729,,,
+378,2022,15,1,runtime_error,,4861076,"  File ""/tmp/tmpbti089g0/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+sensors = []
+beacons = []
+
+with open(""input.txt"") as f:
+    for line in f:
+        sensor_match = re.match(
+            r""Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)"", line
+        )
+        if sensor_match:
+            sensors.append((int(sensor_match.group(1)), int(sensor_match.group(2))))
+            beacons.append((int(sensor_match.group(3)), int(sensor_match.group(4))))
+
+# Find the maximum and minimum x and y coordinates of the sensors and beacons
+max_x = max(s[0] for s in sensors)
+max_y = max(s[1] for s in sensors)
+min_x = min(b[0] for b in beacons)
+min_y = min(b[1] for b in beacons)
+
+# Create a grid of all the possible beacon locations
+grid = [[False for _ in range(max_x - min_x + 1)] for _ in range(max",0.0
+379,2022,15,2,part1_failed,,10649103160102,,,
+380,2022,16,1,runtime_error,,2080,"  File ""/tmp/tmpp0175cvv/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+from heapq import heappush, heappop
+
+def parse_input(file):
+    valves = defaultdict(lambda: {'flow': 0, 'tunnels': []})
+
+    with open(file) as f:
+        lines = [l.strip() for l in f]
+
+    for line in lines:
+        valve = line.split()[1]
+        flow_rate = int(line.split()[3])
+        tunnels = [t for t in line.split()[9:]]
+
+        valves[valve]['flow'] = flow_rate
+        valves[valve]['tunnels'] = tunnels
+
+    return valves
+
+def release_pressure(valves, time_limit=30):
+    # Initialize
+    max_released = 0
+    current_path = [('AA', 0)]
+    visited = set(['AA'])
+
+    while current_path:
+        # Get next highest pressure
+        current_valve, elapsed_time = heappop(current_path)
+
+        # Update max_released
+        if elapsed_time + 1 <= time_limit:
+            max_released = max(max_released,",0.0
+381,2022,16,2,part1_failed,,2752,,,
+382,2022,17,1,runtime_error,,3235,"  File ""/tmp/tmpzrbs5s74/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import sys
+
+def simulate(jets, rocks):
+  """"""Simulate the falling rocks and return the height of the tower.""""""
+  pos_x = 2
+  pos_y = 0
+  height = 0
+  stopped = set()
+  for rock in rocks:
+    while True:
+      if pos_x + len(rock[0]) > 7 or pos_x < 2:
+        # Hit the wall, stop
+        break
+      for y, row in enumerate(rock):
+        if pos_y + y >= height:
+          # New highest block, increase height
+          height = pos_y + y + 1
+        if (pos_x + len(row) > 7 or pos_x < 2 or
+            any(c == '#' for c in row)):
+          # Hit a wall or another block, stop
+          pos_y += y
+          stopped.add((pos_x, pos_y))
+          break
+      else:
+        # No collision detected, move the block
+        pos_y += len(rock) - 1
+        if jets[pos_y % len(jets",0.0
+383,2022,17,2,part1_failed,,1591860465110,,,
+384,2022,18,1,no_error,"4310
+",4310,,"
+with open('input.txt') as f:
+    cubes = set()
+    for line in f:
+        cubes.add(tuple(map(int, line.split(','))))
+
+surface_area = 0
+for cube in cubes:
+    x, y, z = cube
+    if (x - 1, y, z) not in cubes:
+        surface_area += 1
+    if (x + 1, y, z) not in cubes:
+        surface_area += 1
+    if (x, y - 1, z) not in cubes:
+        surface_area += 1
+    if (x, y + 1, z) not in cubes:
+        surface_area += 1
+    if (x, y, z - 1) not in cubes:
+        surface_area += 1
+    if (x, y, z + 1) not in cubes:
+        surface_area += 1
+
+print(surface_area)
+",0.0
+385,2022,18,2,wrong_output,"4310
+",2466,,"
+with open('input.txt') as f:
+    cubes = set()
+    for line in f:
+        cubes.add(tuple(map(int, line.split(','))))
+
+surface_area = 0
+for cube in cubes:
+    x, y, z = cube
+    for neighbor in [(x - 1, y, z), (x + 1, y, z), (x, y - 1, z), (x, y + 1, z), (x, y, z - 1), (x, y, z + 1)]:
+        if neighbor not in cubes:
+            surface_area += 1
+
+print(surface_area)
+",0.0
+386,2022,19,1,runtime_error,,1613,"  File ""/tmp/tmp4clg99ic/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import defaultdict
+from itertools import chain
+from typing import List, Tuple
+
+Blueprint = Tuple[int, ...]
+Item = Tuple[int, Blueprint]
+
+
+def create_robot(
+    robots: Tuple[int, ...],
+    blueprint: Blueprint,
+    items: List[Item],
+) -> Tuple[Tuple[int, ...], List[Item]]:
+    """"""Create a robot if possible and update resources.
+
+    Args:
+        robots (Tuple[int, ...]): The current number of robots.
+        blueprint (Blueprint): The blueprint for the robot.
+        items (List[Item]): The current items.
+
+    Returns:
+        Tuple[Tuple[int, ...], List[Item]]: The updated robots and items.
+    """"""
+    ore, clay, obsidian = robots
+    req_ore, req_clay = blueprint
+    if ore >= req_ore and clay >= req_clay:
+        robots = (ore - req_ore, clay - req_clay, obsidian)
+        new_item = (1, blueprint)
+    else:
+        new_item = (0, blueprint)  # skip production
+    items.append(new_",0.0
+387,2022,19,2,part1_failed,,46816,,,
+388,2022,20,1,runtime_error,,18257,"Traceback (most recent call last):
+  File ""/tmp/tmpgoeibjul/tmp.py"", line 8, in <module>
+    encrypted[i + number] = number
+IndexError: list assignment index out of range
+","
+# Read the encrypted file
+with open('input.txt') as f:
+    encrypted = list(map(int, f.readlines()))
+
+# Mix the encrypted file
+for i, number in enumerate(encrypted):
+    encrypted[i + number] = number
+
+# Find the grove coordinates
+coordinates = []
+for i in range(1, 4):
+    index = encrypted.index(0) + i * 1000
+    while index >= len(encrypted):
+        index -= len(encrypted)
+    coordinates.append(encrypted[index])
+
+# Print the sum of the grove coordinates
+print(sum(coordinates))
+",0.0
+389,2022,20,2,part1_failed,,4148032160983,,,
+390,2022,21,1,runtime_error,,118565889858886,"Traceback (most recent call last):
+  File ""/tmp/tmpgzzo92md/tmp.py"", line 25, in <module>
+    print(calculate_number('root'))
+  File ""/tmp/tmpgzzo92md/tmp.py"", line 14, in calculate_number
+    args = [calculate_number(arg) for arg in args]
+  File ""/tmp/tmpgzzo92md/tmp.py"", line 14, in <listcomp>
+    args = [calculate_number(arg) for arg in args]
+  File ""/tmp/tmpgzzo92md/tmp.py"", line 9, in calculate_number
+    job = monkey_data[monkey]
+KeyError: '+'
+","
+monkey_data = {}
+with open('input.txt', 'r') as f:
+    for line in f:
+        name, job = line.strip().split(': ')
+        monkey_data[name] = job
+
+def calculate_number(monkey):
+    job = monkey_data[monkey]
+    if job.isdigit():
+        return int(job)
+
+    operation, *args = job.split()
+    args = [calculate_number(arg) for arg in args]
+
+    if operation == '+':
+        return sum(args)
+    elif operation == '-':
+        return args[0] - args[1]
+    elif operation == '*':
+        return args[0] * args[1]
+    elif operation == '/':
+        return args[0] // args[1]
+
+print(calculate_number('root'))
+",0.0
+391,2022,21,2,part1_failed,,3032671800353,,,
+392,2022,22,1,runtime_error,,93226,"  File ""/tmp/tmp3o6rc79f/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+import re
+
+def rotate(direction, turn):
+  return (direction + turn) % 4
+
+def move(x, y, direction, map):
+  while True:
+    if direction == 0:  # right
+      x = (x + 1) % len(map[0])
+    elif direction == 1:  # down
+      y = (y + 1) % len(map)
+    elif direction == 2:  # left
+      x = (x - 1) % len(map[0])
+    elif direction == 3:  # up
+      y = (y - 1) % len(map)
+    if map[y][x] == '#':
+      return x, y, direction
+    yield x, y, direction
+
+instructions = open('input.txt').read().splitlines()
+
+map = [list(l) for l in instructions[:instructions.index('')]]
+path = instructions[instructions.index('') + 1]
+x, y, direction = 0, 0, 0
+seen = {f'{x}:{y}': 0}
+
+for i in re.",0.0
+393,2022,22,2,part1_failed,,37415,,,
+394,2022,23,1,runtime_error,,4109,"  File ""/tmp/tmpc0uk3423/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from pprint import pprint
+
+ELVES = '#'
+EMPTY = '.'
+
+directions = list(
+    filter(None, ','.join(['N', 'NE', 'NW', 'S', 'SE', 'SW', 'W', 'E']).split(','))
+)
+
+
+def read_input(path):
+    with open(path, 'r') as f:
+        return list(map(lambda x: list(x.rstrip()), f.readlines()))
+
+
+def get_neighbors(x, y, grid):
+    n = []
+    for step in [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]:
+        nx, ny = x + step[0], y + step[1]
+        if (
+            nx >= 0
+            and nx < len(grid)
+            and ny >= 0
+            and ny < len(grid[0])
+            and grid[nx][ny] == ELVES
+        ):
+            n.append((nx, ny))
+    return n
+
+
+",0.0
+395,2022,23,2,part1_failed,,1055,,,
+396,2022,24,1,runtime_error,,279,"  File ""/tmp/tmpw4y_la6p/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+from collections import deque
+
+with open('input.txt') as f:
+    grid = [list(line.strip()) for line in f]
+    startX, startY = next(((x, y) for y, row in enumerate(grid) for x, cell in enumerate(row) if cell == 'E'), (-1, -1))
+    endX, endY = next(((x, y) for y, row in enumerate(grid) for x, cell in enumerate(row) if cell == '.' and x != 0 and x != len(grid[y]) - 1), (-1, -1))
+
+blizzards = {(x, y): cell for y, row in enumerate(grid) for x, cell in enumerate(row) if cell in ('^', 'v', '<', '>')}
+queue = deque([(startX, startY, 0)])
+visited = set()
+while queue:
+    x, y, minutes = queue.popleft()
+    if (x, y) == (endX, endY):
+        print(minutes)
+        break
+    for dx, dy in ((-1, 0), (1, 0",0.0
+397,2022,24,2,part1_failed,,762,,,
+398,2022,25,1,runtime_error,,2=0=02-0----2-=02-10,"  File ""/tmp/tmp86ft988h/tmp.py"", line 1
+    ```python
+IndentationError: unexpected indent
+"," ```python
+def snafu_to_decimal(num):
+    digits = {'-': -1, '=': -2, '0': 0, '1': 1, '2': 2}
+    powers = [1, 5, 25, 125, 625]
+
+    result = 0
+    for i, digit in enumerate(num[::-1]):
+        result += digits[digit] * powers[i]
+
+    return result
+
+
+def decimal_to_snafu(num):
+    digits = ['-', '=', '0', '1', '2']
+    powers = [625, 125, 25, 5, 1]
+
+    result = ''
+    for power in powers:
+        quotient, remainder = divmod(num, power)
+        result += digits[remainder]
+        num = quotient
+
+    return result[::-1]
+
+
+if __name__ == ""__main__"":
+    with open('input.txt') as f:
+        numbers = [line.strip() for line in f.readlines()]
+
+    total = sum(snafu_to_decimal(num) for",0.0
+399,2022,25,2,part1_failed,,,,,
