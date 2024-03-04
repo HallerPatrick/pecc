@@ -1,5 +1,4 @@
 from langchain.prompts.chat import (
-    ChatPromptTemplate,
     HumanMessagePromptTemplate,
     SystemMessagePromptTemplate,
 )
@@ -12,71 +11,154 @@ from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain import LLMChain
 
 
-def build_instruct_chain_part1(llm):
-    prompt_template = """You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code.
+class TemplateProvider:
+    """
+    This class provides templates for the different parts of the interaction with the model.
 
+    The AoC chat template will look like this:
+
+    Part 1:
+        {aoc_system_message_template} -> "The following is a progamming task..."
+        {human_chat_message} -> "<The task description>"
+        Optional: {result_extraction_template} -> "Here is the result of your program: <result>. Extract it""
+
+    Part 2:
+        {part_1_chat_history}
+        {aoc_part2_chat_template} -> "The following is the second progamming task..."
+        Optional: {result_extraction_template}
+
+    Instruction-only:
+        {aoc_part1_instruction_template} -> "The following is a progamming task..."
+        Optional: {result_extraction_template}
+
+    Euler:
+        {euler_instruction_template} -> "The following is a programming task..."
+        Optional: {result_extraction_template}
+
+    """
+
+    @staticmethod
+    def aoc_part1_instruction_template():
+        """Build a chain for the AoC instruction-based interaction with part 1.
+
+        This template will receive the "{description}" placeholder.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def aoc_system_message_template():
+        """Build a chain for the AoC system message.
+        This template will receive no placeholder.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def aoc_part2_chat_template():
+        """Build a chain for the AoC chat-based interaction with part 2.
+
+        This template will be appended to the previous chain history. Will not receive a placeholder.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def result_extraction_template():
+        """Build a chain for the AoC result extraction.
+        This template will receive the "{program_output}" placeholder.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def euler_instruction_template():
+        """Build a chain for the Euler instruction-based interaction with part 1.
+        This template will receive the "{title}" and "{description}" placeholder.
+        """
+        raise NotImplementedError
+
+
+class PaperTemplateProvider(TemplateProvider):
+
+    @staticmethod
+    def aoc_part1_instruction_template():
+        return """You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."""
+
+    @staticmethod
+    def aoc_part2_chat_template():
+        return """You are a code generator and given a second part of a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."""
+
+    @staticmethod
+    def result_extraction_template():
+        return "Here is the output of your program: '{program_output}'. Please only return the resulting number or text and nothing else."
+
+    @staticmethod
+    def aoc_system_message_template():
+        return "You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."
+
+    @staticmethod
+    def euler_instruction_template():
+        return """You are a code generator and given a programming task.
+Write a function that efficiently solves the given problem. Generate only directly executable python code.
+
+Title: {title}
 Task: {description}"""
 
-    return LLMChain(
-        llm=llm,
-        prompt=PromptTemplate.from_template(prompt_template),
-        verbose=True,
-    )
 
+class TemplateBuilder:
 
-def build_chain_part1(llm):
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            MessagesPlaceholder(variable_name="chat_history"),
-            system_message_template(),
-            HumanMessagePromptTemplate.from_template(template="{description}"),
-        ]
-    )
+    def __init__(self, llm, template_provider: TemplateProvider):
+        self.llm = llm
+        self.template_provider = template_provider
 
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    return LLMChain(
-        llm=llm,
-        prompt=prompt,
-        verbose=True,
-        memory=memory,
-    )
+    def build_instruct_chain_part1(self):
 
+        return LLMChain(
+            llm=self.llm,
+            prompt=PromptTemplate.from_template(
+                self.template_provider.aoc_part1_instruction_template()),
+            verbose=True,
+        )
 
-def build_chain_part2(llm, messages):
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            system_message_template(),
-            *messages,
-            system_message_intermediate_template(),
-            HumanMessagePromptTemplate.from_template(template="{description}"),
-        ]
-    )
+    def build_chat_chain_part1(self):
+        return LLMChain(
+            llm=self.llm,
+            prompt=ChatPromptTemplate.from_messages(
+                [
+                    MessagesPlaceholder(variable_name="chat_history"),
+                    SystemMessagePromptTemplate.from_template(
+                        self.template_provider.aoc_system_message_template()),
+                    HumanMessagePromptTemplate.from_template(
+                        template="{description}"),
+                ]
+            ),
+            verbose=True,
+            memory=ConversationBufferMemory(
+                memory_key="chat_history", return_messages=True),
+        )
 
-    return LLMChain(
-        llm=llm,
-        prompt=prompt,
-        verbose=True,
-    )
+    def build_chat_chain_part2(self, messages):
+        return LLMChain(
+            llm=self.llm,
+            prompt=PromptTemplate.from_template(
+                self.template_provider.aoc_part2_chat_template()),
+            verbose=True,
+            memory=ConversationBufferMemory(
+                memory_key="chat_history", return_messages=True),
+        )
 
+    def build_result_extraction_chain(self):
+        return LLMChain(
+            llm=self.llm,
+            prompt=PromptTemplate.from_template(
+                self.template_provider.result_extraction_template()),
+            verbose=True,
+        )
 
-def result_extraction_chain(llm):
-    extraction_prompt = "Here is the output of your program: '{program_output}'. Please only return the resulting number or text and nothing else."
-
-    return LLMChain(
-        llm=llm,
-        prompt=PromptTemplate.from_template(extraction_prompt),
-        verbose=True,
-    )
-
-
-def system_message_template():
-    system_template = "You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."
-    return SystemMessagePromptTemplate.from_template(system_template)
-
-
-def system_message_intermediate_template():
-    system_template = "You are a code generator and given a second part of a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."
-    return SystemMessagePromptTemplate.from_template(system_template)
+    def build_euler_instruct_chain(self):
+        return LLMChain(
+            llm=self.llm,
+            prompt=PromptTemplate.from_template(
+                self.template_provider.euler_instruction_template()),
+            verbose=True,
+        )
 
 
 def convert_instruct(llm):
@@ -101,48 +183,3 @@ First 50 Characters of the input:
         prompt=PromptTemplate.from_template(converter_prompt),
         verbose=True,
     )
-
-
-def one_shot():
-    return """Input Challenge - Part 1:
-Santa is trying to deliver presents in a large apartment building, but he can't find the right floor - the directions he got are a little confusing. He starts on the ground floor (floor `0`) and then follows the instructions one character at a time.
-
-An opening parenthesis, `(`, means he should go up one floor, and a closing parenthesis, `)`, means he should go down one floor.
-
-The apartment building is very tall, and the basement is very deep; he will never find the top or bottom floors.
-
-For example:
-
-* `(())` and `()()` both result in floor `0`.
-* `(((` and `(()(()(` both result in floor `3`.
-* `))(((((` also results in floor `3`.
-* `())` and `))(` both result in floor `-1` (the first basement level).
-* `)))` and `)())())` both result in floor `-3`.
-
-To *what floor* do the instructions take Santa?
-
-Input Challenge - Part 2:
-Now, given the same instructions, find the *position* of the first character that causes him to enter the basement (floor `-1`). The first character in the instructions has position `1`, the second character has position `2`, and so on.
-
-For example:
-
-* `)` causes him to enter the basement at character position `1`.
-* `()())` causes him to enter the basement at character position `5`.
-
-What is the *position* of the character that causes Santa to first enter the basement?
-
-First 50 Characters of the input file:
-((((()(()(((((((()))(((()((((()())(())()(((()(((((
-
-Converted Challenge - Part 1:
-You are given a string of parentheses. You need to find the floor of the building. The floor is defined as the number of opening parentheses minus the number of closing parentheses. The first floor is 0. For example, the string `((()))` results in floor 0. The string `(()(()(` results in floor 3. The string `))(((((` results in floor 3. The string `())` results in floor -1. The string `))(` results in floor -1. The string `)))` results in floor -3.
-
-Input Format:
-The input is a string of parentheses.
-
-Converted Challenge - Part 2:
-Now, given the same instructions, find the position of the first character that causes you to enter the basement (floor -1). The first character in the instructions has position 1, the second character has position 2, and so on.
-
-Input Format:
-The input is a string of parentheses.
-"""

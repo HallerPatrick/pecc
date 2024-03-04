@@ -1,45 +1,13 @@
 import argparse
 import csv
-from typing import Dict, List
+from typing import Dict
+from pathlib import Path
+from collections import defaultdict
 
 import pandas as pd
 
-from prettytable.colortable import ColorTable, Themes
 
-
-def pretty_print(results: List[Dict], subset: str):
-
-    if subset == "euler":
-        pass
-        # pretty_print_euler(results)
-    elif subset == "aoc":
-        pretty_print_aoc(results)
-
-
-def pretty_print_aoc(results: List[Dict]):
-    from .pipeline import ErrorType
-    print("\nResults:")
-    table = ColorTable(theme=Themes.OCEAN)
-
-    # Add the field names (column headers)
-    table.field_names = ["Year", "Day", "Part", "Status", "Output", "Expected Output", "Error"]
-
-    # Add rows to the table using the data from the list of dictionaries
-    for entry in results:
-        status_display = "✔" if entry['status'] == ErrorType.NO_ERROR.value else entry['status']
-        table.add_row([entry['year'], entry['day'], entry['part'], status_display, entry['output'].strip(), entry['expected_output'], entry['error']])
-
-    # Print the table
-    print(table)
-
-
-def evaluate(results: List[Dict]):
-    df = pd.DataFrame(results)
-    breakpoint()
-    df.to_csv("results.csv")
-
-
-def evaluate_euler(csv_file):
+def evaluate_euler(csv_file) -> float:
     df = pd.read_csv(csv_file)
     total = len(df)
     solved = df[df['status'] == "no_error"]
@@ -49,10 +17,13 @@ def evaluate_euler(csv_file):
     print(f"Wrong Outputs:  {len(df[df['status'] == 'wrong_output'])}")
     print(f"Timeouts:       {len(df[df['status'] == 'timeout_error'])}")
 
-    print("Accuracy: {:.2f}% ({}/{})".format(len(solved) / total * 100, len(solved), total))
+    print("Accuracy: {:.2f}% ({}/{})".format(len(solved) /
+          total * 100, len(solved), total))
+
+    return len(solved) / total * 100
 
 
-def evaluate_aoc(csv_file):
+def evaluate_aoc(csv_file) -> float:
     df = pd.read_csv(csv_file)
     # Remove day 25 part2
     df = df[~((df['day'] == 25) & (df['part'] == 2))]
@@ -72,9 +43,17 @@ def evaluate_aoc(csv_file):
     print(f"Timeouts:       {len(df[df['status'] == 'timeout_error'])}")
     print(f"Part 1 failed:  {len(df[df['status'] == 'part1_failed'])}")
     print()
-    print("Accuracy: {:.2f}% ({}/{})".format(len(solved) / total * 100, len(solved), total))
-    print("Part 1:   {:.2f}% ({}/{})".format(solved_part1 / total_part1 * 100, solved_part1, total_part1))
-    print("Part 2:   {:.2f}% ({}/{})".format(solved_part2 / total_part2 * 100, solved_part2, total_part2))
+    accuracy = len(solved) / total * 100
+    print("Accuracy: {:.2f}% ({}/{})".format(accuracy, len(solved), total))
+    print("Part 1:   {:.2f}% ({}/{})".format(solved_part1 /
+          total_part1 * 100, solved_part1, total_part1))
+    try:
+        print("Part 2:   {:.2f}% ({}/{})".format(solved_part2 /
+              total_part2 * 100, solved_part2, total_part2))
+    except ZeroDivisionError:
+        print("Accuracy: 0.00% (0/0)")
+
+    return accuracy
 
 
 def visualize_results(csv_file):
@@ -92,8 +71,10 @@ def visualize_results(csv_file):
 
     # Populating the lists based on the data in the dataframe
     for day in range(1, 25):
-        part1_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (df['part'].astype("int") == 1) & (df['status'] == "no_error")])
-        part2_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (df['part'].astype("int") == 2) & (df['status'] == "no_error")])
+        part1_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (
+            df['part'].astype("int") == 1) & (df['status'] == "no_error")])
+        part2_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (
+            df['part'].astype("int") == 2) & (df['status'] == "no_error")])
 
     breakpoint()
     # Plotting the data
@@ -103,14 +84,6 @@ def visualize_results(csv_file):
     plt.plot(days, part2_solved, label='Part 2', linestyle='--')
 
     status_types = df['status'].unique()
-    # for status in status_types:
-    #     if status != "ErrorType.NO_ERROR":
-    #         day_part1 = sorted(df[(df['part'].astype("int") == 1) & (df['status'] == status)]['day'].astype("int"))
-    #         day_part2 = sorted(df[(df['part'].astype("int") == 2) & (df['status'] == status)]['day'].astype("int"))
-    #         day_part1 = [day for day in day_part1 if day <= 24]
-    #         day_part2 = [day for day in day_part2 if day <= 24]
-    #         plt.scatter(day_part1, [part1_solved[day-1] for day in day_part1], label=f'Part 1 {status}', marker='x')
-    #         plt.scatter(day_part2, [part2_solved[day-1] for day in day_part2], label=f'Part 2 {status}', marker='x')
 
     # Adding labels and title
     plt.xlabel('Day')
@@ -146,8 +119,10 @@ def visualize_all_results(csv_files):
 
         # Populating the lists based on the data in the dataframe
         for day in range(1, 25):
-            part1_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (df['part'].astype("int") == 1) & (df['status'] == "no_error")])
-            part2_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (df['part'].astype("int") == 2) & (df['status'] == "no_error")])
+            part1_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (
+                df['part'].astype("int") == 1) & (df['status'] == "no_error")])
+            part2_solved[day - 1] = len(df[(df['day'].astype("int") == day) & (
+                df['part'].astype("int") == 2) & (df['status'] == "no_error")])
 
         # Plotting the data
         model_name = csv_file.split("/")[-1].replace(".csv", "")
@@ -156,7 +131,8 @@ def visualize_all_results(csv_files):
         # plt.plot(days, part2_solved, label=f'Part 2 - {model_name}', linestyle='--')
 
         # Combine results for part 1 and part 2
-        plt.plot(days, [part1_solved[day - 1] + part2_solved[day - 1] for day in days], label=f'Part 1 + Part 2 - {model_name}')  # , linestyle='-.')
+        plt.plot(days, [part1_solved[day - 1] + part2_solved[day - 1]
+                 for day in days], label=f'Part 1 + Part 2 - {model_name}')  # , linestyle='-.')
 
     # status_types = df['status'].unique()
     # for status in status_types:
@@ -184,11 +160,86 @@ def visualize_all_results(csv_files):
     plt.show()
 
 
+def print_latex_table(results: Dict):
+    content = [
+        "\\begin{tabular}{lcccccccc}",
+        "\\toprule",
+        "Model & \\multicolumn{2}{c}{AoC} & \\multicolumn{2}{c}{AoC-Leet} & \\multicolumn{2}{c}{Euler} & \\multicolumn{2}{c}{Euler-Stories} \\\\",
+        "& $k = 1$ & $k = 3$ & $k = 1$ & $k = 3$ & $k = 1$ & $k = 3$ & $k = 1$ & $k = 3$ \\\\",
+        "\\midrule",
+    ]
+
+    for model in results:
+        row = []
+        for subset in ["aoc", "euler"]:
+            for subsubset in ["original", "leet", "story"]:
+                if subset in results[model] and subsubset in results[model][subset]:
+                    row.append(
+                        f"{results[model][subset][subsubset]['1']:.2f} & {results[model][subset][subsubset]['3']:.2f}")
+        content.append(f"{model.replace('_', '-')} & {' & '.join(row)} \\\\")
+
+    print("\n".join(content))
+
+    content.extend([
+        "\\bottomrule",
+        "\\end{tabular}"
+    ])
+
+    print("\n".join(content))
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    # Accept a list of csv files
-    parser.add_argument('csv_files', nargs='+', help='CSV files to visualize')
+
+    parser.add_argument(
+        "--results-folder",
+        # default="paper_results",
+        type=str,
+        help="Folder containing the results. Should be in the form <results-folder>/<model>/<result>.csv"
+    )
+
     args = parser.parse_args()
 
-    visualize_all_results(args.csv_files)
+    results_folder = Path(args.results_folder)
+    assert results_folder.exists(
+    ), f"Results folder {results_folder} does not exist"
+
+    results = {}
+
+    for model_folder in results_folder.iterdir():
+        if model_folder.is_dir():
+            model_name = model_folder.name
+            print(f"Model: {model_name}")
+            for result_file in model_folder.iterdir():
+
+                model_name, subset, passk = result_file.stem.split("-")
+
+                _, passK = passk.split("@")
+
+                if model_name not in results:
+                    results[model_name] = {}
+
+                try:
+                    subset, story_mode = subset.split("_")
+                except ValueError:
+                    subset, story_mode = subset, None
+
+                if subset not in results[model_name]:
+                    results[model_name][subset] = {}
+
+                if result_file.suffix == ".csv":
+                    if "aoc" == subset:
+                        acc = evaluate_aoc(result_file)
+                        subsubset = "leet" if story_mode else "original"
+
+                    elif "euler" == subset:
+                        acc = evaluate_euler(result_file)
+                        subsubset = "story" if story_mode else "original"
+
+                    if subsubset not in results[model_name][subset]:
+                        results[model_name][subset][subsubset] = defaultdict(
+                            float)
+                    results[model_name][subset][subsubset][passK] = acc
+
+    print_latex_table(results)

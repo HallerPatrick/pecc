@@ -64,3 +64,13 @@ Per default, the script will download the AoC challenges from 2015 to 2022 and m
 the `dataset/aoc` directory. Refer to the script for more details.
 
 
+## Reported Results
+
+All results reported in the paper can be found in the `paper_results` folder. Which contains the
+raw output of the evaluation script for all models.
+
+To produce a LaTeX table, run the following command:
+```bash
+python src.eval.py --results-folder paper_results
+```
+

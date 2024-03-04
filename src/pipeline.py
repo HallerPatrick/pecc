@@ -2,8 +2,6 @@ import re
 import ast
 import copy
 from enum import Enum
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from tqdm import tqdm
 
 
@@ -12,10 +10,10 @@ import pandas as pd
 
 from .config import DatasetConfig
 from .templates import (
-    build_chain_part1,
-    build_chain_part2,
-    result_extraction_chain,
-    build_instruct_chain_part1,
+    TemplateProvider,
+    PaperTemplateProvider,
+    TemplateBuilder
+
 )
 from .interpreter import PythonInterpreter
 
@@ -27,13 +25,13 @@ class Runner:
         dataset,
         dataset_config: DatasetConfig,
         python_bin: str,
-        debug: bool = False,
+        template_provider: TemplateProvider = PaperTemplateProvider
     ):
         self.llm = llm
+        self.template_provider = TemplateBuilder(llm, template_provider)
         self.dataset = dataset
         self.dataset_config = dataset_config
         self.interpreter = PythonInterpreter(python_bin)
-        self.debug = debug
 
         # Lets sort first
         try:
@@ -52,33 +50,44 @@ class Runner:
 
         raise ValueError(f"Unknown subset {subset}")
 
-    def run_aoc(self, story: bool, ignore=None):
-        results = []
-        kpass_results = []
-
-        for year in self.years:
+    def to_skip(self, year=None, day=None):
+        if year:
             if (
                 year < self.dataset_config.year_begin
                 or year > self.dataset_config.year_end
             ):
                 logger.debug(f"Skipping year {year}")
-                continue
+                return True
 
             if year > self.dataset_config.year_end:
                 logger.debug(f"Skipping year {year}")
+                return True
+
+        if day:
+            if day < self.dataset_config.day_begin:
+                logger.debug(f"Skipping day {day}")
+                return True
+            if day > self.dataset_config.day_end:
+                logger.debug(f"Skipping day {day}")
+                return True
+
+        return False
+
+    def run_aoc(self, story: bool, ignore=None):
+        results = []
+        kpass_results = []
+
+        for year in self.years:
+            if self.to_skip(year=year):
                 continue
 
             for day in self.days:
-                if day < self.dataset_config.day_begin:
-                    logger.debug(f"Skipping day {day}")
-                    continue
-
-                if day > self.dataset_config.day_end:
-                    logger.debug(f"Skipping day {day}")
+                if self.to_skip(day=day):
                     continue
 
                 if ignore is not None:
-                    ignore_day = ignore[(ignore["day"] == day) & (ignore["year"] == year)]
+                    ignore_day = ignore[(ignore["day"] == day) & (
+                        ignore["year"] == year)]
                     if len(ignore_day) == 2:
                         logger.debug(f"Skipping day {day}")
                         continue
@@ -89,9 +98,9 @@ class Runner:
 
                 for kpass in range(self.dataset_config.kpass):
                     if self.dataset_config.only_part_one:
-                        chain_part1 = build_instruct_chain_part1(self.llm)
+                        chain_part1 = self.template_provider.build_instruct_chain_part1()
                     else:
-                        chain_part1 = build_chain_part1(self.llm)
+                        chain_part1 = self.template_provider.build_chat_chain_part1()
 
                     code, output, error_type, error_message = self.run_challenge(
                         chain_part1,
@@ -161,7 +170,8 @@ class Runner:
                 messages = chain_part1.memory.chat_memory.messages
 
                 for kpass in range(self.dataset_config.kpass):
-                    chain_part2 = build_chain_part2(self.llm, copy.deepcopy(messages))
+                    chain_part2 = self.template_provider.build_chat_chain_part2(
+                        copy.deepcopy(messages))
                     code, output, error_type, error_message = self.run_challenge(
                         chain_part2,
                         challenge["part2"] if story else challenge["part2_converted"],
@@ -203,8 +213,10 @@ class Runner:
             # pd.DataFrame(kpass_results).to_csv("current_gpt4_aoc_converted-pass@1.csv")
             # pd.DataFrame(results).to_csv("current_gpt4_aoc_converted-pass@3.csv")
 
-            pd.DataFrame(kpass_results).to_csv("current_chat-bison_aoc_converted-pass@1.csv")
-            pd.DataFrame(results).to_csv("current_chat-bison_aoc_converted-pass@3.csv")
+            pd.DataFrame(kpass_results).to_csv(
+                "current_chat-bison_aoc_converted-pass@1.csv")
+            pd.DataFrame(results).to_csv(
+                "current_chat-bison_aoc_converted-pass@3.csv")
 
         return results, kpass_results
 
@@ -240,8 +252,10 @@ class Runner:
         parsed_output = parse_output(output)
 
         if parsed_output != solution:
-            extraction_chain = result_extraction_chain(self.llm)
-            final_output = extraction_chain.predict(program_output=parsed_output)
+            # extraction_chain = result_extraction_chain(self.llm)
+            extraction_chain = self.template_provider.build_result_extraction_chain()
+            final_output = extraction_chain.predict(
+                program_output=parsed_output)
             final_parsed_output = parse_output(final_output)
 
             if final_parsed_output != solution:
@@ -275,8 +289,10 @@ class Runner:
                 int(parsed_output.strip())
                 error_type = ErrorType.WRONG_OUTPUT
             except ValueError:
-                extraction_chain = result_extraction_chain(self.llm)
-                final_output = extraction_chain.predict(program_output=parsed_output)
+                # extraction_chain = result_extraction_chain(self.llm)
+                extraction_chain = self.template_provider.aoc_result_extraction_template()
+                final_output = extraction_chain.predict(
+                    program_output=parsed_output)
                 final_parsed_output = parse_output(final_output)
 
                 if final_parsed_output != solution:
@@ -324,8 +340,10 @@ class Runner:
                 int(parsed_output.strip())
                 error_type = ErrorType.WRONG_OUTPUT
             except ValueError:
-                extraction_chain = result_extraction_chain(self.llm)
-                final_output = extraction_chain.predict(program_output=parsed_output)
+                # extraction_chain = result_extraction_chain(self.llm)
+                extraction_chain = self.template_provider.build_result_extraction_chain()
+                final_output = extraction_chain.predict(
+                    program_output=parsed_output)
                 final_parsed_output = parse_output(final_output)
 
                 if final_parsed_output != solution:
@@ -340,12 +358,6 @@ class Runner:
         if not ignore:
             ignore = []
 
-        code_generator_template = """You are a code generator and given a programming task.
-Write a function that efficiently solves the given problem. Generate only directly executable python code.
-
-Title: {title}
-Task: {description}"""
-
         results = []
         kpass_results = []
 
@@ -355,9 +367,7 @@ Task: {description}"""
                 logger.info(f"Skipping problem {problem['id']}")
                 continue
 
-            code_generator_prompt = PromptTemplate.from_template(
-                template=code_generator_template
-            )
+            code_generator_prompt = self.template_provider.build_euler_instruct_chain()
 
             problem_description = (
                 problem["story_problem"] if story else problem["problem"]
@@ -365,9 +375,7 @@ Task: {description}"""
 
             for kpass in range(self.dataset_config.kpass):
 
-                code_chain = LLMChain(
-                    llm=self.llm, prompt=code_generator_prompt, verbose=True
-                )
+                code_chain = self.template_provider.build_euler_instruct_chain()
 
                 code, output, error_type, error_message = self.run_euler_challenge(
                     code_chain, problem["title"], problem_description, problem["solution"]
@@ -399,8 +407,6 @@ Task: {description}"""
                         }
                     )
 
-            # pd.DataFrame(kpass_results).to_csv("current_gpt-3.5_euler_stories@1.csv")
-            # pd.DataFrame(results).to_csv("current_gpt-3.5_euler_stories@3.csv")
             # pd.DataFrame(kpass_results).to_csv("current-gpt3.5-euler-pass@1.csv")
             pd.DataFrame(results).to_csv("current-gpt3.5-euler-pass@1.csv")
 
@@ -439,15 +445,6 @@ def get_challenge(dataset, year, day):
     challenge = dataset.filter(lambda x: x["year"] == year and x["day"] == day)
     assert len(challenge) == 1
     return challenge[0]
-
-
-def remove_markdown_code_fence(code_block: str) -> str:
-    # Remove the markdown backticks and the word "python" (if present)
-    cleaned_code = re.sub(r"^```python", "", code_block, flags=re.MULTILINE)
-    cleaned_code = re.sub(r"^```", "", cleaned_code, flags=re.MULTILINE)
-    cleaned_code = re.sub(r"```$", "", cleaned_code, flags=re.MULTILINE)
-
-    return cleaned_code.strip()
 
 
 def extract_python_code(code_block: str) -> str:
