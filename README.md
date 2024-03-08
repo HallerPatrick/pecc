@@ -25,16 +25,13 @@ export OPENAI_API_KEY="your-api-key"
 
 The evalation script provides several arguments to configure the evaluation. 
 ```txt
-usage: main.py [-h] [--model MODEL] [--subset SUBSET] [--venv-path VENV_PATH]
-               [--output-file OUTPUT_FILE] [--instruct] [--kpass KPASS]
+usage: main.py [-h] [--model MODEL] [--subset SUBSET] [--story] [--venv-path VENV_PATH] [--output-file OUTPUT_FILE] [--instruct] [--kpass KPASS]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --model MODEL         Model to use ['gpt-3.5-turbo-16k', 'gpt-3.5-turbo-
-                        turbo', 'vertex_ai/chat-bison', 'vertex_ai/codechat-
-                        bison', 'WizardLM/WizardCoder-Python-34B-V1.0',
-                        'Mistral-Instruct']
+  --model MODEL         Model to use ['gpt-3.5-turbo-16k', 'gpt-3.5-turbo-turbo', 'vertex_ai/chat-bison', 'vertex_ai/codechat-bison', 'WizardLM/WizardCoder-Python-34B-V1.0', 'Mistral-Instruct']
   --subset SUBSET       Subset of the dataset to use (euler, aoc)
+  --story               Use the story subset of the dataset
   --venv-path VENV_PATH
                         Path to the venv
   --output-file OUTPUT_FILE

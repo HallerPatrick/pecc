@@ -40,7 +40,7 @@ def main():
 
     assert args.model in MODEL_LOADER_MAP, f"Model {args.model} not found"
 
-    llm = MODEL_LOADER_MAP[args.model](args.model)
+    llm = MODEL_LOADER_MAP[args.model]()
 
     # The venv to use for execution
     python_bin = os.path.join(os.getcwd(), f"{args.venv_path}/bin/python")
@@ -48,25 +48,18 @@ def main():
     assert os.path.exists(python_bin), f"Venv not found at {python_bin}"
 
     # For debugging smaller subsets
-    if False:
-        config = AoCDatasetConfig(
-            year_begin=2018,
-            year_end=2018,
-            day_begin=1,
-            day_end=3,
-            only_part_one=args.instruct,
-            story=False,
-            kpass=1
-        )
-        # config = DatasetConfig.all()
-        # config.year_begin = 2021
-        # config.kpass = 3
-        # config.use_converted = True
+    if True:
+        config = DatasetConfig.from_dataset(args.subset)
+        config.year_begin = 2015
+        config.year_end = 2015
+        # config.day_begin = 2
+        # config.day_end = 2
     else:
         config = DatasetConfig.from_dataset(args.subset)
+        config.year_begin = 2016
 
     result, one_pass = Runner(llm, dataset, config, python_bin).run(
-        args.subset, args.story)
+        args.subset, args.story, args.output_file, args.kpass)
     pd.DataFrame(result).to_csv(args.output_file)
 
     if args.subset == "aoc":

@@ -8,7 +8,7 @@ from langchain.prompts import (
 )
 from langchain.prompts import PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferMemory
-from langchain import LLMChain
+from langchain.chains import LLMChain
 
 
 class TemplateProvider:

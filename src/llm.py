@@ -1,16 +1,27 @@
 from typing import Dict, Optional
+from functools import partial
 
-from langchain.chat_models import ChatOpenAI, ChatLiteLLM
 from langchain.llms.fake import FakeListLLM
-from langchain import HuggingFaceHub, HuggingFacePipeline
-from langchain.llms import VLLMOpenAI
+from langchain_community.chat_models import ChatOpenAI, ChatLiteLLM
+from langchain_community.llms import VLLMOpenAI, HuggingFaceHub, HuggingFacePipeline
+
+# from google.cloud.aiplatform_v1beta1.types import gapic_content_types
 
 
 class LLMLoader:
 
     @staticmethod
     def chat_lite(model_name):
-        return ChatLiteLLM(model=model_name)
+        llm =  ChatLiteLLM(
+            model=model_name,
+            # model_kwargs={"safety_settings": [
+            #     {gapic_content_types.ContentType.TEXT: gapic_content_types.SafetySettings.SAFE_FOR_CHILDREN},
+            #
+            # ]}
+
+        )
+        llm.max_tokens = 32_000
+        return llm
 
     @staticmethod
     def dummy_llm():
@@ -39,7 +50,7 @@ class LLMLoader:
         return ChatOpenAI(model=openai_model)
 
     @staticmethod
-    def vllm(model: str = "WizardLM/WizardCoder-Python-34B-V1.0"):
+    def vllm_custom(model: str = "WizardLM/WizardCoder-Python-34B-V1.0"):
         return VLLMOpenAI(
             openai_api_key="EMPTY",
             openai_api_base="https://opiniongpt.informatik.hu-berlin.de/custom_api/v1",
@@ -54,6 +65,11 @@ MODEL_LOADER_MAP = {
     "gpt-3.5-turbo-turbo": LLMLoader.open_ai,
     "vertex_ai/chat-bison": LLMLoader.chat_lite,
     "vertex_ai/codechat-bison": LLMLoader.chat_lite,
-    "WizardLM/WizardCoder-Python-34B-V1.0": LLMLoader.vllm,
-    "Mistral-Instruct": LLMLoader.vllm,
+    "vertex_ai/gemini-pro": LLMLoader.chat_lite,
+    "vertex_ai/gemini-1.5-pro": LLMLoader.chat_lite,
+    "WizardCoder-34B": partial(LLMLoader.vllm_custom, model="WizardLM/WizardCoder-Python-34B-V1.0"),
+    # "Mistral-Instruct": LLMLoader.vllm,
+    "mixtral": partial(LLMLoader.chat_lite,"replicate/mistralai/mixtral-8x7b-instruct-v0.1"),
+    "claude-3-opus": partial(LLMLoader.chat_lite, "anthropic/claude-3-opus-20240229"),
+    "claude-3-sonnet": partial(LLMLoader.chat_lite, "anthropic/claude-3-sonnet-20240229"),
 }

@@ -193,6 +193,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
+        "--result-file",
+        type=str,
+        help="CSV file containing the results"
+    )
+
+    parser.add_argument(
         "--results-folder",
         # default="paper_results",
         type=str,
@@ -200,6 +206,17 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+
+    if args.result_file and args.results_folder:
+        raise ValueError("Only one of --result-file or --results-folder should be provided")
+
+    if args.result_file:
+        try:
+            evaluate_aoc(args.result_file)
+        except:
+            evaluate_euler(args.result_file)
+
+        exit()
 
     results_folder = Path(args.results_folder)
     assert results_folder.exists(

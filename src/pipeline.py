@@ -2,6 +2,8 @@ import re
 import ast
 import copy
 from enum import Enum
+from pathlib import Path
+
 from tqdm import tqdm
 
 
@@ -42,11 +44,11 @@ class Runner:
         except KeyError:
             pass
 
-    def run(self, subset: str, story: bool, ignore=None):
+    def run(self, subset: str, story: bool, output_file: str, kpass: int, ignore=None):
         if subset == "aoc":
-            return self.run_aoc(story, ignore)
+            return self.run_aoc(story, output_file, kpass, ignore)
         elif subset == "euler":
-            return self.run_euler(story, ignore)
+            return self.run_euler(story, output_file, kpass, ignore)
 
         raise ValueError(f"Unknown subset {subset}")
 
@@ -73,7 +75,7 @@ class Runner:
 
         return False
 
-    def run_aoc(self, story: bool, ignore=None):
+    def run_aoc(self, story: bool, output_file: str, kpass: int, ignore=None):
         results = []
         kpass_results = []
 
@@ -96,7 +98,7 @@ class Runner:
 
                 challenge = get_challenge(self.dataset, year, day)
 
-                for kpass in range(self.dataset_config.kpass):
+                for current_kpass in range(kpass):
                     if self.dataset_config.only_part_one:
                         chain_part1 = self.template_provider.build_instruct_chain_part1()
                     else:
@@ -110,7 +112,7 @@ class Runner:
                     )
 
                     # Always record the first pass
-                    if kpass == 0:
+                    if current_kpass == 0:
                         kpass_results.append(
                             {
                                 "year": year,
@@ -121,12 +123,12 @@ class Runner:
                                 "expected_output": challenge["part1_solution"],
                                 "error": error_message,
                                 "code": code,
-                                "kpass": kpass,
+                                "kpass": current_kpass,
                             }
                         )
 
                     # If the code is correct or we have reached the last pass
-                    if error_type == ErrorType.NO_ERROR or kpass == self.dataset_config.kpass - 1:
+                    if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
                         results.append(
                             {
                                 "year": year,
@@ -137,7 +139,7 @@ class Runner:
                                 "expected_output": challenge["part1_solution"],
                                 "error": error_message,
                                 "code": code,
-                                "kpass": kpass,
+                                "kpass": current_kpass,
                             }
                         )
 
@@ -169,7 +171,7 @@ class Runner:
 
                 messages = chain_part1.memory.chat_memory.messages
 
-                for kpass in range(self.dataset_config.kpass):
+                for current_kpass in range(kpass):
                     chain_part2 = self.template_provider.build_chat_chain_part2(
                         copy.deepcopy(messages))
                     code, output, error_type, error_message = self.run_challenge(
@@ -179,7 +181,7 @@ class Runner:
                         challenge["part2_solution"],
                     )
 
-                    if kpass == 0:
+                    if current_kpass == 0:
                         kpass_results.append(
                             {
                                 "year": year,
@@ -190,11 +192,11 @@ class Runner:
                                 "expected_output": challenge["part2_solution"],
                                 "error": error_message,
                                 "code": code,
-                                "kpass": kpass,
+                                "kpass": current_kpass,
                             }
                         )
 
-                    if error_type == ErrorType.NO_ERROR or kpass == self.dataset_config.kpass - 1:
+                    if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
                         results.append(
                             {
                                 "year": year,
@@ -205,7 +207,7 @@ class Runner:
                                 "expected_output": challenge["part2_solution"],
                                 "error": error_message,
                                 "code": code,
-                                "kpass": kpass,
+                                "kpass": current_kpass,
                             }
                         )
                         break
@@ -213,17 +215,26 @@ class Runner:
             # pd.DataFrame(kpass_results).to_csv("current_gpt4_aoc_converted-pass@1.csv")
             # pd.DataFrame(results).to_csv("current_gpt4_aoc_converted-pass@3.csv")
 
+            output_file_stem = Path(output_file).stem
+
             pd.DataFrame(kpass_results).to_csv(
-                "current_chat-bison_aoc_converted-pass@1.csv")
+                f"current-{output_file_stem}-pass@1.csv")
             pd.DataFrame(results).to_csv(
-                "current_chat-bison_aoc_converted-pass@3.csv")
+                f"current-{output_file_stem}-pass@3.csv")
 
         return results, kpass_results
 
     def run_challenge(
         self, chain, description: str, challenge_input: str, solution: str
     ):
-        generated_code = chain.predict(description=description)
+        try:
+            generated_code = chain.predict(description=description)
+        except Exception as e:
+            generated_code = "SyntaxError: " + str(e)
+
+        logger.info("======= Generated code =======")
+        logger.info(generated_code)
+        logger.info("======= End of generated code =======")
 
         if not is_parseable(generated_code):
             logger.info("Generated output is not syntacticaly correct")
@@ -231,6 +242,8 @@ class Runner:
             if potential_code:
                 logger.info("Extracting python snippet from generated output")
                 generated_code = potential_code
+            else:
+                logger.info("Generated output is not parseable")
         else:
             logger.info("Generated output is parseable")
 
@@ -254,8 +267,12 @@ class Runner:
         if parsed_output != solution:
             # extraction_chain = result_extraction_chain(self.llm)
             extraction_chain = self.template_provider.build_result_extraction_chain()
-            final_output = extraction_chain.predict(
-                program_output=parsed_output)
+            try:
+                final_output = extraction_chain.predict(
+                    program_output=parsed_output)
+            except Exception as e:
+                final_output = parsed_output
+
             final_parsed_output = parse_output(final_output)
 
             if final_parsed_output != solution:
@@ -353,7 +370,7 @@ class Runner:
 
         return generated_code, output, error_type, error_message
 
-    def run_euler(self, story: bool, ignore=None):
+    def run_euler(self, story: bool, output_file: str, kpass: int, ignore=None):
 
         if not ignore:
             ignore = []
@@ -373,7 +390,7 @@ class Runner:
                 problem["story_problem"] if story else problem["problem"]
             )
 
-            for kpass in range(self.dataset_config.kpass):
+            for current_kpass in range(kpass):
 
                 code_chain = self.template_provider.build_euler_instruct_chain()
 
@@ -381,7 +398,7 @@ class Runner:
                     code_chain, problem["title"], problem_description, problem["solution"]
                 )
 
-                if kpass == 0:
+                if current_kpass == 0:
                     kpass_results.append(
                         {
                             "id": problem["id"],
@@ -394,7 +411,7 @@ class Runner:
                         }
                     )
 
-                if error_type == ErrorType.NO_ERROR or kpass == self.dataset_config.kpass - 1:
+                if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
                     results.append(
                         {
                             "id": problem["id"],
