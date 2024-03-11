@@ -3,11 +3,14 @@ import ast
 import copy
 from enum import Enum
 from pathlib import Path
+from typing import Dict, List, Optional
+from dataclasses import dataclass
 
 from tqdm import tqdm
 
 
 from loguru import logger
+from langchain_core.messages.base import BaseMessage
 import pandas as pd
 
 from .config import DatasetConfig
@@ -18,6 +21,28 @@ from .templates import (
 
 )
 from .interpreter import PythonInterpreter
+
+
+class ErrorType(str, Enum):
+    NO_ERROR = "no_error"
+    SYNTAX_ERROR = "syntax_error"
+    RUNTIME_ERROR = "runtime_error"
+    TIMEOUT_ERROR = "timeout_error"
+    WRONG_OUTPUT = "wrong_output"
+    NO_OUTPUT = "no_output"
+    PART1_FAILED = "part1_failed"
+
+
+@dataclass
+class KPassResults:
+    year: int
+    day: int
+    part: int
+    final_status: ErrorType
+    kpass: int
+    kpass_result: Dict
+    one_pass_result: Dict
+    messages: Optional[List[BaseMessage]]
 
 
 class Runner:
@@ -35,22 +60,34 @@ class Runner:
         self.dataset_config = dataset_config
         self.interpreter = PythonInterpreter(python_bin)
 
-        # Lets sort first
-        try:
-            self.years = list(set(dataset["year"]))
-            self.years.sort()
-            self.days = list(set(dataset["day"]))
-            self.days.sort()
-        except KeyError:
-            pass
-
-    def run(self, subset: str, story: bool, output_file: str, kpass: int, ignore=None):
+    @classmethod
+    def from_subset(cls, subset: str, llm, dataset, dataset_config: DatasetConfig, python_bin: str):
         if subset == "aoc":
-            return self.run_aoc(story, output_file, kpass, ignore)
+            return AoCRunner(llm, dataset, dataset_config, python_bin)
         elif subset == "euler":
-            return self.run_euler(story, output_file, kpass, ignore)
-
+            return EulerRunner(llm, dataset, dataset_config, python_bin)
         raise ValueError(f"Unknown subset {subset}")
+
+    def run(self, story: bool, output_file: str, kpass: int, ignore=None):
+        raise NotImplementedError
+
+
+class AoCRunner(Runner):
+    def __init__(
+        self,
+        llm,
+        dataset,
+        dataset_config: DatasetConfig,
+        python_bin: str,
+        template_provider: TemplateProvider = PaperTemplateProvider
+    ):
+        super().__init__(llm, dataset, dataset_config, python_bin, template_provider)
+
+        # Lets sort first
+        self.years = list(set(dataset["year"]))
+        self.years.sort()
+        self.days = list(set(dataset["day"]))
+        self.days.sort()
 
     def to_skip(self, year=None, day=None):
         if year:
@@ -75,9 +112,9 @@ class Runner:
 
         return False
 
-    def run_aoc(self, story: bool, output_file: str, kpass: int, ignore=None):
-        results = []
+    def run(self, story: bool, output_file: str, kpass: int, ignore=None):
         kpass_results = []
+        one_pass_results = []
 
         for year in self.years:
             if self.to_skip(year=year):
@@ -98,60 +135,25 @@ class Runner:
 
                 challenge = get_challenge(self.dataset, year, day)
 
-                for current_kpass in range(kpass):
+                def chain_builder_part1():
                     if self.dataset_config.only_part_one:
-                        chain_part1 = self.template_provider.build_instruct_chain_part1()
-                    else:
-                        chain_part1 = self.template_provider.build_chat_chain_part1()
+                        return self.template_provider.build_instruct_chain_part1()
+                    return self.template_provider.build_chat_chain_part1()
 
-                    code, output, error_type, error_message = self.run_challenge(
-                        chain_part1,
-                        challenge["part1"] if story else challenge["part1_converted"],
-                        challenge["input"],
-                        challenge["part1_solution"],
-                    )
+                # Run Part 1
+                challenge_result = self.run_kpasses(
+                    challenge, chain_builder_part1, kpass, year, day, 1, story)
 
-                    # Always record the first pass
-                    if current_kpass == 0:
-                        kpass_results.append(
-                            {
-                                "year": year,
-                                "day": day,
-                                "part": 1,
-                                "status": error_type,
-                                "output": output,
-                                "expected_output": challenge["part1_solution"],
-                                "error": error_message,
-                                "code": code,
-                                "kpass": current_kpass,
-                            }
-                        )
-
-                    # If the code is correct or we have reached the last pass
-                    if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
-                        results.append(
-                            {
-                                "year": year,
-                                "day": day,
-                                "part": 1,
-                                "status": error_type,
-                                "output": output,
-                                "expected_output": challenge["part1_solution"],
-                                "error": error_message,
-                                "code": code,
-                                "kpass": current_kpass,
-                            }
-                        )
-
-                        break
+                one_pass_results.append(challenge_result.one_pass_result)
+                kpass_results.append(challenge_result.kpass_result)
 
                 if self.dataset_config.only_part_one:
                     logger.debug("Skipping part 2")
                     continue
 
                 # If Part 1 fails, Part 2 also fails
-                if error_type != ErrorType.NO_ERROR:
-                    results.append(
+                if challenge_result.final_status != ErrorType.NO_ERROR:
+                    kpass_results.append(
                         {
                             "year": year,
                             "day": day,
@@ -169,60 +171,85 @@ class Runner:
                     # No part 2 on day 25
                     continue
 
-                messages = chain_part1.memory.chat_memory.messages
+                def chain_builder_part2():
+                    return self.template_provider.build_chat_chain_part2(
+                        copy.deepcopy(challenge_result.messages))
 
-                for current_kpass in range(kpass):
-                    chain_part2 = self.template_provider.build_chat_chain_part2(
-                        copy.deepcopy(messages))
-                    code, output, error_type, error_message = self.run_challenge(
-                        chain_part2,
-                        challenge["part2"] if story else challenge["part2_converted"],
-                        challenge["input"],
-                        challenge["part2_solution"],
-                    )
+                # Run Part 1
+                challenge_result = self.run_kpasses(
+                    challenge, chain_builder_part2, kpass, year, day, 2, story)
 
-                    if current_kpass == 0:
-                        kpass_results.append(
-                            {
-                                "year": year,
-                                "day": day,
-                                "part": 2,
-                                "status": error_type,
-                                "output": output,
-                                "expected_output": challenge["part2_solution"],
-                                "error": error_message,
-                                "code": code,
-                                "kpass": current_kpass,
-                            }
-                        )
+                one_pass_results.append(challenge_result.one_pass_result)
+                kpass_results.append(challenge_result.kpass_result)
 
-                    if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
-                        results.append(
-                            {
-                                "year": year,
-                                "day": day,
-                                "part": 2,
-                                "status": error_type,
-                                "output": output,
-                                "expected_output": challenge["part2_solution"],
-                                "error": error_message,
-                                "code": code,
-                                "kpass": current_kpass,
-                            }
-                        )
-                        break
-
-            # pd.DataFrame(kpass_results).to_csv("current_gpt4_aoc_converted-pass@1.csv")
-            # pd.DataFrame(results).to_csv("current_gpt4_aoc_converted-pass@3.csv")
-
+            # Save some immediate results
             output_file_stem = Path(output_file).stem
-
-            pd.DataFrame(kpass_results).to_csv(
+            pd.DataFrame(one_pass_results).to_csv(
                 f"current-{output_file_stem}-pass@1.csv")
-            pd.DataFrame(results).to_csv(
+            pd.DataFrame(kpass_results).to_csv(
                 f"current-{output_file_stem}-pass@3.csv")
 
-        return results, kpass_results
+        return kpass_results, one_pass_results
+
+    def run_kpasses(self, challenge, chain_builder, kpass: int, year: int, day: int, part: int, story: bool) -> KPassResults:
+        """Logic for runnning k amount of passes for a challenge"""
+
+        kpass_result = None
+        one_pass_result = None
+
+        for current_kpass in range(kpass):
+
+            chain_part = chain_builder()
+
+            code, output, error_type, error_message = self.run_challenge(
+                chain_part,
+                challenge[f"part{part}"] if story else challenge[f"part{part}_converted"],
+                challenge["input"],
+                challenge[f"part{part}_solution"],
+            )
+
+            # Always record the first pass
+            if current_kpass == 0:
+                one_pass_result = {
+                    "year": year,
+                    "day": day,
+                    "part": part,
+                    "status": error_type,
+                    "output": output,
+                    "expected_output": challenge[f"part{part}_solution"],
+                    "error": error_message,
+                    "code": code,
+                    "kpass": current_kpass,
+                }
+
+            # If the code is correct or we have reached the last pass
+            if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
+                kpass_result = {
+                    "year": year,
+                    "day": day,
+                    "part": part,
+                    "status": error_type,
+                    "output": output,
+                    "expected_output": challenge[f"part{part}_solution"],
+                    "error": error_message,
+                    "code": code,
+                    "kpass": current_kpass,
+                }
+                break
+
+        assert one_pass_result is not None, "One pass results should not be empty"
+        assert kpass_result is not None, "Kpass results should not be empty"
+
+        return KPassResults(
+            year=year,
+            day=day,
+            part=part,
+            final_status=error_type,
+            kpass=kpass,
+            kpass_result=kpass_result,
+            one_pass_result=one_pass_result,
+            messages=chain_part.memory.chat_memory.messages
+        )
 
     def run_challenge(
         self, chain, description: str, challenge_input: str, solution: str
@@ -270,7 +297,7 @@ class Runner:
             try:
                 final_output = extraction_chain.predict(
                     program_output=parsed_output)
-            except Exception as e:
+            except Exception:
                 final_output = parsed_output
 
             final_parsed_output = parse_output(final_output)
@@ -279,6 +306,147 @@ class Runner:
                 error_type = ErrorType.WRONG_OUTPUT
             else:
                 output = final_parsed_output
+
+        return generated_code, output, error_type, error_message
+
+
+class EulerRunner(Runner):
+    def __init__(
+        self,
+        llm,
+        dataset,
+        dataset_config: DatasetConfig,
+        python_bin: str,
+        template_provider: TemplateProvider = PaperTemplateProvider
+    ):
+        super().__init__(llm, dataset, dataset_config, python_bin, template_provider)
+
+        # Lets sort first
+        self.dataset = dataset.sort("id")
+
+    def run(self, story: bool, output_file: str, kpass: int, ignore=None):
+
+        if not ignore:
+            ignore = []
+
+        kpass_results = []
+        one_pass_results = []
+
+        for problem in tqdm(self.dataset):
+
+            if problem["id"] in ignore:
+                logger.info(f"Skipping problem {problem['id']}")
+                continue
+
+            code_generator_prompt = self.template_provider.build_euler_instruct_chain()
+
+            problem_description = (
+                problem["story_problem"] if story else problem["problem"]
+            )
+
+            for current_kpass in range(kpass):
+
+                code_chain = self.template_provider.build_euler_instruct_chain()
+
+                code, output, error_type, error_message = self.run_euler_challenge(
+                    code_chain, problem["title"], problem_description, problem["solution"]
+                )
+
+                if code is None:
+                    logger.error("Failed to generate code")
+                    break
+
+                if current_kpass == 0:
+                    one_pass_results.append(
+                        {
+                            "id": problem["id"],
+                            "status": error_type,
+                            "output": output,
+                            "expected_output": problem["solution"],
+                            "error": error_message,
+                            "code": code,
+                            "difficulty": problem["difficulty"],
+                        }
+                    )
+
+                if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
+                    kpass_results.append(
+                        {
+                            "id": problem["id"],
+                            "status": error_type,
+                            "output": output,
+                            "expected_output": problem["solution"],
+                            "error": error_message,
+                            "code": code,
+                            "difficulty": problem["difficulty"],
+                        }
+                    )
+                    break
+
+            output_file_stem = Path(output_file).stem
+            pd.DataFrame(one_pass_results).to_csv(
+                f"current-{output_file_stem}-pass@1.csv")
+            pd.DataFrame(kpass_results).to_csv(
+                f"current-{output_file_stem}-pass@3.csv")
+
+        return kpass_results, one_pass_results
+
+    def run_euler_challenge(
+            self, chain, title: str, description: str, solution: str
+    ):
+        try:
+            generated_code = chain.predict(title=title, description=description)
+        except:
+            return None, None, None, None
+
+        if not is_parseable(generated_code):
+            logger.info("Generated output is not syntacticaly correct")
+            potential_code = extract_python_code(generated_code)
+            if potential_code:
+                logger.info("Extracting python snippet from generated output")
+                generated_code = potential_code
+        else:
+            logger.info("Generated output is parseable")
+
+        error_type = ErrorType.NO_ERROR
+
+        output, error_message = self.interpreter.run_code(
+            generated_code, "", timeout=60
+        )
+
+        # First check for interpreter errors
+        if error_message:
+            error_type = parse_error(error_message)
+            return generated_code, output, error_type, error_message
+
+        # Then check for output errors
+        if not output and error_type != ErrorType.NO_ERROR:
+            error_type = ErrorType.NO_OUTPUT
+
+        parsed_output = parse_output(output)
+
+        if parsed_output != solution:
+
+            # If the output is a number, then the problem can not be solved
+            try:
+                int(parsed_output.strip())
+                error_type = ErrorType.WRONG_OUTPUT
+            except ValueError:
+                # extraction_chain = result_extraction_chain(self.llm)
+                extraction_chain = self.template_provider.build_result_extraction_chain()
+
+                try:
+                    final_output = extraction_chain.predict(
+                        program_output=parsed_output)
+                except Exception:
+                    final_output = parsed_output
+
+                final_parsed_output = parse_output(final_output)
+
+                if final_parsed_output != solution:
+                    error_type = ErrorType.WRONG_OUTPUT
+                else:
+                    output = final_parsed_output
 
         return generated_code, output, error_type, error_message
 
@@ -318,126 +486,6 @@ class Runner:
                     output = final_parsed_output
 
         return output, error_type
-
-    def run_euler_challenge(
-            self, chain, title: str, description: str, solution: str
-    ):
-        generated_code = chain.predict(title=title, description=description)
-
-        if not is_parseable(generated_code):
-            logger.info("Generated output is not syntacticaly correct")
-            potential_code = extract_python_code(generated_code)
-            if potential_code:
-                logger.info("Extracting python snippet from generated output")
-                generated_code = potential_code
-        else:
-            logger.info("Generated output is parseable")
-
-        error_type = ErrorType.NO_ERROR
-
-        output, error_message = self.interpreter.run_code(
-            generated_code, "", timeout=60
-        )
-
-        # First check for interpreter errors
-        if error_message:
-            error_type = parse_error(error_message)
-            return generated_code, output, error_type, error_message
-
-        # Then check for output errors
-        if not output and error_type != ErrorType.NO_ERROR:
-            error_type = ErrorType.NO_OUTPUT
-
-        parsed_output = parse_output(output)
-
-        if parsed_output != solution:
-
-            # If the output is a number, then the problem can not be solved
-            try:
-                int(parsed_output.strip())
-                error_type = ErrorType.WRONG_OUTPUT
-            except ValueError:
-                # extraction_chain = result_extraction_chain(self.llm)
-                extraction_chain = self.template_provider.build_result_extraction_chain()
-                final_output = extraction_chain.predict(
-                    program_output=parsed_output)
-                final_parsed_output = parse_output(final_output)
-
-                if final_parsed_output != solution:
-                    error_type = ErrorType.WRONG_OUTPUT
-                else:
-                    output = final_parsed_output
-
-        return generated_code, output, error_type, error_message
-
-    def run_euler(self, story: bool, output_file: str, kpass: int, ignore=None):
-
-        if not ignore:
-            ignore = []
-
-        results = []
-        kpass_results = []
-
-        for problem in tqdm(self.dataset):
-
-            if problem["id"] in ignore:
-                logger.info(f"Skipping problem {problem['id']}")
-                continue
-
-            code_generator_prompt = self.template_provider.build_euler_instruct_chain()
-
-            problem_description = (
-                problem["story_problem"] if story else problem["problem"]
-            )
-
-            for current_kpass in range(kpass):
-
-                code_chain = self.template_provider.build_euler_instruct_chain()
-
-                code, output, error_type, error_message = self.run_euler_challenge(
-                    code_chain, problem["title"], problem_description, problem["solution"]
-                )
-
-                if current_kpass == 0:
-                    kpass_results.append(
-                        {
-                            "id": problem["id"],
-                            "status": error_type,
-                            "output": output,
-                            "expected_output": problem["solution"],
-                            "error": error_message,
-                            "code": code,
-                            "difficulty": problem["difficulty"],
-                        }
-                    )
-
-                if error_type == ErrorType.NO_ERROR or current_kpass == kpass - 1:
-                    results.append(
-                        {
-                            "id": problem["id"],
-                            "status": error_type,
-                            "output": output,
-                            "expected_output": problem["solution"],
-                            "error": error_message,
-                            "code": code,
-                            "difficulty": problem["difficulty"],
-                        }
-                    )
-
-            # pd.DataFrame(kpass_results).to_csv("current-gpt3.5-euler-pass@1.csv")
-            pd.DataFrame(results).to_csv("current-gpt3.5-euler-pass@1.csv")
-
-        return results, kpass_results
-
-
-class ErrorType(str, Enum):
-    NO_ERROR = "no_error"
-    SYNTAX_ERROR = "syntax_error"
-    RUNTIME_ERROR = "runtime_error"
-    TIMEOUT_ERROR = "timeout_error"
-    WRONG_OUTPUT = "wrong_output"
-    NO_OUTPUT = "no_output"
-    PART1_FAILED = "part1_failed"
 
 
 def parse_output(output):

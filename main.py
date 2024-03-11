@@ -43,12 +43,13 @@ def main():
     llm = MODEL_LOADER_MAP[args.model]()
 
     # The venv to use for execution
-    python_bin = os.path.join(os.getcwd(), f"{args.venv_path}/bin/python")
+    if not os.path.isabs(args.venv_path):
+        python_bin = os.path.join(os.getcwd(), args.venv_path, "bin/python")
 
     assert os.path.exists(python_bin), f"Venv not found at {python_bin}"
 
     # For debugging smaller subsets
-    if True:
+    if False:
         config = DatasetConfig.from_dataset(args.subset)
         config.year_begin = 2015
         config.year_end = 2015
@@ -56,10 +57,10 @@ def main():
         # config.day_end = 2
     else:
         config = DatasetConfig.from_dataset(args.subset)
-        config.year_begin = 2016
+        # config.year_begin = 2016
 
-    result, one_pass = Runner(llm, dataset, config, python_bin).run(
-        args.subset, args.story, args.output_file, args.kpass)
+    result, one_pass = Runner.from_subset(args.subset, llm, dataset, config, python_bin).run(
+        args.story, args.output_file, args.kpass, ignore=None)
     pd.DataFrame(result).to_csv(args.output_file)
 
     if args.subset == "aoc":
