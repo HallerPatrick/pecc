@@ -46,18 +46,20 @@ for YEAR in {2015..2022}; do
 
       # Extract the answer and remove the answer line and everything after it
       ANSWER=$(sed -n '/Your puzzle answer was /{s/Your puzzle answer was //;s/[`.]*//g;p}' "$PART_FILE")
-      sed -i '/Your puzzle answer was /Q' "$PART_FILE"
-
-      # Remove the line "--- Day {day}: {title} ---" and everything before it from the part 1 description
-      if [ "$PART" == "part1" ]; then
-        sed -i '1,/--- Day [0-9]\+: .\+ ---/d' "$PART_FILE"
-      fi
-
-      sed -i '/^----------$/d' "$PART_FILE"
-      sed -i '1d' "$PART_FILE"
+      # sed -i '/Your puzzle answer was /Q' "$PART_FILE"
+      #
+      # # Remove the line "--- Day {day}: {title} ---" and everything before it from the part 1 description
+      # if [ "$PART" == "part1" ]; then
+      #   sed -i '1,/--- Day [0-9]\+: .\+ ---/d' "$PART_FILE"
+      # fi
+      #
+      # sed -i '/^----------$/d' "$PART_FILE"
+      # sed -i '1d' "$PART_FILE"
+      #
+      DESCRIPTION=$(python tools/cleanup.py "$PART_FILE")
 
       # Add the puzzle description and answer to the JSON file
-      DESCRIPTION=$(<"$PART_FILE")
+      # DESCRIPTION=$(<"$PART_FILE")
       jq --arg part "$PART" --arg description "$DESCRIPTION" --arg answer "$ANSWER" '.[$part] = {"description": $description, "answer": $answer}' "$JSON_FILE" | sponge "$JSON_FILE"
     done
 
