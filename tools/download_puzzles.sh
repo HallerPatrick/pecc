@@ -2,7 +2,7 @@
 #
 set -e
 
-export ADVENT_OF_CODE_SESSION="53616c7465645f5f014c497bab378e1e053f4f4475ce8a2dc27e1997919bbff11ae1f034ed4d73163e23d4083e463a21985da9defeb39250931031e94719c2dc"
+export ADVENT_OF_CODE_SESSION=""
 
 if [ -z "$ADVENT_OF_CODE_SESSION" ]; then
     echo "The ADVENT_OF_CODE_SESSION environment variable is not set. Please set it to your session cookie value."
