@@ -1,4 +1,3 @@
-
 #             only_answer_template = """<s>[INST]You are a mathematician and given a task. Solve this task and generate only the answer.
 #
 # Title: {title}
@@ -44,7 +43,7 @@
 #                         }
 #                     )
 #
-#             reasoning_template = """<s>[INST]You are a mathematician and given a task that you should solve. 
+#             reasoning_template = """<s>[INST]You are a mathematician and given a task that you should solve.
 # If you can, generate only the answer. You should not generate code and
 # your final answer at the end should only be the right value.
 #
@@ -54,7 +53,7 @@
 #             reasoning_prompt = PromptTemplate.from_template(
 #                 template=reasoning_template
 #             )
-#                 
+#
 #             for kpass in range(self.dataset_config.kpass):
 #
 #                 code_chain = LLMChain(

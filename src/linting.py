@@ -3,6 +3,7 @@ import pylint.reporters.text
 import io
 import tempfile
 
+
 def lint_code_with_pylint_api(code_snippet):
     """
     Lint the given code snippet using pylint's API.
@@ -23,7 +24,9 @@ def lint_code_with_pylint_api(code_snippet):
             self.messages = []
 
         def handle_message(self, msg):
-            self.messages.append(f"{msg.category}: {msg.msg} at Line {msg.line}, Column {msg.column}")
+            self.messages.append(
+                f"{msg.category}: {msg.msg} at Line {msg.line}, Column {msg.column}"
+            )
 
     reporter = CustomReporter(pylint_output)
 
@@ -31,14 +34,19 @@ def lint_code_with_pylint_api(code_snippet):
     with tempfile.NamedTemporaryFile(suffix=".py", delete=False, mode="w") as temp_file:
         temp_file_name = temp_file.name
         temp_file.write(code_snippet)
-        linter = pylint.lint.Run(["--disable=overgeneral-exceptions", temp_file_name], reporter=reporter, do_exit=False)
+        linter = pylint.lint.Run(
+            ["--disable=overgeneral-exceptions", temp_file_name],
+            reporter=reporter,
+            do_exit=False,
+        )
 
     # Extract the score
     score = linter.linter.stats.global_note
 
     return reporter.messages, score
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Example usage:
     code_snippet = """
 

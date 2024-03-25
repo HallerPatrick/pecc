@@ -113,7 +113,8 @@ class TemplateBuilder:
         return LLMChain(
             llm=self.llm,
             prompt=PromptTemplate.from_template(
-                self.template_provider.aoc_part1_instruction_template()),
+                self.template_provider.aoc_part1_instruction_template()
+            ),
             verbose=True,
         )
 
@@ -124,39 +125,46 @@ class TemplateBuilder:
                 [
                     MessagesPlaceholder(variable_name="chat_history"),
                     SystemMessagePromptTemplate.from_template(
-                        self.template_provider.aoc_system_message_template()),
-                    HumanMessagePromptTemplate.from_template(
-                        template="{description}"),
+                        self.template_provider.aoc_system_message_template()
+                    ),
+                    HumanMessagePromptTemplate.from_template(template="{description}"),
                 ]
             ),
             verbose=True,
             memory=ConversationBufferMemory(
-                memory_key="chat_history", return_messages=True),
+                memory_key="chat_history", return_messages=True
+            ),
         )
 
     def build_chat_chain_part2(self, messages):
 
-        prompt = ChatPromptTemplate.from_messages([
-            SystemMessagePromptTemplate.from_template(
-                self.template_provider.aoc_system_message_template()),
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                SystemMessagePromptTemplate.from_template(
+                    self.template_provider.aoc_system_message_template()
+                ),
                 *messages,
                 HumanMessagePromptTemplate.from_template(
-                    self.template_provider.aoc_part2_chat_template()),
-            ])
+                    self.template_provider.aoc_part2_chat_template()
+                ),
+            ]
+        )
 
         return LLMChain(
             llm=self.llm,
             prompt=prompt,
             verbose=True,
             memory=ConversationBufferMemory(
-                memory_key="chat_history", return_messages=True),
+                memory_key="chat_history", return_messages=True
+            ),
         )
 
     def build_result_extraction_chain(self):
         return LLMChain(
             llm=self.llm,
             prompt=PromptTemplate.from_template(
-                self.template_provider.result_extraction_template()),
+                self.template_provider.result_extraction_template()
+            ),
             verbose=True,
         )
 
@@ -164,7 +172,8 @@ class TemplateBuilder:
         return LLMChain(
             llm=self.llm,
             prompt=PromptTemplate.from_template(
-                self.template_provider.euler_instruction_template()),
+                self.template_provider.euler_instruction_template()
+            ),
             verbose=True,
         )
 

@@ -1,0 +1,61 @@
+[
+  {
+    "Model": "Mistral-7B-Instruct-v0.1",
+    "euler_original": 0.37,
+    "euler_story": 0.12,
+    "aoc_original": 3.0,
+    "aoc_leet": 3.0,
+    "instruction_only": true,
+    "link": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1"
+  },
+  {
+    "Model": "Mixtral-8x7B-Instruct-v0.1",
+    "euler_original": 2.86,
+    "euler_story": 2.23,
+    "aoc_original": 15.31,
+    "aoc_leet": 13.01,
+    "instruction_only": false,
+    "link": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1"
+  },
+  {
+    "Model": "chat_bison",
+    "euler_story": 0.62,
+    "euler_original": 2.44,
+    "aoc_leet": 13.78,
+    "aoc_original": 17.09,
+    "instruction_only": false
+  },
+  {
+    "Model": "codechat_bison",
+    "euler_story": 2.61,
+    "euler_original": 4.59,
+    "aoc_original": 21.17,
+    "aoc_leet": 17.6,
+    "instruction_only": false
+  },
+  {
+    "Model": "WizardCoder-Python-34B-V1.0",
+    "aoc_leet": 22.5,
+    "aoc_original": 24.0,
+    "euler_original": 2.61,
+    "euler_story": 2.48,
+    "instruction_only": true,
+    "link": "https://huggingface.co/WizardLM/WizardCoder-Python-34B-V1.0"
+  },
+  {
+    "Model": "gpt3.5",
+    "euler_original": 8.19,
+    "euler_story": 6.95,
+    "aoc_leet": 29.85,
+    "aoc_original": 50.0,
+    "instruction_only": false
+  },
+  {
+    "Model": "claude-haiku",
+    "euler_original": 7.07,
+    "euler_story": 6.08,
+    "aoc_original": 51.28,
+    "aoc_leet": 46.26,
+    "instruction_only": false
+  }
+]

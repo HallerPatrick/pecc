@@ -30,7 +30,7 @@ class PythonInterpreter:
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
                 preexec_fn=os.setsid,
-                cwd=cwd
+                cwd=cwd,
             )
 
             start_time = time.time()
