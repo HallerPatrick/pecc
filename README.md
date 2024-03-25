@@ -40,6 +40,9 @@ optional arguments:
   --kpass KPASS         Number of passes to use
 ```
 
+> [!NOTE]
+> The generated code will be executed by the python environment provide, while we didn't experience any issues, we cannot guarantee the safety of the code. 
+
 
 ## Download original AoC subset
 
@@ -48,7 +51,7 @@ Due to licensing restrictions, we cannot provide the original data from the AoC 
 Following requirements are needed:
 1. First, you need to have a registered account in the [AoC website](https://adventofcode.com/).
 2. You need to complete the AoC challenges from 2015 to 2022 to download the respective challenges
-3. You need to install the `aoc` CLI tool from [here](https://github.com/scarvalhojr/aoc-cli) and have th `jq` tool installed. 
+3. You need to install the `aoc` CLI tool from [here](https://github.com/scarvalhojr/aoc-cli) and have th `jq` and `sponge` tool installed. 
 4. Following the `aoc` [documentation](https://github.com/scarvalhojr/aoc-cli?tab=readme-ov-file#session-cookie-), a session token is needed which can be obtained from the AoC website after login. 
 
 
@@ -67,6 +70,7 @@ All results reported in the paper can be found in the `paper_results` folder. Wh
 raw output of the evaluation script for all models.
 
 To produce a LaTeX table, run the following command:
+
 ```bash
 python src.eval.py --results-folder paper_results
 ```

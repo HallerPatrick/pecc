@@ -9,6 +9,8 @@ import pandas as pd
 
 def evaluate_euler(csv_file) -> float:
     df = pd.read_csv(csv_file)
+    # Remove duplicate rows with same id
+    df = df.drop_duplicates(subset=['id'])
     total = len(df)
     solved = df[df['status'] == "no_error"]
     print("=== Error Types ===")
@@ -27,6 +29,8 @@ def evaluate_aoc(csv_file) -> float:
     df = pd.read_csv(csv_file)
     # Remove day 25 part2
     df = df[~((df['day'] == 25) & (df['part'] == 2))]
+
+    df = df.drop_duplicates(subset=['year', 'day', 'part'], keep="last")
 
     total = len(df)
     total_part1 = len(df[df['part'] == 1])
@@ -188,6 +192,59 @@ def print_latex_table(results: Dict):
     print("\n".join(content))
 
 
+def eval_all(results_folder: str):
+
+    results_folder = Path(results_folder)
+
+    assert results_folder.exists(
+    ), f"Results folder {results_folder} does not exist"
+
+
+    results = {}
+
+    for model_folder in results_folder.iterdir():
+        if model_folder.is_dir():
+            model_name = model_folder.name
+            print(f"Model: {model_name}")
+            for result_file in model_folder.iterdir():
+
+                try:
+                    model_name, subset, passk = result_file.stem.split("-")
+                except ValueError:
+                    continue
+
+                _, passK = passk.split("@")
+
+                if model_name not in results:
+                    results[model_name] = {}
+
+                try:
+                    subset, story_mode = subset.split("_")
+                except ValueError:
+                    subset, story_mode = subset, None
+
+                if subset not in results[model_name]:
+                    results[model_name][subset] = {}
+
+                print(result_file)
+                if result_file.suffix == ".csv":
+                    if "aoc" == subset:
+                        acc = evaluate_aoc(result_file)
+                        subsubset = "leet" if story_mode else "original"
+
+                    elif "euler" == subset:
+                        acc = evaluate_euler(result_file)
+                        subsubset = "story" if story_mode else "original"
+
+                    if subsubset not in results[model_name][subset]:
+                        results[model_name][subset][subsubset] = defaultdict(
+                            float)
+                    results[model_name][subset][subsubset][passK] = acc
+
+
+    return results
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -218,45 +275,6 @@ if __name__ == '__main__':
 
         exit()
 
-    results_folder = Path(args.results_folder)
-    assert results_folder.exists(
-    ), f"Results folder {results_folder} does not exist"
-
-    results = {}
-
-    for model_folder in results_folder.iterdir():
-        if model_folder.is_dir():
-            model_name = model_folder.name
-            print(f"Model: {model_name}")
-            for result_file in model_folder.iterdir():
-
-                model_name, subset, passk = result_file.stem.split("-")
-
-                _, passK = passk.split("@")
-
-                if model_name not in results:
-                    results[model_name] = {}
-
-                try:
-                    subset, story_mode = subset.split("_")
-                except ValueError:
-                    subset, story_mode = subset, None
-
-                if subset not in results[model_name]:
-                    results[model_name][subset] = {}
-
-                if result_file.suffix == ".csv":
-                    if "aoc" == subset:
-                        acc = evaluate_aoc(result_file)
-                        subsubset = "leet" if story_mode else "original"
-
-                    elif "euler" == subset:
-                        acc = evaluate_euler(result_file)
-                        subsubset = "story" if story_mode else "original"
-
-                    if subsubset not in results[model_name][subset]:
-                        results[model_name][subset][subsubset] = defaultdict(
-                            float)
-                    results[model_name][subset][subsubset][passK] = acc
+    results = eval_all(args.results_folder)
 
     print_latex_table(results)

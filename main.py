@@ -5,7 +5,7 @@ import pandas as pd
 
 from src.dataset import load_dataset
 from src.pipeline import Runner
-from src.config import DatasetConfig, AoCDatasetConfig
+from src.config import DatasetConfig
 from src.eval import evaluate_euler, evaluate_aoc
 from src.llm import MODEL_LOADER_MAP
 
@@ -45,6 +45,8 @@ def main():
     # The venv to use for execution
     if not os.path.isabs(args.venv_path):
         python_bin = os.path.join(os.getcwd(), args.venv_path, "bin/python")
+    else:
+        python_bin = os.path.join(args.venv_path, "bin/python")
 
     assert os.path.exists(python_bin), f"Venv not found at {python_bin}"
 
@@ -53,14 +55,14 @@ def main():
         config = DatasetConfig.from_dataset(args.subset)
         config.year_begin = 2015
         config.year_end = 2015
-        # config.day_begin = 2
-        # config.day_end = 2
     else:
         config = DatasetConfig.from_dataset(args.subset)
-        # config.year_begin = 2016
+
+    # ignore = list(set(pd.read_csv("mixtral-euler-797.csv")[["id"]].values.flatten().tolist()))
+    ignore = pd.read_csv("current-claude_haiku-aoc_converted-pass@3-1.csv")
 
     result, one_pass = Runner.from_subset(args.subset, llm, dataset, config, python_bin).run(
-        args.story, args.output_file, args.kpass, ignore=None)
+        args.story, args.output_file, args.kpass, ignore=ignore)
     pd.DataFrame(result).to_csv(args.output_file)
 
     if args.subset == "aoc":

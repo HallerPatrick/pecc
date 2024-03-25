@@ -12,7 +12,7 @@ class LLMLoader:
 
     @staticmethod
     def chat_lite(model_name):
-        llm =  ChatLiteLLM(
+        llm = ChatLiteLLM(
             model=model_name,
             # model_kwargs={"safety_settings": [
             #     {gapic_content_types.ContentType.TEXT: gapic_content_types.SafetySettings.SAFE_FOR_CHILDREN},
@@ -20,7 +20,8 @@ class LLMLoader:
             # ]}
 
         )
-        llm.max_tokens = 32_000
+
+        llm.max_tokens = 4096
         return llm
 
     @staticmethod
@@ -69,7 +70,8 @@ MODEL_LOADER_MAP = {
     "vertex_ai/gemini-1.5-pro": LLMLoader.chat_lite,
     "WizardCoder-34B": partial(LLMLoader.vllm_custom, model="WizardLM/WizardCoder-Python-34B-V1.0"),
     # "Mistral-Instruct": LLMLoader.vllm,
-    "mixtral": partial(LLMLoader.chat_lite,"replicate/mistralai/mixtral-8x7b-instruct-v0.1"),
+    "mixtral": partial(LLMLoader.chat_lite, "replicate/mistralai/mixtral-8x7b-instruct-v0.1"),
     "claude-3-opus": partial(LLMLoader.chat_lite, "anthropic/claude-3-opus-20240229"),
     "claude-3-sonnet": partial(LLMLoader.chat_lite, "anthropic/claude-3-sonnet-20240229"),
+    "claude-3-haiku": partial(LLMLoader.chat_lite, "anthropic/claude-3-haiku-20240307"),
 }

@@ -248,7 +248,7 @@ class AoCRunner(Runner):
             kpass=kpass,
             kpass_result=kpass_result,
             one_pass_result=one_pass_result,
-            messages=chain_part.memory.chat_memory.messages
+            messages=chain_part.memory.chat_memory.messages if chain_part.memory else None
         )
 
     def run_challenge(
@@ -257,7 +257,7 @@ class AoCRunner(Runner):
         try:
             generated_code = chain.predict(description=description)
         except Exception as e:
-            generated_code = "SyntaxError: " + str(e)
+            generated_code = "ProviderError: " + str(e)
 
         logger.info("======= Generated code =======")
         logger.info(generated_code)
@@ -396,7 +396,9 @@ class EulerRunner(Runner):
     ):
         try:
             generated_code = chain.predict(title=title, description=description)
-        except:
+        except KeyboardInterrupt as e:
+            raise e
+        except Exception:
             return None, None, None, None
 
         if not is_parseable(generated_code):

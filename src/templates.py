@@ -79,11 +79,11 @@ class PaperTemplateProvider(TemplateProvider):
 
     @staticmethod
     def aoc_part1_instruction_template():
-        return """You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."""
+        return """You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code that prints the result to stdout."""
 
     @staticmethod
     def aoc_part2_chat_template():
-        return """You are a code generator and given a second part of a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."""
+        return """You are a code generator and given a second part of a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code that prints the result to stdout."""
 
     @staticmethod
     def result_extraction_template():
@@ -91,12 +91,12 @@ class PaperTemplateProvider(TemplateProvider):
 
     @staticmethod
     def aoc_system_message_template():
-        return "You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code."
+        return "You are a code generator and given a programming task. A file with the input to your program is called 'input.txt'. Generate only directly executable python code that prints the result to stdout."
 
     @staticmethod
     def euler_instruction_template():
         return """You are a code generator and given a programming task.
-Write a function that efficiently solves the given problem. Generate only directly executable python code.
+Write a function that efficiently solves the given problem. Generate only directly executable python code that prints the result to stdout.
 
 Title: {title}
 Task: {description}"""
@@ -135,10 +135,18 @@ class TemplateBuilder:
         )
 
     def build_chat_chain_part2(self, messages):
+
+        prompt = ChatPromptTemplate.from_messages([
+            SystemMessagePromptTemplate.from_template(
+                self.template_provider.aoc_system_message_template()),
+                *messages,
+                HumanMessagePromptTemplate.from_template(
+                    self.template_provider.aoc_part2_chat_template()),
+            ])
+
         return LLMChain(
             llm=self.llm,
-            prompt=PromptTemplate.from_template(
-                self.template_provider.aoc_part2_chat_template()),
+            prompt=prompt,
             verbose=True,
             memory=ConversationBufferMemory(
                 memory_key="chat_history", return_messages=True),

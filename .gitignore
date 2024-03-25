@@ -1,3 +1,6 @@
+dataset/euler/
+dataset/aoc_lite/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
