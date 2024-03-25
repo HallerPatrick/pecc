@@ -4,6 +4,7 @@ from collections import defaultdict
 
 from datasets import Dataset
 
+
 def load_dataset(dataset_name: str, root_dir: str) -> Dataset:
     if dataset_name == "aoc":
         return load_aoc(root_dir)
@@ -25,7 +26,12 @@ def load_aoc(root_dir: str) -> Dataset:
 
     for year in years:
         year_dir = root_path / str(year)
-        days = list(map(lambda x: int(x.name.replace("day_", "").replace(".json", "")), list(year_dir.glob("day_*.json"))))
+        days = list(
+            map(
+                lambda x: int(x.name.replace("day_", "").replace(".json", "")),
+                list(year_dir.glob("day_*.json")),
+            )
+        )
         days.sort()
 
         for day in days:
@@ -42,11 +48,15 @@ def load_aoc(root_dir: str) -> Dataset:
             samples["day"].append(day)
             samples["part1"].append(challenge_data["part1"]["description"])
             if "converted_description" in challenge_data["part1"]:
-                samples["part1_converted"].append(challenge_data["part1"]["converted_description"])
+                samples["part1_converted"].append(
+                    challenge_data["part1"]["converted_description"]
+                )
             samples["part1_solution"].append(challenge_data["part1"]["answer"])
             samples["part2"].append(challenge_data["part2"]["description"])
             if "converted_description" in challenge_data["part2"]:
-                samples["part2_converted"].append(challenge_data["part2"]["converted_description"])
+                samples["part2_converted"].append(
+                    challenge_data["part2"]["converted_description"]
+                )
             samples["part2_solution"].append(challenge_data["part2"]["answer"])
             if "input" in challenge_data:
                 samples["input"].append(challenge_data["input"])

@@ -23,7 +23,16 @@ class DatasetConfig:
 
 class AoCDatasetConfig(DatasetConfig):
 
-    def __init__(self, year_begin: int, year_end: int, day_begin: int, day_end: int, only_part_one: bool = False, story: bool = True, kpass: int = 1) -> None:
+    def __init__(
+        self,
+        year_begin: int,
+        year_end: int,
+        day_begin: int,
+        day_end: int,
+        only_part_one: bool = False,
+        story: bool = True,
+        kpass: int = 1,
+    ) -> None:
         """AoC Dataset Configuration
 
         Args:
@@ -56,7 +65,9 @@ class AoCDatasetConfig(DatasetConfig):
 
 class EulerDatasetConfig(DatasetConfig):
 
-    def __init__(self, kpass: int, story: bool = True, ids_to_ignore: Optional[List[int]] = None) -> None:
+    def __init__(
+        self, kpass: int, story: bool = True, ids_to_ignore: Optional[List[int]] = None
+    ) -> None:
         """Euler Dataset Configuration
 
         Args:

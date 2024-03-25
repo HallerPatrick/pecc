@@ -14,12 +14,7 @@ from langchain_core.messages.base import BaseMessage
 import pandas as pd
 
 from .config import DatasetConfig
-from .templates import (
-    TemplateProvider,
-    PaperTemplateProvider,
-    TemplateBuilder
-
-)
+from .templates import TemplateProvider, PaperTemplateProvider, TemplateBuilder
 from .interpreter import PythonInterpreter
 
 
@@ -52,7 +47,7 @@ class Runner:
         dataset,
         dataset_config: DatasetConfig,
         python_bin: str,
-        template_provider: TemplateProvider = PaperTemplateProvider
+        template_provider: TemplateProvider = PaperTemplateProvider,
     ):
         self.llm = llm
         self.template_provider = TemplateBuilder(llm, template_provider)
@@ -61,7 +56,9 @@ class Runner:
         self.interpreter = PythonInterpreter(python_bin)
 
     @classmethod
-    def from_subset(cls, subset: str, llm, dataset, dataset_config: DatasetConfig, python_bin: str):
+    def from_subset(
+        cls, subset: str, llm, dataset, dataset_config: DatasetConfig, python_bin: str
+    ):
         if subset == "aoc":
             return AoCRunner(llm, dataset, dataset_config, python_bin)
         elif subset == "euler":
@@ -79,7 +76,7 @@ class AoCRunner(Runner):
         dataset,
         dataset_config: DatasetConfig,
         python_bin: str,
-        template_provider: TemplateProvider = PaperTemplateProvider
+        template_provider: TemplateProvider = PaperTemplateProvider,
     ):
         super().__init__(llm, dataset, dataset_config, python_bin, template_provider)
 
@@ -125,8 +122,9 @@ class AoCRunner(Runner):
                     continue
 
                 if ignore is not None:
-                    ignore_day = ignore[(ignore["day"] == day) & (
-                        ignore["year"] == year)]
+                    ignore_day = ignore[
+                        (ignore["day"] == day) & (ignore["year"] == year)
+                    ]
                     if len(ignore_day) == 2:
                         logger.debug(f"Skipping day {day}")
                         continue
@@ -142,7 +140,8 @@ class AoCRunner(Runner):
 
                 # Run Part 1
                 challenge_result = self.run_kpasses(
-                    challenge, chain_builder_part1, kpass, year, day, 1, story)
+                    challenge, chain_builder_part1, kpass, year, day, 1, story
+                )
 
                 one_pass_results.append(challenge_result.one_pass_result)
                 kpass_results.append(challenge_result.kpass_result)
@@ -173,11 +172,13 @@ class AoCRunner(Runner):
 
                 def chain_builder_part2():
                     return self.template_provider.build_chat_chain_part2(
-                        copy.deepcopy(challenge_result.messages))
+                        copy.deepcopy(challenge_result.messages)
+                    )
 
                 # Run Part 1
                 challenge_result = self.run_kpasses(
-                    challenge, chain_builder_part2, kpass, year, day, 2, story)
+                    challenge, chain_builder_part2, kpass, year, day, 2, story
+                )
 
                 one_pass_results.append(challenge_result.one_pass_result)
                 kpass_results.append(challenge_result.kpass_result)
@@ -185,13 +186,22 @@ class AoCRunner(Runner):
             # Save some immediate results
             output_file_stem = Path(output_file).stem
             pd.DataFrame(one_pass_results).to_csv(
-                f"current-{output_file_stem}-pass@1.csv")
-            pd.DataFrame(kpass_results).to_csv(
-                f"current-{output_file_stem}-pass@3.csv")
+                f"current-{output_file_stem}-pass@1.csv"
+            )
+            pd.DataFrame(kpass_results).to_csv(f"current-{output_file_stem}-pass@3.csv")
 
         return kpass_results, one_pass_results
 
-    def run_kpasses(self, challenge, chain_builder, kpass: int, year: int, day: int, part: int, story: bool) -> KPassResults:
+    def run_kpasses(
+        self,
+        challenge,
+        chain_builder,
+        kpass: int,
+        year: int,
+        day: int,
+        part: int,
+        story: bool,
+    ) -> KPassResults:
         """Logic for runnning k amount of passes for a challenge"""
 
         kpass_result = None
@@ -203,7 +213,11 @@ class AoCRunner(Runner):
 
             code, output, error_type, error_message = self.run_challenge(
                 chain_part,
-                challenge[f"part{part}"] if story else challenge[f"part{part}_converted"],
+                (
+                    challenge[f"part{part}"]
+                    if story
+                    else challenge[f"part{part}_converted"]
+                ),
                 challenge["input"],
                 challenge[f"part{part}_solution"],
             )
@@ -248,7 +262,9 @@ class AoCRunner(Runner):
             kpass=kpass,
             kpass_result=kpass_result,
             one_pass_result=one_pass_result,
-            messages=chain_part.memory.chat_memory.messages if chain_part.memory else None
+            messages=(
+                chain_part.memory.chat_memory.messages if chain_part.memory else None
+            ),
         )
 
     def run_challenge(
@@ -295,8 +311,7 @@ class AoCRunner(Runner):
             # extraction_chain = result_extraction_chain(self.llm)
             extraction_chain = self.template_provider.build_result_extraction_chain()
             try:
-                final_output = extraction_chain.predict(
-                    program_output=parsed_output)
+                final_output = extraction_chain.predict(program_output=parsed_output)
             except Exception:
                 final_output = parsed_output
 
@@ -317,7 +332,7 @@ class EulerRunner(Runner):
         dataset,
         dataset_config: DatasetConfig,
         python_bin: str,
-        template_provider: TemplateProvider = PaperTemplateProvider
+        template_provider: TemplateProvider = PaperTemplateProvider,
     ):
         super().__init__(llm, dataset, dataset_config, python_bin, template_provider)
 
@@ -349,7 +364,10 @@ class EulerRunner(Runner):
                 code_chain = self.template_provider.build_euler_instruct_chain()
 
                 code, output, error_type, error_message = self.run_euler_challenge(
-                    code_chain, problem["title"], problem_description, problem["solution"]
+                    code_chain,
+                    problem["title"],
+                    problem_description,
+                    problem["solution"],
                 )
 
                 if code is None:
@@ -385,15 +403,13 @@ class EulerRunner(Runner):
 
             output_file_stem = Path(output_file).stem
             pd.DataFrame(one_pass_results).to_csv(
-                f"current-{output_file_stem}-pass@1.csv")
-            pd.DataFrame(kpass_results).to_csv(
-                f"current-{output_file_stem}-pass@3.csv")
+                f"current-{output_file_stem}-pass@1.csv"
+            )
+            pd.DataFrame(kpass_results).to_csv(f"current-{output_file_stem}-pass@3.csv")
 
         return kpass_results, one_pass_results
 
-    def run_euler_challenge(
-            self, chain, title: str, description: str, solution: str
-    ):
+    def run_euler_challenge(self, chain, title: str, description: str, solution: str):
         try:
             generated_code = chain.predict(title=title, description=description)
         except KeyboardInterrupt as e:
@@ -435,11 +451,14 @@ class EulerRunner(Runner):
                 error_type = ErrorType.WRONG_OUTPUT
             except ValueError:
                 # extraction_chain = result_extraction_chain(self.llm)
-                extraction_chain = self.template_provider.build_result_extraction_chain()
+                extraction_chain = (
+                    self.template_provider.build_result_extraction_chain()
+                )
 
                 try:
                     final_output = extraction_chain.predict(
-                        program_output=parsed_output)
+                        program_output=parsed_output
+                    )
                 except Exception:
                     final_output = parsed_output
 
@@ -452,7 +471,9 @@ class EulerRunner(Runner):
 
         return generated_code, output, error_type, error_message
 
-    def run_euler_challenge_answer(self, chain, title: str, description: str, solution: str):
+    def run_euler_challenge_answer(
+        self, chain, title: str, description: str, solution: str
+    ):
 
         output = chain.predict(title=title, description=description)
 
@@ -477,9 +498,10 @@ class EulerRunner(Runner):
                 error_type = ErrorType.WRONG_OUTPUT
             except ValueError:
                 # extraction_chain = result_extraction_chain(self.llm)
-                extraction_chain = self.template_provider.aoc_result_extraction_template()
-                final_output = extraction_chain.predict(
-                    program_output=parsed_output)
+                extraction_chain = (
+                    self.template_provider.aoc_result_extraction_template()
+                )
+                final_output = extraction_chain.predict(program_output=parsed_output)
                 final_parsed_output = parse_output(final_output)
 
                 if final_parsed_output != solution:

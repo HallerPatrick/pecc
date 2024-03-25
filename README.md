@@ -1,7 +1,25 @@
-# PECC - Problem Extraction and Coding Challenges
+<h1 style="text-align: center"> PECC - Problem Extraction and Coding Challenges </h1>
 
-Complementary repository for the paper "PECC: A Dataset for Problem Extraction and Coding Challenges" by Patrick Haller, Jonas Golde and Alan Akbik.
+Complementary repository for the paper **"PECC: A Dataset for Problem Extraction and Coding Challenges"** by Patrick Haller, Jonas Golde and Alan Akbik.
 
+<p align="center" style="font-style: italic">
+    Our paper got accepted to LREC-Coling 2024! 🥳
+</p>
+
+---
+
+<p align="center">
+<a href="https://huggingface.co/datasets/PatrickHaller/pecc"> 🤗 Dataset</a>
+</br>
+<a href="https://huggingface.co/spaces/PatrickHaller/pecc-leaderboard">🏅 Leaderboard</a>
+</br>
+<a href="">📄 Paper (Coming soon!)</a>
+</br>
+<!-- Blog Post -->
+<a href=""> 📝 Blog Post (Coming soon!)</a>
+<p>
+
+---
 
 
 ## Setup 
@@ -15,21 +33,22 @@ python -m pip install -r requirements.txt
 ```
 
 
-Depending on the model in use, you will need to provide the respective API keys, e.g. for the GPT-3 model. 
+Depending on the model in use, you will need to provide the respective API keys, e.g. for the OpenAI model. 
+
 ```bash
 export OPENAI_API_KEY="your-api-key"
 ```
 
 ## Usage 
 
-
 The evalation script provides several arguments to configure the evaluation. 
+
 ```txt
 usage: main.py [-h] [--model MODEL] [--subset SUBSET] [--story] [--venv-path VENV_PATH] [--output-file OUTPUT_FILE] [--instruct] [--kpass KPASS]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --model MODEL         Model to use ['gpt-3.5-turbo-16k', 'gpt-3.5-turbo-turbo', 'vertex_ai/chat-bison', 'vertex_ai/codechat-bison', 'WizardLM/WizardCoder-Python-34B-V1.0', 'Mistral-Instruct']
+  --model MODEL         Model to use ['gpt-3.5-turbo-16k', 'gpt-3.5-turbo-turbo', 'vertex_ai/chat-bison', 'vertex_ai/codechat-bison', 'vertex_ai/gemini-pro', 'vertex_ai/gemini-1.5-pro', 'WizardCoder-34B', 'mixtral', 'claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku']
   --subset SUBSET       Subset of the dataset to use (euler, aoc)
   --story               Use the story subset of the dataset
   --venv-path VENV_PATH
@@ -61,7 +80,7 @@ bash tools/download_puzzles.sh
 ```
 
 Per default, the script will download the AoC challenges from 2015 to 2022 and merge it into 
-the `dataset/aoc` directory. Refer to the script for more details.
+the `dataset/aoc_lite` directory. Refer to the script for more details.
 
 
 ## Reported Results

@@ -14,20 +14,36 @@ def main():
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument("--model", type=str, default="gpt-3.5-turbo-16k",
-                           help=f"Model to use {list(MODEL_LOADER_MAP.keys())}")
-    argparser.add_argument("--subset", type=str, default="aoc",
-                           help="Subset of the dataset to use (euler, aoc)")
-    argparser.add_argument("--story", action="store_true",
-                           help="Use the story subset of the dataset")
-    argparser.add_argument("--venv-path", type=str,
-                           default="pecc_venv", help="Path to the venv")
-    argparser.add_argument("--output-file", type=str,
-                           default="results.csv", help="Path to output file")
-    argparser.add_argument("--instruct", action="store_true", default=False,
-                           help="Only run the instruction")
-    argparser.add_argument("--kpass", type=int, default=1,
-                           help="Number of passes to use")
+    argparser.add_argument(
+        "--model",
+        type=str,
+        default="gpt-3.5-turbo-16k",
+        help=f"Model to use {list(MODEL_LOADER_MAP.keys())}",
+    )
+    argparser.add_argument(
+        "--subset",
+        type=str,
+        default="aoc",
+        help="Subset of the dataset to use (euler, aoc)",
+    )
+    argparser.add_argument(
+        "--story", action="store_true", help="Use the story subset of the dataset"
+    )
+    argparser.add_argument(
+        "--venv-path", type=str, default="pecc_venv", help="Path to the venv"
+    )
+    argparser.add_argument(
+        "--output-file", type=str, default="results.csv", help="Path to output file"
+    )
+    argparser.add_argument(
+        "--instruct",
+        action="store_true",
+        default=False,
+        help="Only run the instruction",
+    )
+    argparser.add_argument(
+        "--kpass", type=int, default=1, help="Number of passes to use"
+    )
 
     args = argparser.parse_args()
 
@@ -61,8 +77,9 @@ def main():
     # ignore = list(set(pd.read_csv("mixtral-euler-797.csv")[["id"]].values.flatten().tolist()))
     ignore = pd.read_csv("current-claude_haiku-aoc_converted-pass@3-1.csv")
 
-    result, one_pass = Runner.from_subset(args.subset, llm, dataset, config, python_bin).run(
-        args.story, args.output_file, args.kpass, ignore=ignore)
+    result, one_pass = Runner.from_subset(
+        args.subset, llm, dataset, config, python_bin
+    ).run(args.story, args.output_file, args.kpass, ignore=ignore)
     pd.DataFrame(result).to_csv(args.output_file)
 
     if args.subset == "aoc":
@@ -71,5 +88,5 @@ def main():
         evaluate_euler(args.output_file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
