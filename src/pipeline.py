@@ -188,7 +188,7 @@ class AoCRunner(Runner):
             pd.DataFrame(one_pass_results).to_csv(
                 f"current-{output_file_stem}-pass@1.csv"
             )
-            pd.DataFrame(kpass_results).to_csv(f"current-{output_file_stem}-pass@3.csv")
+            pd.DataFrame(kpass_results).to_csv(f"current-{output_file_stem}-pass@{kpass}.csv")
 
         return kpass_results, one_pass_results
 

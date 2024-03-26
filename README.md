@@ -83,6 +83,29 @@ Per default, the script will download the AoC challenges from 2015 to 2022 and m
 the `dataset/aoc_lite` directory. Refer to the script for more details.
 
 
+## Self-Hosting for Evaluation
+
+The pipeline uses [LiteLLM](https://github.com/BerriAI/litellm) and [Langchain](https://github.com/langchain-ai/langchain) and the OpenAI Completions API.
+To use a custom hostet model update the `model` map in `src/llm.py`. For self-hosting we used [vLLM](https://github.com/vllm-project/vllm).
+
+1. Run the model with vLLM:
+```
+python -m vllm.entrypoints.openai.api_server --model googel/gemma-7b-it
+# Running on http://0.0.0.0:8000
+```
+
+2. Setup client in `src/llm.py`
+
+```python
+return VLLMOpenAI(
+    openai_api_key="EMPTY",
+    openai_api_base="http://0.0.0.0:8000/v1",
+    model_name=model,
+    max_tokens=2048,
+)
+```
+
+
 ## Reported Results
 
 All results reported in the paper can be found in the `paper_results` folder. Which contains the

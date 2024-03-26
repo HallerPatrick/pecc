@@ -12,15 +12,7 @@ class LLMLoader:
 
     @staticmethod
     def chat_lite(model_name):
-        llm = ChatLiteLLM(
-            model=model_name,
-            # model_kwargs={"safety_settings": [
-            #     {gapic_content_types.ContentType.TEXT: gapic_content_types.SafetySettings.SAFE_FOR_CHILDREN},
-            #
-            # ]}
-        )
-
-        llm.max_tokens = 4096
+        llm = ChatLiteLLM(model=model_name, max_tokens=4096)
         return llm
 
     @staticmethod
@@ -55,19 +47,20 @@ class LLMLoader:
         return ChatOpenAI(model=openai_model)
 
     @staticmethod
-    def vllm_custom(model: str = "WizardLM/WizardCoder-Python-34B-V1.0"):
+    def vllm_custom(model: str):
         return VLLMOpenAI(
             openai_api_key="EMPTY",
-            openai_api_base="https://opiniongpt.informatik.hu-berlin.de/custom_api/v1",
+            openai_api_base="http://0.0.0.0:8000/v1",
             model_name=model,
-            max_tokens=2048,
-            model_kwargs={"max_length": 2048},
+            max_tokens=4096,
         )
 
 
 MODEL_LOADER_MAP = {
+    # OpenAI
     "gpt-3.5-turbo-16k": partial(LLMLoader.open_ai, "gpt-3.5-turbo-16k"),
     "gpt-3.5-turbo-turbo": partial(LLMLoader.open_ai, "gpt-3.5-turbo-turbo"),
+    # Vertex AI
     "vertex_ai/chat-bison": partial(LLMLoader.chat_lite, "vertex_ai/chat-bison"),
     "vertex_ai/codechat-bison": partial(
         LLMLoader.chat_lite, "vertex_ai/codechat-bison"
@@ -76,16 +69,20 @@ MODEL_LOADER_MAP = {
     "vertex_ai/gemini-1.5-pro": partial(
         LLMLoader.chat_lite, "vertex_ai/gemini-1.5-pro"
     ),
-    "WizardCoder-34B": partial(
-        LLMLoader.vllm_custom, model="WizardLM/WizardCoder-Python-34B-V1.0"
-    ),
-    # "Mistral-Instruct": LLMLoader.vllm,
+    # Replicate
     "mixtral": partial(
         LLMLoader.chat_lite, "replicate/mistralai/mixtral-8x7b-instruct-v0.1"
     ),
+    # Antrhopic
     "claude-3-opus": partial(LLMLoader.chat_lite, "anthropic/claude-3-opus-20240229"),
     "claude-3-sonnet": partial(
         LLMLoader.chat_lite, "anthropic/claude-3-sonnet-20240229"
     ),
     "claude-3-haiku": partial(LLMLoader.chat_lite, "anthropic/claude-3-haiku-20240307"),
+    
+    # Ran locally
+    "gemma-7b": partial(LLMLoader.vllm_custom, "google/gemma-7b-it"),
+    "WizardCoder-34B": partial(
+        LLMLoader.vllm_custom, model="WizardLM/WizardCoder-Python-34B-V1.0"
+    ),
 }
