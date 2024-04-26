@@ -3,7 +3,7 @@
 Complementary repository for the paper **"PECC: A Dataset for Problem Extraction and Coding Challenges"** by Patrick Haller, Jonas Golde and Alan Akbik.
 
 <p align="center" style="font-style: italic">
-    Our paper got accepted to LREC-Coling 2024! 🥳
+    Our paper got accepted at LREC-Coling 2024! 🥳
 </p>
 
 ---
@@ -13,11 +13,10 @@ Complementary repository for the paper **"PECC: A Dataset for Problem Extraction
 </br>
 <a href="https://huggingface.co/spaces/PatrickHaller/pecc-leaderboard">🏅 Leaderboard</a>
 </br>
-<a href="">📄 Paper (Coming soon!)</a>
+<a href="https://hallerpatrick.github.io/pecc/"> 📝 Blog Post</a>
 </br>
-<!-- Blog Post -->
-<a href=""> 📝 Blog Post (Coming soon!)</a>
-<p>
+<a href="">📄 Paper (Coming soon!)</a>
+</p>
 
 ---
 
