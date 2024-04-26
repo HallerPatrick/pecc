@@ -10,7 +10,7 @@
 
 
 :root {
-  --primary-color: #003366;
+  --primary-color: indianred;
   --nc-lk-1: var(--primary-color);
   --nc-lk-2: #0055AA;
 }
