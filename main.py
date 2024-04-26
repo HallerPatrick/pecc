@@ -73,9 +73,13 @@ def main():
         config.year_end = 2015
     else:
         config = DatasetConfig.from_dataset(args.subset)
-
-    # ignore = list(set(pd.read_csv("mixtral-euler-797.csv")[["id"]].values.flatten().tolist()))
-    ignore = pd.read_csv("current-claude_haiku-aoc_converted-pass@3-1.csv")
+    
+    # NOTE: In case you want to ignore some solutions
+    # NOTE: For Euler
+    # ignore = list(set(pd.read_csv("euler_results.csv")[["id"]].values.flatten().tolist()))
+    # NOTE: For AoC
+    # ignore = pd.read_csv("aoc_results.csv")
+    ignore = None
 
     result, one_pass = Runner.from_subset(
         args.subset, llm, dataset, config, python_bin
