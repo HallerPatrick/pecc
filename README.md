@@ -15,7 +15,7 @@ Complementary repository for the paper **"PECC: A Dataset for Problem Extraction
 </br>
 <a href="https://hallerpatrick.github.io/pecc/"> 📝 Blog Post</a>
 </br>
-<a href="">📄 Paper (Coming soon!)</a>
+<a href="https://arxiv.org/abs/2404.18766">📄 Paper</a>
 </p>
 
 ---
