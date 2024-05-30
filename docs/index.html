@@ -7,8 +7,7 @@
 
   <meta property="og:title" content="PECC" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lm-pub-quiz.github.io/" />
-  <!-- <meta property="og:image" content="https://lm-pub-quiz.github.io/media/preview.png" /> -->
+  <meta property="og:url" content="https://hallerpatrick.github.io/pecc/" />
 
   <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
@@ -34,22 +33,18 @@
             <a href="https://github.com/HallerPatrick/pecc"><i class="bi bi-git"></i>&nbsp;Library</a> /
             <a href="https://huggingface.co/spaces/PatrickHaller/pecc-leaderboard"<i class="bi bi-bar-chart"></i>&nbsp;Leaderboard</a> /
             <a href="https://huggingface.co/datasets/PatrickHaller/pecc"><i class="bi bi-database"></i>&nbsp;PECC Dataset</a> /
-            <a href=""><i class="bi bi-file-earmark"></i>&nbsp;Paper</a> <!-- /
-            <a href=""><i class="bi bi-file-zip"></i>&nbsp;Raw Results</a> -->
+            <a href="https://arxiv.org/abs/2404.18766"><i class="bi bi-file-earmark"></i>&nbsp;Paper</a> 
         </nav>
       </div>
     </header>
     <section class="shadow-box">
         <p style="text-align: center;">
-        <b>👷 Under construction 🚧</b><br>
-          We are currently working on the final touches for the PECC benchmark. Please check back soon for the final release.
-        </p>
+        <b>We introduce PECC:</b> An extensive benchmark centered on code generation from narrative-embedded problem descriptions. Unlike prior benchmarks that evaluate code generation using specific instructions, our dataset requires models to comprehend, extract requirements, and produce the essential code for problem-solving. This approach necessitates syntactically accurate programs and demands reading comprehension skills to derive the desired solution.</p>
     </section>
     <section class="shadow-box">
       <h2>Leaderboard</h2>
       <p>
-        <!-- We evaluated 22 lanuages models (of various sizes, trained using different pretraining objectives, and of both causal and masked LM types) on the BEAR dataset. -->
-        To this point, we evaluated x competitive large language models (proprietary and open source). Depending on instruction or chat-finetuning of some models a whole evaluation on the AoC dataset subset was not possible.
+        To this point, we evaluated 10 competitive large language models (proprietary and open source). Depending on instruction or chat-finetuning of some models a whole evaluation on the AoC dataset subset was not possible.
         We average the accuracy over all 4 subsets.
       </p>
       <div style="overflow-x: scroll;">
@@ -94,26 +89,50 @@
     <tr>
       <td><a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1">Mixtral-8x7B-Instruct-v0.1</a></td>
       <td>56B</td>
-      <td>&#8199;8.36%</td>
+      <td>&#8199;8.35%</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/microsoft/Phi-3-mini-128k-instruct">Phi-3-mini-128k-instruct</a></td>
+      <td>3.8B</td>
+      <td>&#8199;7.18%</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/collections/microsoft/wizardlm-661d403f71e6c8257dbd598a">WizardLM-2-7b</a></td>
+      <td>7B</td>
+      <td>&#8199;3.72%</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct">Llama-3-8B-Instruct</a></td>
+      <td>8B</td>
+      <td>&#8199;3.1%</td>
     </tr>
     <tr>
       <td><a href="https://huggingface.co/WizardLM/WizardCoder-Python-34B-V1.0">WizardCoder-Python-34B-V1.0</a></td>
       <td>34b</td>
-      <td>&#8199;12.9%</td>
+      <td>&#8199;12.9%*</td>
     </tr>
     <tr>
         <td><a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1">Mistral-7B-Instruct-v0.1</a></td>
         <td>7B</td>
-        <td>&#8199;1.62%</td>
+        <td>&#8199;1.62%*</td>
     </tr>
   </tbody>
 </table>
+        <p style="text-align: right; font-style: italic;">*Excludes evaluation on Part 2 of AoC subsets</p>
+
+    <section class="shadow-box">
+        <p>We compare the PECC scores with commonly used benchmarks for evaluating LLMs. The table below shows the performance
+        of the models on the PECC dataset compared to the performance on the average of ARC, MMLU and HellaSwag datasets.</p>
+      <figure>
+        <img src="./media/plot_scores.png" width="100%" alt="Table of different error types for different models during evaluation" style="max-width: 1000px;">
+        <!-- <figcaption>Comparing PECC scores with commonly used benchmarks for evaluating LLMs.</figcaption>  -->
+      </figure>
+    </section>
       </div>
     </section>
     <section class="shadow-box">
       <div style="text-align: right;"><span class="badge acl">Accepted at LREC-COLING 2024</span></div>
-      <h2>PECC: Problem Extraction and Coding Challenges</h2>
-      <h3>Abstract</h3>
+      <h2>Paper Abstract</h2>
       <p>
       Recent advancements in large language models (LLMs) have showcased their exceptional abilities across various
 tasks, such as code generation, problem-solving and reasoning. Existing benchmarks evaluate tasks in isolation,
@@ -129,7 +148,7 @@ our benchmark provides a framework to monitor and assess the subsequent progress
 problem solver.
       </p>
       <p>
-        <a href="">
+        <a href="https://arxiv.org/abs/2404.18766">
           <button><i class="bi bi-file-earmark"></i> Read the Paper</button>
         </a>
       </p>
@@ -160,15 +179,13 @@ pip install -r requirements.txt</code></pre>
     <section class="shadow-box">
       <h2>Citation</h2>
       <p>When using the dataset or library, please cite the following paper:</p>
-    <pre><code class="language-plaintext">@misc{haller2024pecc
-title = {{{PECC}}: Problem Extraction and Coding Challenges},
-  shorttitle = {{{PECC}}},
-  author = {Haller, Patrick and Golde, Jonas and Akbik, Alan},
-  year = {2024},
-  number = {},
-  eprint = {},
-  publisher = {arXiv},
-  url = {},
+    <pre><code class="language-plaintext">@misc{haller2024pecc,
+      title={PECC: Problem Extraction and Coding Challenges}, 
+      author={Patrick Haller and Jonas Golde and Alan Akbik},
+      year={2024},
+      eprint={2404.18766},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
 }</code></pre>
     </section>
 
